@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="back_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@LogingStyling.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LoginController">
+   <children>
+      <AnchorPane fx:id="left_pane" prefHeight="200.0" prefWidth="480.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Circle fx:id="back_circle" centerX="1180.0" centerY="374.0" radius="540.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="Circle">
+           <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.415800005197525" green="0.7699999809265137" blue="0.7699999809265137" opacity="0.5" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Label fx:id="select_user_label" layoutX="819.0" layoutY="222.0" styleClass="textlabel" text="Select User:" textFill="#5e5656">
+         <font>
+            <Font name="Poppins Regular" size="21.0" />
+         </font>
+      </Label>
+      <Button fx:id="user_button_1" layoutX="808.0" layoutY="262.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="145.0" text="Username" textAlignment="CENTER">
+         <font>
+            <Font name="Poppins Regular" size="21.218181610107422" />
+         </font>
+         <styleClass>
+            <String fx:value="userlabel" />
+            <String fx:value="userButton" />
+            <String fx:value="userbutton" />
+         </styleClass>
+      </Button>
+      <Button fx:id="user_button_2" layoutX="808.0" layoutY="307.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="145.0" text="Username" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="21.218181610107422" />
+         </font>
+         <styleClass>
+            <String fx:value="userlabel" />
+            <String fx:value="userButton" />
+            <String fx:value="userbutton" />
+         </styleClass>
+      </Button>
+      <Label fx:id="login_label" alignment="CENTER" contentDisplay="CENTER" layoutX="805.0" layoutY="111.0" prefHeight="53.0" prefWidth="151.0" text="Login" textFill="#6a6464">
+         <font>
+            <Font name="Righteous" size="59.0" />
+         </font>
+      </Label>
+      <Button fx:id="user_button_3" layoutX="808.0" layoutY="352.0" mnemonicParsing="false" text="Username">
+         <styleClass>
+            <String fx:value="userButton" />
+            <String fx:value="userbutton" />
+         </styleClass>
+      </Button>
+      <Label fx:id="password_label" layoutX="827.0" layoutY="422.0" styleClass="textlabel" text="Password:" />
+      <PasswordField fx:id="password_field" alignment="CENTER" layoutX="808.0" layoutY="461.0" promptText="Password" styleClass="passwordfield" />
+      <Button fx:id="submit_button" layoutX="833.0" layoutY="522.0" mnemonicParsing="false" text="Submit" />
+   </children>
+</AnchorPane>
