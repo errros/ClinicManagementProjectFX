@@ -14,8 +14,13 @@
 <AnchorPane fx:id="back_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@LogingStyling.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LoginController">
    <children>
       <AnchorPane fx:id="left_pane" prefHeight="200.0" prefWidth="480.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane layoutX="480.0" layoutY="125.0" prefHeight="720.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="username" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="392.0" prefHeight="31.0" prefWidth="776.0" styleClass="textlabel" text="username" textAlignment="CENTER" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" />
+         </children>
+      </AnchorPane>
       <Circle fx:id="back_circle" centerX="1180.0" centerY="374.0" radius="540.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="Circle">
-           <fill>
+         <fill>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
                   <Stop>
