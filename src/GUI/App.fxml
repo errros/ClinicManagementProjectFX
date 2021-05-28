@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@AppStyling.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AppController">
+   <children>
+      <AnchorPane fx:id="dash_pane" prefHeight="1080.0" prefWidth="256.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox layoutX="64.0" layoutY="240.0" prefHeight="880.0" prefWidth="357.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0">
+               <children>
+                  <HBox alignment="BASELINE_LEFT" prefHeight="30.0" prefWidth="238.0" styleClass="dash_hbox">
+                     <children>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@Home%20logo.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="BASELINE_LEFT" prefHeight="400.0" prefWidth="400.0" styleClass="dash_labels" text="Home" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="BASELINE_LEFT" prefHeight="30.0" prefWidth="238.0" styleClass="dash_hbox">
+                     <children>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Wait%20logo.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="BASELINE_LEFT" prefHeight="400.0" prefWidth="400.0" styleClass="dash_labels" text="Waiting room" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="BASELINE_LEFT" prefHeight="30.0" prefWidth="238.0" styleClass="dash_hbox">
+                     <children>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Patients%20logo.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="BASELINE_LEFT" prefHeight="400.0" prefWidth="400.0" styleClass="dash_labels" text="Patients" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="BASELINE_LEFT" prefHeight="30.0" prefWidth="238.0" styleClass="dash_hbox">
+                     <children>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Consultation%20logo.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="BASELINE_LEFT" prefHeight="400.0" prefWidth="400.0" styleClass="dash_labels" text="Consultation" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="BASELINE_LEFT" prefHeight="30.0" prefWidth="238.0" styleClass="dash_hbox">
+                     <children>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Accounting%20logo.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="BASELINE_LEFT" prefHeight="400.0" prefWidth="400.0" styleClass="dash_labels" text="Accounting" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="BASELINE_LEFT" prefHeight="30.0" prefWidth="238.0" styleClass="dash_hbox">
+                     <children>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Appointments%20logo.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="BASELINE_LEFT" prefHeight="400.0" prefWidth="400.0" styleClass="dash_labels" text="Appoitments" />
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+            <ImageView fitHeight="28.0" fitWidth="218.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
