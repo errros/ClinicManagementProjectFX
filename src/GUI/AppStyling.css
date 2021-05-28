@@ -20,3 +20,7 @@
     -fx-font: 'Roboto Medium';
     -fx-font-size: 20;
 }
+
+#anchor_tabs_container {
+    -fx-background-color: #333333 ;
+}
