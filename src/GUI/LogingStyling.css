@@ -32,7 +32,7 @@ Label {
 -fx-text-fill: #ffffff;
 -fx-background-color: linear-gradient(from 0% 150% to 0% -50%, rgba(127,187,248,0.86),rgba(184,255,236,0.73));
 -fx-border-width: 0px;
--fx-border-color: black;
+-fx-border-color: rgba(86, 86, 86, 0.7);
 -fx-pref-height: 32px;
 -fx-pref-width: 97px;
 -fx-padding: 1px;
@@ -45,10 +45,10 @@ Label {
     -fx-background-radius: 31;
     -fx-font-size: 21.0;
     -fx-font-family: 'Poppins Regular';
-    -fx-text-fill: #000000;
+    -fx-text-fill: rgba(86, 86, 86, 0.7);
     -fx-background-color: linear-gradient(from 0% 150% to 0% -50%, rgba(127,187,248,0.86),rgba(184,255,236,0.73));
     -fx-border-width: 0px;
-    -fx-border-color: black;
+    -fx-border-color: rgba(86, 86, 86, 0.7);
     -fx-pref-height: 34px;
     -fx-pref-width: 100px;
     -fx-padding: 1px;
@@ -60,7 +60,7 @@ Label {
     -fx-background-radius: 31;
     -fx-font-size: 21.0;
     -fx-font-family: 'Poppins Regular';
-    -fx-text-fill: #000000;
+    -fx-text-fill: rgba(86, 86, 86, 0.7);
     -fx-background-color: linear-gradient(from 0% 150% to 0% -50%, rgba(107,167,228,0.86),rgba(124,235,216,0.73));
     -fx-border-width: 0px;
     -fx-border-color: black;
