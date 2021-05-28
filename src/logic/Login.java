@@ -24,7 +24,6 @@ public  class Login {
             ResultSet rs = st.executeQuery();
             if(rs.next()){
                 String us = rs.getString("username");
-                System.out.println(us);
                 b1.setText(us);
             }
 

@@ -7,74 +7,73 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@AppStyling.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AppController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@AppStyling.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AppController">
    <children>
       <AnchorPane fx:id="dash_pane" prefHeight="1080.0" prefWidth="256.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox fx:id="dash_vbox" layoutX="64.0" layoutY="240.0" prefHeight="880.0" prefWidth="357.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0">
+            <VBox layoutX="64.0" layoutY="240.0" prefHeight="880.0" prefWidth="357.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0">
                <children>
-                  <HBox fx:id="hb_home" alignment="BASELINE_LEFT" prefHeight="30.0" prefWidth="238.0" styleClass="dash_hbox">
+                  <HBox alignment="BASELINE_LEFT" prefHeight="30.0" prefWidth="238.0" styleClass="dash_hbox">
                      <children>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                            <image>
-                              <Image url="@Home%20logo.png" />
+                              <Image url="@resources/Homelogo.png" />
                            </image>
                         </ImageView>
                         <Label alignment="BASELINE_LEFT" prefHeight="400.0" prefWidth="400.0" styleClass="dash_labels" text="Home" />
                      </children>
                   </HBox>
-                  <HBox fx:id="hb_waitroom" alignment="BASELINE_LEFT" prefHeight="30.0" prefWidth="238.0" styleClass="dash_hbox">
+                  <HBox alignment="BASELINE_LEFT" prefHeight="30.0" prefWidth="238.0" styleClass="dash_hbox">
                      <children>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@Wait%20logo.png" />
+                              <Image url="@resources/Waitlogo.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="lab_waitroom" alignment="BASELINE_LEFT" prefHeight="400.0" prefWidth="400.0" styleClass="dash_labels" text="Waiting room" />
+                        <Label alignment="BASELINE_LEFT" prefHeight="400.0" prefWidth="400.0" styleClass="dash_labels" text="Waiting room" />
                      </children>
                   </HBox>
-                  <HBox fx:id="hb_patients" alignment="BASELINE_LEFT" prefHeight="30.0" prefWidth="238.0" styleClass="dash_hbox">
+                  <HBox alignment="BASELINE_LEFT" prefHeight="30.0" prefWidth="238.0" styleClass="dash_hbox">
                      <children>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@Patients%20logo.png" />
+                              <Image url="@resources/Patientslogo.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="lab_patients" alignment="BASELINE_LEFT" prefHeight="400.0" prefWidth="400.0" styleClass="dash_labels" text="Patients" />
+                        <Label alignment="BASELINE_LEFT" prefHeight="400.0" prefWidth="400.0" styleClass="dash_labels" text="Patients" />
                      </children>
                   </HBox>
-                  <HBox fx:id="hb_const" alignment="BASELINE_LEFT" prefHeight="30.0" prefWidth="238.0" styleClass="dash_hbox">
+                  <HBox alignment="BASELINE_LEFT" prefHeight="30.0" prefWidth="238.0" styleClass="dash_hbox">
                      <children>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@Consultation%20logo.png" />
+                              <Image url="@resources/Consultationlogo.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="lab_const" alignment="BASELINE_LEFT" prefHeight="400.0" prefWidth="400.0" styleClass="dash_labels" text="Consultation" />
+                        <Label alignment="BASELINE_LEFT" prefHeight="400.0" prefWidth="400.0" styleClass="dash_labels" text="Consultation" />
                      </children>
                   </HBox>
-                  <HBox fx:id="hb_accounting" alignment="BASELINE_LEFT" prefHeight="30.0" prefWidth="238.0" styleClass="dash_hbox">
+                  <HBox alignment="BASELINE_LEFT" prefHeight="30.0" prefWidth="238.0" styleClass="dash_hbox">
                      <children>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@Accounting%20logo.png" />
+                              <Image url="@resources/Accountinglogo.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="lab_accounting" alignment="BASELINE_LEFT" prefHeight="400.0" prefWidth="400.0" styleClass="dash_labels" text="Accounting" />
+                        <Label alignment="BASELINE_LEFT" prefHeight="400.0" prefWidth="400.0" styleClass="dash_labels" text="Accounting" />
                      </children>
                   </HBox>
-                  <HBox fx:id="hb_appoit" alignment="BASELINE_LEFT" prefHeight="30.0" prefWidth="238.0" styleClass="dash_hbox">
+                  <HBox alignment="BASELINE_LEFT" prefHeight="30.0" prefWidth="238.0" styleClass="dash_hbox">
                      <children>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@Appointments%20logo.png" />
+                              <Image url="@resources/Appointmentslogo.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="lab_appoit" alignment="BASELINE_LEFT" prefHeight="400.0" prefWidth="400.0" styleClass="dash_labels" text="Appoitments" />
+                        <Label alignment="BASELINE_LEFT" prefHeight="400.0" prefWidth="400.0" styleClass="dash_labels" text="Appoitments" />
                      </children>
                      <VBox.margin>
                         <Insets />
@@ -84,7 +83,7 @@
             </VBox>
             <ImageView fitHeight="28.0" fitWidth="218.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Logo.png" />
+                  <Image url="@resources/Logo.png" />
                </image>
             </ImageView>
          </children>

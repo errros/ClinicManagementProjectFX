@@ -1,34 +1,18 @@
-package GUI;
+package gui;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class AppController {
-    @FXML
-    private AnchorPane dashpane;
-    @FXML
-    private VBox dashvbox;
-    @FXML
-    private HBox hbhome;
-    @FXML
-    private HBox hbwaitroom;
-    @FXML
-    private Label labwaitroom;
-    @FXML
-    private HBox hbpatients;
-    @FXML
-    private Label labpatients;
-    @FXML
-    private HBox hbconst;
-    @FXML
-    private Label labconst;
-    @FXML
-    private HBox hbaccounting;
-    @FXML
-    private Label labaccounting;
-    @FXML
-    private HBox hbappoit;
-    @FXML
-    private Label labappoit;
+    static  private int user_id;
+
+
+    public static void setUser_id(int user_id) {
+
+            AppController.user_id = user_id;
+        }
 
 }
