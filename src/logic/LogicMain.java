@@ -10,11 +10,11 @@ public class LogicMain {
         // TODO code application logic here
 
 
+        System.out.println(Appointment.search(Date.valueOf("2010-11-05"),"h"));
 
 
 
-
-
+/*
         Scanner scan = new Scanner(System.in);
         Patient p = null ;
         int user = 1;
@@ -148,5 +148,6 @@ public class LogicMain {
 
 
     }
-
+*/
+    }
 }
