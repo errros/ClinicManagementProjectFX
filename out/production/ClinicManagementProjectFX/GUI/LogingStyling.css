@@ -106,7 +106,7 @@ Label {
 
 }
 
-.userbutton:focused {
+.userbuttonChecked {
     -fx-background-radius: 31;
     -fx-border-radius: 31;
     -fx-font-size: 21.0;

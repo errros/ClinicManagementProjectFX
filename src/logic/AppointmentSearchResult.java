@@ -42,10 +42,10 @@ public class AppointmentSearchResult {
     public String toString() {
         return
                 "{firstName='" + firstName + '\'' +
-                ", secondName='" + secondName + '\'' +
-                ", doctor_id=" + doctor_id +
-                ", adr='" + adr + '\'' +
-                ", num='" + num + "}";
+                        ", secondName='" + secondName + '\'' +
+                        ", doctor_id=" + doctor_id +
+                        ", adr='" + adr + '\'' +
+                        ", num='" + num + "}";
 
 
     }

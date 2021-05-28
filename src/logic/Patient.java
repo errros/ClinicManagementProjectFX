@@ -7,33 +7,27 @@ package logic;
  */
 
 import dao.CnxWithDB;
+
 import java.sql.*;
-import java.text.DateFormat;
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-//INSERT INTO patients (firstName,secondName,dateOfBirth) VALUES (?,?,?);
-// DELETE FROM patients WHERE firstName = ? AND secondName = ? AND dateOfBirth = ?;
-// UPDATE patients SET firstName
+
 /**
  * @author AyoubAbderrahmane
  */
 public class Patient {
 
     static public Connection cnx = CnxWithDB.getConnection();
+    boolean existInDb;
     private int patientId;
     private String first_name;
     private String second_name;
     private Date dateOfbirth;
     private String sex;
     private String adr;
-
     private String number;
-
-    boolean existInDb;
 
     // this three arguments are mandatory for every patient the rest is optional
     public Patient(String first_name, String second_name, Date dateOfbirth) {
@@ -57,6 +51,77 @@ public class Patient {
             this.patientId = getPatientId();
         }
 
+    }
+
+    public static ArrayList<Patient> search(String criteria, int id) {
+        ArrayList<Patient> patients = new ArrayList<Patient>();
+        String sql;
+
+        if (id == 1) {
+            sql = "SELECT * FROM patients WHERE firstName LIKE '%" + criteria + "%'" + " OR secondName LIKE '%" + criteria + "%'";
+
+        } else {
+            System.out.println("you have changed user and perfoming search");
+            sql = "SELECT * FROM patients WHERE patient_id IN (SELECT patient_id FROM associatedDoctors WHERE user_id = " + id + ") AND "
+                    + "(firstName LIKE '%" + criteria + "%'" + " OR secondName LIKE '%" + criteria + "%' )";
+        }
+
+        try {
+
+            Statement stmt = cnx.createStatement();
+
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                //Retrieve by column name
+                String firstName0 = rs.getString("firstName");
+                String secondName0 = rs.getString("secondName");
+
+                Date dateOfbirth0 = rs.getDate("dateOfbirth");
+                String sex0 = rs.getString("sex");
+                String adr0 = rs.getString("adr");
+                String num0 = rs.getString("num");
+
+                Patient patient = new Patient(firstName0, secondName0, dateOfbirth0, sex0, adr0, num0);
+                patients.add(patient);
+
+            }
+            rs.close();
+            stmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return patients;
+    }
+
+    public static Patient getPatientById(int id) {
+
+        try {
+
+            Statement stmt = cnx.createStatement();
+            String sql = "SELECT * FROM patients WHERE patient_id = " + id;
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                //Retrieve by column name
+                String firstName0 = rs.getString("firstName");
+                String secondName0 = rs.getString("secondName");
+
+                Date dateOfbirth0 = rs.getDate("dateOfbirth");
+                String sex0 = rs.getString("sex");
+                String adr0 = rs.getString("adr");
+                String num0 = rs.getString("num");
+
+                Patient patient = new Patient(firstName0, secondName0, dateOfbirth0, sex0, adr0, num0);
+
+                return patient;
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public boolean add() {
@@ -129,7 +194,7 @@ public class Patient {
                     + " sex = ? , adr = ?  , num = ?"
                     + " WHERE patient_id = " + this.patientId;
 
-            try ( PreparedStatement st = cnx.prepareStatement(query)) {
+            try (PreparedStatement st = cnx.prepareStatement(query)) {
                 st.setString(1, this.first_name);
                 st.setString(2, this.second_name);
                 st.setDate(3, this.dateOfbirth);
@@ -145,78 +210,6 @@ public class Patient {
 
         }
 
-    }
-
-    public static ArrayList<Patient> search(String criteria, int id) {
-        ArrayList<Patient> patients = new ArrayList<Patient>();
-        String sql;
-
-        if (id == 1) {
-            sql = "SELECT * FROM patients WHERE firstName LIKE '%" + criteria + "%'" + " OR secondName LIKE '%" + criteria + "%'";
-
-        } else {
-            System.out.println("you have changed user and perfoming search");
-            sql = "SELECT * FROM patients WHERE patient_id IN (SELECT patient_id FROM associatedDoctors WHERE user_id = " + id + ") AND "
-                    + "(firstName LIKE '%" + criteria + "%'" + " OR secondName LIKE '%" + criteria + "%' )";
-        }
-
-        try {
-
-            Statement stmt = cnx.createStatement();
-
-            ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                //Retrieve by column name
-                String firstName0 = rs.getString("firstName");
-                String secondName0 = rs.getString("secondName");
-
-                Date dateOfbirth0 = rs.getDate("dateOfbirth");
-                String sex0 = rs.getString("sex");
-                String adr0 = rs.getString("adr");
-                String num0 = rs.getString("num");
-
-                Patient patient = new Patient(firstName0, secondName0, dateOfbirth0, sex0, adr0, num0);
-                patients.add(patient);
-
-            }
-            rs.close();
-            stmt.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return patients;
-    }
-
-    public static Patient getPatientById(int id) {
-
-        try {
-
-            Statement stmt = cnx.createStatement();
-            String sql = "SELECT * FROM patients WHERE patient_id = " + id;
-            ResultSet rs = stmt.executeQuery(sql);
-
-            while (rs.next()) {
-                //Retrieve by column name
-                String firstName0 = rs.getString("firstName");
-                String secondName0 = rs.getString("secondName");
-
-                Date dateOfbirth0 = rs.getDate("dateOfbirth");
-                String sex0 = rs.getString("sex");
-                String adr0 = rs.getString("adr");
-                String num0 = rs.getString("num");
-
-                Patient patient = new Patient(firstName0, secondName0, dateOfbirth0, sex0, adr0, num0);
-
-                return patient;
-            }
-            rs.close();
-            stmt.close();
-            ;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     private boolean exist() {
@@ -236,7 +229,6 @@ public class Patient {
             }
             rs.close();
             st.close();
-            ;
         } catch (SQLException ex) {
             Logger.getLogger(Patient.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -282,7 +274,7 @@ public class Patient {
 
         String query = "SELECT patient_id FROM patients WHERE firstName = ? AND secondName = ? AND dateOfBirth = ? ";
 
-        try ( PreparedStatement st = cnx.prepareStatement(query)) {
+        try (PreparedStatement st = cnx.prepareStatement(query)) {
 
             st.setString(1, this.first_name);
             st.setString(2, this.second_name);
@@ -309,12 +301,11 @@ public class Patient {
     public void addAssociateDoctor(int doctorId) {
 
 
-
         if (existInDb && doctorIdExist(doctorId)) {
-            if(!associateDoctorAdded(doctorId)){
+            if (!associateDoctorAdded(doctorId)) {
                 String query = "INSERT INTO associatedDoctors VALUES (?,?)";
 
-                try ( PreparedStatement st = cnx.prepareStatement(query)) {
+                try (PreparedStatement st = cnx.prepareStatement(query)) {
 
                     st.setInt(1, this.patientId);
                     st.setInt(2, doctorId);
@@ -328,12 +319,13 @@ public class Patient {
             }
         }
     }
+
     // test if a doctor is already associated with a patient
     private boolean associateDoctorAdded(int doctorId) {
 
         String query = "SELECT * FROM associatedDoctors WHERE patient_id = ? AND user_id = ?";
 
-        try ( PreparedStatement st = cnx.prepareStatement(query)) {
+        try (PreparedStatement st = cnx.prepareStatement(query)) {
 
             st.setInt(1, this.patientId);
             st.setInt(2, doctorId);
@@ -356,7 +348,7 @@ public class Patient {
 
         String query = "SELECT user_id FROM users WHERE user_id = " + doctorId;
 
-        try ( Statement st = cnx.createStatement()) {
+        try (Statement st = cnx.createStatement()) {
 
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {

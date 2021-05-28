@@ -10,7 +10,7 @@ public class LogicMain {
         // TODO code application logic here
 
 
-        System.out.println(Appointment.search(Date.valueOf("2010-11-05"),"h"));
+        System.out.println(Appointment.search(Date.valueOf("2010-11-05"), "h"));
 
 
 

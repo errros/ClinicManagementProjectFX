@@ -13,12 +13,12 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="back_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@LogingStyling.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LoginController">
+<AnchorPane fx:id="back_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#back_paneOnMouseMoved" prefHeight="720.0" prefWidth="1280.0" stylesheets="@LogingStyling.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginController">
    <children>
       <AnchorPane fx:id="left_pane" prefHeight="200.0" prefWidth="480.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane layoutX="480.0" layoutY="125.0" prefHeight="720.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="username" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="392.0" prefHeight="31.0" prefWidth="776.0" styleClass="textlabel" text="Username" textAlignment="CENTER" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" />
+            <Label fx:id="invisibleUsernameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="392.0" prefHeight="31.0" prefWidth="776.0" styleClass="textlabel" text="Username" textAlignment="CENTER" visible="false" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" />
          </children>
       </AnchorPane>
       <Circle fx:id="back_circle" centerX="1180.0" centerY="374.0" radius="540.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="Circle">
@@ -44,7 +44,7 @@
             <Font name="Poppins Regular" size="21.0" />
          </font>
       </Label>
-      <Button fx:id="user_button_1" layoutX="808.0" layoutY="262.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="145.0" text="Username" textAlignment="CENTER">
+      <Button fx:id="user_button_1" layoutX="808.0" layoutY="262.0" mnemonicParsing="false" onAction="#user_button_1OnAction" prefHeight="32.0" prefWidth="145.0" text="Username" textAlignment="CENTER">
          <font>
             <Font name="Poppins Regular" size="21.218181610107422" />
          </font>
@@ -54,7 +54,7 @@
             <String fx:value="userbutton" />
          </styleClass>
       </Button>
-      <Button fx:id="user_button_2" layoutX="808.0" layoutY="307.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="145.0" text="Username" textAlignment="CENTER">
+      <Button fx:id="user_button_2" layoutX="808.0" layoutY="307.0" mnemonicParsing="false" onAction="#user_button_2OnAction" prefHeight="32.0" prefWidth="145.0" text="Username" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="21.218181610107422" />
          </font>
@@ -69,7 +69,7 @@
             <Font name="Righteous" size="59.0" />
          </font>
       </Label>
-      <Button fx:id="user_button_3" layoutX="808.0" layoutY="352.0" mnemonicParsing="false" text="Username">
+      <Button fx:id="user_button_3" layoutX="808.0" layoutY="352.0" mnemonicParsing="false" onAction="#user_button_3OnAction" text="Username">
          <styleClass>
             <String fx:value="userButton" />
             <String fx:value="userbutton" />
@@ -77,7 +77,7 @@
       </Button>
       <Label fx:id="password_label" layoutX="827.0" layoutY="422.0" styleClass="textlabel" text="Password:" />
       <PasswordField fx:id="password_field" alignment="CENTER" layoutX="808.0" layoutY="461.0" promptText="Password" styleClass="passwordfield" />
-      <Button fx:id="submit_button" layoutX="833.0" layoutY="522.0" mnemonicParsing="false" text="Submit" />
+      <Button fx:id="submit_button" layoutX="833.0" layoutY="522.0" mnemonicParsing="false" onAction="#submit_buttonOnAction" text="Submit" />
       <ImageView fitHeight="418.0" fitWidth="335.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
          <image>
             <Image url="@Intersection%203Q.png" />
