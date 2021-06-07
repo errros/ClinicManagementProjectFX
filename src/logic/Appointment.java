@@ -1,6 +1,8 @@
 package logic;
 
 import dao.CnxWithDB;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ public class Appointment {
     private int rdv_id;
     private int patient_id;
     private int doctor_id;
-    private Date rdv_date;
+    private Date  rdv_date;
 
 
     //if the appointmennt is already in the db get it id , else set it to 0
@@ -132,14 +134,14 @@ public class Appointment {
 
 
     //search appointments with a specific doctor
-    static public List<AppointmentSearchResult> search(Date date , String criteria , int id ){
+    static public ObservableList<AppointmentSearchResult> search(Date date , String criteria , int id ){
 
         String query ="SELECT patients.patient_id , patients.firstName , patients.secondName ,appointments.doctor_id, patients.adr, patients.num FROM patients " +
                 "INNER JOIN appointments ON patients.patient_id = appointments.patient_id" +
                 " AND (rdv_date = '" + date + "') AND (patients.firstName  LIKE '%" + criteria +  "%' OR patients.secondName LIKE '%" + criteria +"%') AND (doctor_id =" + id+") ORDER BY appointments.rdv_id";
 
 
-        List<AppointmentSearchResult> patients = new ArrayList<>();
+        ObservableList<AppointmentSearchResult> patients = FXCollections.observableArrayList();
 
 
 
@@ -157,9 +159,16 @@ public class Appointment {
                 String secondName = rs.getString("secondName") ;
 
                 int doctor_id = rs.getInt("doctor_id") ;
+                String doctor_name = "";
+                if (doctor_id == 2) {
+                    doctor_name = "Ophtalmologue";
+                }
+                if (doctor_id == 3) {
+                    doctor_name = "Remplacant";
+                }
                 String adr = rs.getString("adr") ;
                 String num = rs.getString("num");
-                AppointmentSearchResult patient = new AppointmentSearchResult(firstName,secondName,doctor_id,adr,num);
+                AppointmentSearchResult patient = new AppointmentSearchResult(firstName,secondName,doctor_name,adr,num);
                 patients.add(patient);
 
 
@@ -179,13 +188,13 @@ public class Appointment {
     }
 
     //search all appointments regardless of doctor id
-    static public List<AppointmentSearchResult> search(Date date , String criteria ){
+    static public ObservableList<AppointmentSearchResult> search(Date date , String criteria ){
 
         String query = "SELECT patients.patient_id , patients.firstName , patients.secondName ,appointments.doctor_id, patients.adr, patients.num FROM patients " +
                 "INNER JOIN appointments ON patients.patient_id = appointments.patient_id" +
                 " AND (rdv_date = '" + date + "') AND (patients.firstName  LIKE '%" + criteria +  "%' OR patients.secondName LIKE '%" + criteria +"%')  ORDER BY appointments.rdv_id";
 
-        List<AppointmentSearchResult> patients = new ArrayList<>();
+        ObservableList<AppointmentSearchResult> patients = FXCollections.observableArrayList();
 
 
 
@@ -204,9 +213,16 @@ public class Appointment {
                 String secondName = rs.getString("secondName") ;
 
                 int doctor_id = rs.getInt("doctor_id") ;
+                String doctor_name = "";
+                if (doctor_id == 2) {
+                    doctor_name = "Ophtalmologue";
+                }
+                if (doctor_id == 3) {
+                    doctor_name = "Remplacant";
+                }
                 String adr = rs.getString("adr") ;
                 String num = rs.getString("num");
-                AppointmentSearchResult patient = new AppointmentSearchResult(firstName,secondName,doctor_id,adr,num);
+                AppointmentSearchResult patient = new AppointmentSearchResult(firstName,secondName,doctor_name,adr,num);
                 patients.add(patient);
 
             }

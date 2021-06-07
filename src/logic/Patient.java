@@ -7,6 +7,8 @@ package logic;
  */
 
 import dao.CnxWithDB;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,6 +22,39 @@ import java.util.logging.Logger;
 public class Patient {
 
     static public Connection cnx = CnxWithDB.getConnection();
+
+    public static Connection getCnx() {
+        return cnx;
+    }
+
+    public boolean isExistInDb() {
+        return existInDb;
+    }
+
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public String getSecond_name() {
+        return second_name;
+    }
+
+    public Date getDateOfbirth() {
+        return dateOfbirth;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public String getAdr() {
+        return adr;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
     boolean existInDb;
     private int patientId;
     private String first_name;
@@ -53,8 +88,8 @@ public class Patient {
 
     }
 
-    public static ArrayList<Patient> search(String criteria, int id) {
-        ArrayList<Patient> patients = new ArrayList<Patient>();
+    public static ObservableList<Patient> search(String criteria, int id) {
+        ObservableList<Patient> patients = FXCollections.observableArrayList();
         String sql;
 
         if (id == 1) {

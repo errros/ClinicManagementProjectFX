@@ -107,9 +107,9 @@ public class LoginController {
     }
     // open the application main window
     public void openAppWindow(Stage window) throws IOException {
-        Parent appParent = FXMLLoader.load(getClass().getResource("App.fxml"));
+        Parent appParent = FXMLLoader.load(getClass().getResource("Apps.fxml"));
         Scene appScene = new Scene(appParent, 1280, 720);
-        appScene.getStylesheets().add(getClass().getResource("AppStyling.css").toExternalForm());
+        //appScene.getStylesheets().add(getClass().getResource("AppStyling.css").toExternalForm());
         window.setTitle("Cabinet++");
         window.setScene(appScene);
         window.setResizable(true);
