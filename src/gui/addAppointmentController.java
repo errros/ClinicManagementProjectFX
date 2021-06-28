@@ -15,9 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import logic.Appointment;
-import logic.AppointmentSearchResult;
-import logic.Patient;
+import logic.*;
 import logic.Patient;
 
 import java.io.IOException;
@@ -52,9 +50,11 @@ public class addAppointmentController implements Initializable {
     private FilteredList<Patient> searchResultList;
     private SortedList<Patient> searchResultSortedList;
     private LocalDate myDate;
+    private int mc;
     private ObservableList<String> comboList = FXCollections.observableArrayList("Ophtamologue","Remplacant");
-    public void getDate (LocalDate Date) {
+    public void getDate (LocalDate Date, int k) {
         myDate = Date;
+        mc = k;
     }
     public void addAppointment(ActionEvent event) throws IOException {
         Patient patient = null;
@@ -71,18 +71,18 @@ public class addAppointmentController implements Initializable {
             else if (filter.getValue() == "Remplacant") {
                 doc = 3;
             }
-            Appointment Appoint = new Appointment(Date.valueOf(myDate.toString()), patient.getPatientId(),doc);
-            Appoint.add();
-
+            if (mc == 0) {
+                Appointment Appoint = new Appointment(Date.valueOf(myDate.toString()), patient.getPatientId(), doc);
+                Appoint.add();
+            }
+            else if ( mc == 1) {
+                WaitingRoom wr = new WaitingRoom();
+                wr.add(patient.getPatientId(),doc);
+            }
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.close();
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Appointment added sucessfully!");
             alert.showAndWait();
-
-            FXMLLoader fxmlload = new FXMLLoader(getClass().getResource("Apps.fxml"));
-            Parent root = fxmlload.load();
-            AppointementsController AppointmentRefresh = fxmlload.getController();
-            AppointmentRefresh.refresh();
 
         }
     }

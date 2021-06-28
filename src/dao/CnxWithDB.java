@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  * @author wabda
  */
 public class CnxWithDB {
-    private static final String servername = "LocalHost";
+    private static final String servername = "localhost";
     private static final Integer port = 3306;
 
     private static final String username = "root";

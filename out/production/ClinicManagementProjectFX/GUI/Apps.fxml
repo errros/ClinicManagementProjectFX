@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="636.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AppointementsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#getIt" prefHeight="636.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AppointementsController">
    <children>
       <TableView fx:id="appsTable" layoutX="140.0" layoutY="206.0" prefHeight="370.0" prefWidth="800.0">
         <columns>
           <TableColumn fx:id="col_actions" prefWidth="132.0" resizable="false" text="Actions" />
-            <TableColumn prefWidth="50.0" resizable="false" text="N°" />
+            <TableColumn fx:id="col_num" prefWidth="50.0" resizable="false" text="N°" />
           <TableColumn fx:id="col_fname" prefWidth="125.0" resizable="false" text="Family Name" />
             <TableColumn fx:id="col_name" prefWidth="104.0" resizable="false" text="Name" />
             <TableColumn fx:id="col_doc" prefWidth="114.0" resizable="false" text="Doctor" />
@@ -28,14 +28,14 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <ComboBox fx:id="filter" layoutX="325.0" layoutY="173.0" onAction="#chooseDoctor" prefHeight="30.0" prefWidth="123.0" promptText="Filter" />
+      <ComboBox fx:id="filter" layoutX="325.0" layoutY="173.0" onAction="#getIt" prefHeight="30.0" prefWidth="123.0" promptText="Filter" />
       <Label fx:id="dateLabel" alignment="CENTER" layoutX="140.0" layoutY="60.0" text="Today's Appointments">
          <font>
             <Font size="40.0" />
          </font>
       </Label>
       <DatePicker fx:id="myDatePicker" layoutX="770.0" layoutY="76.0" onAction="#chooseDate" prefHeight="30.0" prefWidth="170.0" />
-      <Button layoutX="822.0" layoutY="173.0" mnemonicParsing="false" onAction="#addAppointements" prefHeight="30.0" prefWidth="117.0" text="Add New">
+      <Button layoutX="822.0" layoutY="173.0" mnemonicParsing="false" onAction="#addAppointements" prefHeight="30.0" prefWidth="117.0" text="Add new">
          <font>
             <Font size="14.0" />
          </font>

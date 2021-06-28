@@ -100,20 +100,20 @@ public class Appointment {
     }
 
     // delete appointment from db only if it has an id
-    public void delete(){
+    static public void delete(int id){
 
-        if(rdv_id != 0){
+
 
             try {
 
                 Statement stmt = cnx.createStatement();
 
-                String sql = "DELETE FROM appointments WHERE rdv_id =  "+ rdv_id;
+                String sql = "DELETE FROM appointments WHERE rdv_id =  "+ id;
 
                 stmt.executeUpdate(sql);
 
                 System.out.println("Element deleted .");
-                this.rdv_id = 0;
+
                 stmt.close();
 
             } catch (SQLException e) {
@@ -127,7 +127,7 @@ public class Appointment {
 
 
 
-    }
+
 
     //
 
@@ -136,7 +136,7 @@ public class Appointment {
     //search appointments with a specific doctor
     static public ObservableList<AppointmentSearchResult> search(Date date , String criteria , int id ){
 
-        String query ="SELECT patients.patient_id , patients.firstName , patients.secondName ,appointments.doctor_id, patients.adr, patients.num FROM patients " +
+        String query ="SELECT appointments.rdv_id, patients.patient_id , patients.firstName , patients.secondName ,appointments.doctor_id, patients.adr, patients.num FROM patients " +
                 "INNER JOIN appointments ON patients.patient_id = appointments.patient_id" +
                 " AND (rdv_date = '" + date + "') AND (patients.firstName  LIKE '%" + criteria +  "%' OR patients.secondName LIKE '%" + criteria +"%') AND (doctor_id =" + id+") ORDER BY appointments.rdv_id";
 
@@ -155,20 +155,21 @@ public class Appointment {
 
             while (rs.next()) {
                 //Retrieve by column name
+                int rdv_id = rs.getInt("rdv_id");
                 String firstName   = rs.getString("firstName") ;
                 String secondName = rs.getString("secondName") ;
 
                 int doctor_id = rs.getInt("doctor_id") ;
                 String doctor_name = "";
                 if (doctor_id == 2) {
-                    doctor_name = "Ophtalmologue";
+                    doctor_name = "Ophtamologue";
                 }
                 if (doctor_id == 3) {
                     doctor_name = "Remplacant";
                 }
                 String adr = rs.getString("adr") ;
                 String num = rs.getString("num");
-                AppointmentSearchResult patient = new AppointmentSearchResult(firstName,secondName,doctor_name,adr,num);
+                AppointmentSearchResult patient = new AppointmentSearchResult(rdv_id,firstName,secondName,doctor_name,adr,num);
                 patients.add(patient);
 
 
@@ -190,7 +191,7 @@ public class Appointment {
     //search all appointments regardless of doctor id
     static public ObservableList<AppointmentSearchResult> search(Date date , String criteria ){
 
-        String query = "SELECT patients.patient_id , patients.firstName , patients.secondName ,appointments.doctor_id, patients.adr, patients.num FROM patients " +
+        String query = "SELECT appointments.rdv_id, patients.patient_id , patients.firstName , patients.secondName ,appointments.doctor_id, patients.adr, patients.num FROM patients " +
                 "INNER JOIN appointments ON patients.patient_id = appointments.patient_id" +
                 " AND (rdv_date = '" + date + "') AND (patients.firstName  LIKE '%" + criteria +  "%' OR patients.secondName LIKE '%" + criteria +"%')  ORDER BY appointments.rdv_id";
 
@@ -208,21 +209,21 @@ public class Appointment {
 
             while (rs.next()) {
                 //Retrieve by column name
-
+                   int rdv_id = rs.getInt("rdv_id");
                 String firstName   = rs.getString("firstName") ;
                 String secondName = rs.getString("secondName") ;
 
                 int doctor_id = rs.getInt("doctor_id") ;
                 String doctor_name = "";
                 if (doctor_id == 2) {
-                    doctor_name = "Ophtalmologue";
+                    doctor_name = "Ophtamologue";
                 }
                 if (doctor_id == 3) {
                     doctor_name = "Remplacant";
                 }
                 String adr = rs.getString("adr") ;
                 String num = rs.getString("num");
-                AppointmentSearchResult patient = new AppointmentSearchResult(firstName,secondName,doctor_name,adr,num);
+                AppointmentSearchResult patient = new AppointmentSearchResult(rdv_id , firstName,secondName,doctor_name,adr,num);
                 patients.add(patient);
 
             }

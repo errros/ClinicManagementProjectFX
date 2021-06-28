@@ -7,9 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -56,22 +54,35 @@ public class AppController {
 
     @FXML
     private Label lab_appointments;
+
+    @FXML
+    private BorderPane mainPane;
+
     static  private int user_id;
     private Stage stage;
     private Scene scene;
     private Parent root;
 
 
+    @FXML
+    private void loadAppointmentsPage(ActionEvent e) {
+        FxmlLoader object = new FxmlLoader();
+        Pane view = object.getPage("Apps");
+        mainPane.setCenter(view);
+    }
+    @FXML
+    private void loadWaitingRoomPage(ActionEvent e) {
+        FxmlLoader object = new FxmlLoader();
+        Pane view = object.getPage("WaitingRoom");
+        mainPane.setCenter(view);
+    }
+    @FXML
+    private void loadPatientsPage(ActionEvent e) {
+        FxmlLoader object = new FxmlLoader();
+        Pane view = object.getPage("PatientsScene");
+        mainPane.setCenter(view);
+    }
     public static void setUser_id(int user_id) {
-
-            AppController.user_id = user_id;
-        }
-  /* public void openAppointementsWindow(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("Appointements.fxml"));
-        //scene.getStylesheets().add(getClass().getResource("AppStyling.css").toExternalForm());
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 1280, 720);
-        stage.setScene(scene);
-        stage.show();
-} */
+        AppController.user_id = user_id;
+    }
 }

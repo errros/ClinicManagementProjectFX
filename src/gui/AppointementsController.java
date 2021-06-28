@@ -1,8 +1,8 @@
 package gui;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import logic.Appointment;
@@ -19,77 +20,59 @@ import logic.AppointmentSearchResult;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.sql.Date;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 public class AppointementsController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
-
-
-
     @FXML
     private TableView<AppointmentSearchResult> appsTable;
     @FXML
     private TableColumn<AppointmentSearchResult, Void> col_actions;
     @FXML
     private TableColumn<AppointmentSearchResult, String> col_fname;
-
     @FXML
     private TableColumn<AppointmentSearchResult, String> col_name;
-
     @FXML
     private TableColumn<AppointmentSearchResult, String> col_doc;
-
     @FXML
     private TableColumn<AppointmentSearchResult, String> col_adr;
-
     @FXML
     private TableColumn<AppointmentSearchResult, String> col_phoneN;
-
+    @FXML
+    private TableColumn<AppointmentSearchResult, Void> col_num;
     @FXML
     private TextField search;
-
     @FXML
     private ComboBox<String> filter;
-
     @FXML
     private Label dateLabel;
-
     @FXML
     private DatePicker myDatePicker;
-
-    int index = -1;
-    private ObservableList<String> comboList = FXCollections.observableArrayList("All","Ophtamologue","Remplacant");
+    private ObservableList<String> comboList = FXCollections.observableArrayList("All", "Ophtamologue", "Remplacant");
     private ObservableList<AppointmentSearchResult> patientsList;
-    private FilteredList<AppointmentSearchResult> searchResultList;
-    private SortedList<AppointmentSearchResult> searchResultSortedList;
+    private FilteredList<AppointmentSearchResult> searchResultList =null;
+    private Callback<TableColumn<AppointmentSearchResult, Void>, TableCell<AppointmentSearchResult, Void>> cellFactory1;
+    private Callback<TableColumn<AppointmentSearchResult, Void>, TableCell<AppointmentSearchResult, Void>> cellFactory2;
     private LocalDate myDate;
     private String dayFormat;
     private Date dayFormatSql;
-    Connection cn = null;
-    ResultSet rs = null;
-    PreparedStatement ps = null;
+    int i,x,y;
 
     public void addAppointements(ActionEvent event) throws IOException {
         FXMLLoader fxmlload = new FXMLLoader(getClass().getResource("addAppointements.fxml"));
         root = (Parent) fxmlload.load();
         addAppointmentController addAppointmentController = fxmlload.getController();
-        addAppointmentController.getDate(myDate);
+        addAppointmentController.getDate(myDate,0);
         stage = new Stage();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
-    }
-    public void refresh() {
-        getThemAll();
     }
 
     public void chooseDate(ActionEvent event) {
@@ -97,65 +80,62 @@ public class AppointementsController implements Initializable {
         dayFormat = myDate.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
         dayFormatSql = Date.valueOf(myDate.toString());
         dateLabel.setText(dayFormat);
-        getThemAll();
-    }
-    public void chooseDoctor(ActionEvent event) {
-        getThemAll();
+        getIt();
     }
 
-    public void getThemAll() {
+    public void getIt() {
         int doc = 2;
         if (filter.getValue() == "Ophtamologue") {
             doc = 2;
-        }
-        else if (filter.getValue() == "Remplacant") {
+        } else if (filter.getValue() == "Remplacant") {
             doc = 3;
         }
-        if  (filter.getValue() == null) {
-            patientsList = Appointment.search(dayFormatSql,"");
-        }
-        else if (filter.getValue() == "All" ) {
-            patientsList = Appointment.search(dayFormatSql,"");
-        }
-        else patientsList = Appointment.search(dayFormatSql,"", doc);
-        searchResultList = new FilteredList<>(patientsList, b -> true);
-        search.textProperty().addListener((Observable, oldValue, newValue) -> {
-            searchResultList.setPredicate(patient ->  {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-                if (patient.getFirstName().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
-                    return true;
-                }
-                else if (patient.getSecondName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                }
-                else return false;
+        if (filter.getValue() == null) {
+            patientsList = Appointment.search(dayFormatSql, "");
+        } else if (filter.getValue() == "All") {
+            patientsList = Appointment.search(dayFormatSql, "");
+        } else patientsList = Appointment.search(dayFormatSql, "", doc);
+        searchResultList = new FilteredList<AppointmentSearchResult>(patientsList, createPredicate(search.getText()));
+        i=0;
+        x=1;
+        y=1;
+        appsTable.setItems(searchResultList);
+    }
 
-            });
-        });
-        searchResultSortedList = new SortedList<>(searchResultList);
-        searchResultSortedList.comparatorProperty().bind(appsTable.comparatorProperty());
-        appsTable.setItems(searchResultSortedList);
-        Callback<TableColumn<AppointmentSearchResult, Void>, TableCell<AppointmentSearchResult, Void>>cellFactory = new Callback<TableColumn<AppointmentSearchResult, Void>, TableCell<AppointmentSearchResult, Void>>() {
+    private Predicate<AppointmentSearchResult> createPredicate(String searchText) {
+        return patient -> {
+            if (searchText == null || searchText.isEmpty()) {
+                return true;
+            }
+            String lowerCaseFilter = searchText.toLowerCase();
+            if (patient.getFirstName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                return true;
+            } else if (patient.getSecondName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                return true;
+            } else return false;
+        };
+    }
+
+    public void setCellFactory1() {
+        cellFactory1 = new Callback<TableColumn<AppointmentSearchResult, Void>, TableCell<AppointmentSearchResult, Void>>() {
             @Override
             public TableCell<AppointmentSearchResult, Void> call(final TableColumn<AppointmentSearchResult, Void> param) {
                 final TableCell<AppointmentSearchResult, Void> cell = new TableCell<AppointmentSearchResult, Void>() {
-
-                    private final Button vw = new Button ("View");
+                    private final Button vw = new Button("View");
                     private final Button dl = new Button("Delete");
-
 
                     {
                         dl.setOnAction((ActionEvent event) -> {
-                            AppointmentSearchResult Patient = appsTable.getSelectionModel().getSelectedItem();
-
-
+                            AppointmentSearchResult patient = appsTable.getSelectionModel().getSelectedItem();
+                            if (patient == null) {
+                                Alert alert = new Alert(Alert.AlertType.ERROR, "No Selected Patient.");
+                                alert.showAndWait();
+                            }
+                            else Appointment.delete(patient.getRdv_id());
                         });
                     }
 
-                    HBox container = new HBox(5,vw,dl);
+                    HBox container = new HBox(5, vw, dl);
 
                     @Override
                     public void updateItem(Void item, boolean empty) {
@@ -164,13 +144,51 @@ public class AppointementsController implements Initializable {
                             setGraphic(null);
                         } else {
                             setGraphic(container);
+                            System.out.println("yoohoo");
                         }
                     }
                 };
                 return cell;
             }
         };
-        col_actions.setCellFactory(cellFactory);
+    }
+    public void setCellFactory2() {
+        cellFactory2 = new Callback<TableColumn<AppointmentSearchResult, Void>, TableCell<AppointmentSearchResult, Void>>() {
+            @Override
+            public TableCell<AppointmentSearchResult, Void> call(final TableColumn<AppointmentSearchResult, Void> param) {
+                final TableCell<AppointmentSearchResult, Void> cell = new TableCell<AppointmentSearchResult, Void>() {
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setText(null);
+                        } else {
+                            if (i<searchResultList.size() && !empty) {
+                                String chk = searchResultList.get(i).getDoctor();
+                                if (chk=="Remplacant") {
+                                    setText(""+y);
+                                    setTextFill(Color.DEEPSKYBLUE);
+                                    //setTextAlignment(TextAlignment.CENTER);
+                                    y++;
+                                }
+                                else if (chk=="Ophtamologue") {
+                                    setText(""+x);
+                                    setTextFill(Color.CRIMSON);
+                                    x++;
+                                }
+                                i++;
+                            }
+                            if (i==searchResultList.size() && !empty) {
+                                i=0;
+                                x=1;
+                                y=1;
+                            }
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
     }
 
     @Override
@@ -185,8 +203,13 @@ public class AppointementsController implements Initializable {
         col_adr.setCellValueFactory(new PropertyValueFactory<AppointmentSearchResult, String>("adr"));
         col_phoneN.setCellValueFactory(new PropertyValueFactory<AppointmentSearchResult, String>("num"));
         col_doc.setCellValueFactory(new PropertyValueFactory<AppointmentSearchResult, String>("doctor"));
-        getThemAll();
+        getIt();
+        search.textProperty().addListener((Observable, oldValue, newValue) ->
+                searchResultList.setPredicate(createPredicate(newValue)));
+        setCellFactory1();
+        setCellFactory2();
+        col_actions.setCellFactory(cellFactory1);
+        col_num.setCellFactory(cellFactory2);
         filter.setItems(comboList);
     }
 }
-

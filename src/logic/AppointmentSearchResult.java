@@ -36,7 +36,8 @@ public class AppointmentSearchResult {
         return num;
     }
 
-    public AppointmentSearchResult(String firstName, String secondName, String doctor, String adr, String num) {
+    public AppointmentSearchResult(int rdv_id , String firstName, String secondName, String doctor, String adr, String num) {
+      this.rdv_id = rdv_id;
         this.firstName = firstName;
         this.secondName = secondName;
         this.doctor = doctor;
