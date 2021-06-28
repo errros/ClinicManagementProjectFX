@@ -16,8 +16,7 @@ public class Medicament {
     private CheckBox checkBox_matin;
     private CheckBox checkBox_midi;
     private CheckBox checkBox_soir;
-    public int id = getId(this.name, this.form, this.dosage);
-
+    public int id ;
 
     public CheckBox getCheckBox_matin() {
         return checkBox_matin;
@@ -68,6 +67,7 @@ public class Medicament {
     }
 
     public Medicament(String name, String form, String dosage) {
+        this.id = getId(name, form, dosage);
         this.name = name;
         this.form = form;
         this.dosage = dosage;
@@ -103,7 +103,8 @@ public class Medicament {
         return medId;
     }
 
-    public void Add() {
+    public void add() {
+       /* this.id = getId(this.name,this.form,this.dosage);
         try {
             int c1, c2, c3;
             c1 = ((checkBox_matin.isSelected()) ? 1 : 0);
@@ -117,8 +118,8 @@ public class Medicament {
             statement.executeUpdate(sql);
             System.out.println("added to database");
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
-
+*/
     }
 }

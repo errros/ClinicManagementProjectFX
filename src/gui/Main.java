@@ -19,10 +19,10 @@ public class Main extends Application {
         System.setProperty("prism.lcdtext", "false");
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
         Scene scene = new Scene(root, 1280, 720);
-        scene.getStylesheets().add(getClass().getResource("LogingStyling.css").toExternalForm());
+        /*scene.getStylesheets().add(getClass().getResource("LogingStyling.css").toExternalForm());*/
         stage.setScene(scene);
         stage.setTitle("Cabinet++");
-        stage.setResizable(false);
+        stage.setResizable(true);
 
 
         stage.show();

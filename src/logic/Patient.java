@@ -23,13 +23,42 @@ public class Patient {
 
     static public Connection cnx = CnxWithDB.getConnection();
 
-    public static Connection getCnx() {
-        return cnx;
+    boolean existInDb;
+    private int patientId;
+    private String first_name;
+    private String second_name;
+    private Date dateOfbirth;
+    private String sex;
+    private String adr;
+    private String number;
+
+
+
+    // this three arguments are mandatory for every patient the rest is optional
+    public Patient(String first_name, String second_name, Date dateOfbirth) {
+        this(first_name, second_name, dateOfbirth, "m", "00,Rue,Commune,Wilaya", "0000000000");
+
     }
 
-    public boolean isExistInDb() {
-        return existInDb;
+    public Patient(String first_name, String second_name, Date dateOfbirth, String sex, String adr, String number) {
+        this.first_name = first_name;
+        this.second_name = second_name;
+
+        this.dateOfbirth = dateOfbirth;
+
+        this.sex = sex;
+        this.adr = adr;
+
+        this.number = number;
+
+        this.existInDb = exist();
+        if (existInDb) {
+            this.patientId = getPatientId();
+        }
+
     }
+
+
 
     public String getFirst_name() {
         return first_name;
@@ -54,38 +83,8 @@ public class Patient {
     public String getNumber() {
         return number;
     }
-
-    boolean existInDb;
-    private int patientId;
-    private String first_name;
-    private String second_name;
-    private Date dateOfbirth;
-    private String sex;
-    private String adr;
-    private String number;
-
-    // this three arguments are mandatory for every patient the rest is optional
-    public Patient(String first_name, String second_name, Date dateOfbirth) {
-        this(first_name, second_name, dateOfbirth, "m", "00,Rue,Commune,Wilaya", "0000000000");
-
-    }
-
-    public Patient(String first_name, String second_name, Date dateOfbirth, String sex, String adr, String number) {
-        this.first_name = first_name;
-        this.second_name = second_name;
-
-        this.dateOfbirth = dateOfbirth;
-
-        this.sex = sex;
-        this.adr = adr;
-
-        this.number = number;
-
-        this.existInDb = exist();
-        if (existInDb) {
-            this.patientId = getPatientId();
-        }
-
+    public int getId() {
+        return patientId;
     }
 
     public static ObservableList<Patient> search(String criteria, int id) {

@@ -80,12 +80,12 @@
       <Button fx:id="submit_button" layoutX="833.0" layoutY="522.0" mnemonicParsing="false" onAction="#submit_buttonOnAction" text="Submit" />
       <ImageView fitHeight="418.0" fitWidth="335.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
          <image>
-            <Image url="@resources/Intersection3Q.png" />
+            <Image url="@resources/Intersection%203Q.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="373.0" fitWidth="273.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="800.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@resources/Intersection2.png" />
+            <Image url="@resources/Intersection%202.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="32.0" fitWidth="231.0" layoutX="17.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">

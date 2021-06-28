@@ -1,26 +1,118 @@
+
+
 #dash_pane {
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, rgba(66,102,157,0.92), rgba(105,188,197,0.74));
 }
 .dash_hbox {
     -fx-background-color:  rgba(0,0,0,0);
     -fx-spacing: 10;
-    -fx-alignment: baseline-left;
-    -fx-padding: 5 0 0 20;
+    -fx-padding: 0 0 0 0;
 }
-.dash_hbox:hover {
+
+
+
+.dash_buttons {
+    -fx-border-width: 0px;
+    -fx-padding: 5 0 0 20;
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+.dash_buttons:hover {
     -fx-background-color:   linear-gradient(from 0% 0% to 100% 100%, rgba(120,120,120,0.35), rgba(90,90,90,0.2));
 }
 
-.dash_hbox:pressed {
+.dash_buttons:pressed {
     -fx-background-color:   rgba(180,180,180,0.45);
 }
-
 .dash_labels {
     -fx-text-fill: #ffffff;
-    -fx-font: 'Roboto Medium';
+    -fx-font-family: 'Roboto Medium';
     -fx-font-size: 20;
+    -fx-alignment: center;
 }
 
 #anchor_tabs_container {
     -fx-background-color: #333333 ;
+}
+
+TableView {
+    -fx-font-size: 13;
+    -fx-border-width: 2;
+    -fx-border-color: linear-gradient(from 0% 0% to 100% 100%, rgba(66,102,157,0.5), rgba(105,188,197,0.5));
+    -fx-border-radius: 2;
+    -fx-background-radius: 10;
+    -fx-font-family: Poppins;
+}
+
+TextField {
+    -fx-font-size: 13;
+    -fx-alignment: baseline-left ;
+    -fx-font-family: Poppins;
+    -fx-text-fill: rgba(86,86,86,1);
+    -fx-prompt-text-fill: linear-gradient(from 0% 0% to 100% 100%, rgba(66,102,157,0.92), rgba(105,188,197,0.74));
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+DatePicker {
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-font-size: 13;
+    -fx-alignment: baseline-left ;
+    -fx-font-family: Poppins;
+    -fx-text-fill: rgba(86,86,86,1);
+    -fx-prompt-text-fill: linear-gradient(from 0% 0% to 100% 100%, rgba(66,102,157,0.92), rgba(105,188,197,0.74));
+
+}
+
+
+ComboBox {
+    -fx-font-size: 13;
+    -fx-font-family: "Poppins";
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, rgba(66,102,157,0.2), rgba(105,188,197,0.5));
+    -fx-text-fill: white;
+    -fx-background-radius: 2;
+    -fx-border-radius: 2;
+}
+
+BorderPane {
+    -fx-background-color: rgba(250,250,250,1);
+}
+
+#DateTimeLab{
+    -fx-background-color: white;
+    -fx-background-radius: 2;
+    -fx-border-radius: 2;
+    -fx-border-color: linear-gradient(from 0% 0% to 100% 100%, rgba(66,102,157,0.5), rgba(105,188,197,0.5));
+    -fx-border-width: 2;
+    -fx-font-family: "Poppins SemiBold";
+}
+
+#SearchField {
+    -fx-background-color: white;
+}
+
+.Addnewpatientvbox {
+
+    -fx-border-width: 2;
+    -fx-border-color: linear-gradient(from 0% 0% to 100% 100%, rgba(66,102,157,0.5), rgba(105,188,197,0.5));
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+}
+
+.Labeladdpatientvbox {
+    -fx-font-size: 13;
+    -fx-alignment: baseline-left ;
+    -fx-font-family: Poppins;
+    -fx-text-fill: rgba(86,86,86,1);
+    -fx-prompt-text-fill: linear-gradient(from 0% 0% to 100% 100%, rgba(66,102,157,0.92), rgba(105,188,197,0.74));
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+.Elementpane {
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-background-color: rgba(252,252,252,1);
+
 }

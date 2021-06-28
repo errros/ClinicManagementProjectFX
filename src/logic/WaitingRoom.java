@@ -9,6 +9,9 @@ import java.sql.*;
 
 public class WaitingRoom {
     private Date todayDate;
+    static public Patient currentPatient1 =null;
+    static public Patient currentPatient2 =null;
+
     static public Connection cnx = CnxWithDB.getConnection();
 
     public Date getTodayDate() {
@@ -23,27 +26,10 @@ public class WaitingRoom {
 
     }
 
-    public void add(int paitent_id , int doctor_id) {
 
 
-        String query = "INSERT INTO waitingroom (patient_id , doctor_id , rdv_date ) VALUES (?,?,?)";
-        try {
 
-            PreparedStatement stmt = cnx.prepareStatement(query);
-            stmt.setInt(1, paitent_id);
-            stmt.setInt(2, doctor_id);
-            stmt.setDate(3, this.todayDate);
 
-            stmt.executeUpdate();
-
-            System.out.println("Element Added .");
-
-            stmt.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     // delete appointment from db only if it has an id
     static  public void delete(int id){
@@ -54,9 +40,9 @@ public class WaitingRoom {
 
              Statement stmt = cnx.createStatement();
 
-            String sql = "DELETE FROM waitingroom WHERE rdv_id =  "+ id;
+            String sql = "DELETE FROM appointments WHERE rdv_id =  "+ id;
 
-            stmt.executeUpdate(sql); 
+            stmt.executeUpdate(sql);
 
             System.out.println("Element deleted .");
 
@@ -92,14 +78,23 @@ public class WaitingRoom {
    public void update(){
         String query = "INSERT INTO waitingroom (rdv_id , patient_id , doctor_id , rdv_date) " +
                 "SELECT * FROM appointments WHERE rdv_date = ? ";
+
        try {
+
            PreparedStatement pr = cnx.prepareStatement(query);
            pr.setDate(1,todayDate);
            pr.executeUpdate();
+
+
        } catch (SQLException e) {
            e.printStackTrace();
        }
+
+
+
    }
+
+
      public ObservableList<AppointmentSearchResult> search(String criteria , int id ){
 
         String query ="SELECT waitingroom.rdv_id , patients.patient_id , patients.firstName , patients.secondName ,waitingroom.doctor_id, patients.adr, patients.num FROM patients " +
@@ -209,7 +204,28 @@ public class WaitingRoom {
 
 
     }
+    public void add(int paitent_id , int doctor_id){
 
+
+        String query = "INSERT INTO waitingroom (patient_id , doctor_id , rdv_date ) VALUES (?,?,?)";
+        try {
+
+            PreparedStatement stmt = cnx.prepareStatement(query);
+            stmt.setInt(1,paitent_id);
+            stmt.setInt(2,doctor_id);
+            stmt.setDate(3,this.todayDate);
+
+            stmt.executeUpdate();
+
+            System.out.println("Element Added .");
+
+            stmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
 
@@ -218,6 +234,8 @@ public class WaitingRoom {
 
         clear();
         update();
+
+
     }
 
     @Override

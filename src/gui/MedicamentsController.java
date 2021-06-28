@@ -78,7 +78,7 @@ public class MedicamentsController implements Initializable {
 
     public void addT2todb(){
         for (Medicament medicament : medocs){
-            medicament.Add();
+            medicament.add();
         }
     }
 

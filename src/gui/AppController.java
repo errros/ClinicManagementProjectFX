@@ -3,6 +3,7 @@ package gui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,8 +12,10 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class AppController {
+public class AppController implements Initializable {
     @FXML
     private AnchorPane anchor_tabs_container;
 
@@ -58,7 +61,7 @@ public class AppController {
     @FXML
     private BorderPane mainPane;
 
-    static  private int user_id;
+    static int user_id;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -82,7 +85,18 @@ public class AppController {
         Pane view = object.getPage("PatientsScene");
         mainPane.setCenter(view);
     }
+    @FXML
+    private void loadConsultationPage(ActionEvent e) {
+        FxmlLoader object = new FxmlLoader();
+        Pane view = object.getPage("AppCons");
+        mainPane.setCenter(view);
+    }
     public static void setUser_id(int user_id) {
         AppController.user_id = user_id;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }
