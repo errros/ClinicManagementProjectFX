@@ -66,30 +66,31 @@ public class AppController implements Initializable {
     private Scene scene;
     private Parent root;
 
+    static FxmlLoader object = new FxmlLoader();
+  static final Pane appointmenetsView = object.getPage("Apps");
+  static final Pane waitingRoomView = object.getPage("WaitingRoom");
+  static final Pane patientsSceneView = object.getPage("PatientsScene");
+  static final Pane consView = object.getPage("AppCons");
 
     @FXML
     private void loadAppointmentsPage(ActionEvent e) {
-        FxmlLoader object = new FxmlLoader();
-        Pane view = object.getPage("Apps");
-        mainPane.setCenter(view);
+
+        mainPane.setCenter(appointmenetsView);
     }
     @FXML
     private void loadWaitingRoomPage(ActionEvent e) {
-        FxmlLoader object = new FxmlLoader();
-        Pane view = object.getPage("WaitingRoom");
-        mainPane.setCenter(view);
+
+        mainPane.setCenter(waitingRoomView);
     }
     @FXML
     private void loadPatientsPage(ActionEvent e) {
-        FxmlLoader object = new FxmlLoader();
-        Pane view = object.getPage("PatientsScene");
-        mainPane.setCenter(view);
+
+        mainPane.setCenter(patientsSceneView);
     }
     @FXML
     private void loadConsultationPage(ActionEvent e) {
-        FxmlLoader object = new FxmlLoader();
-        Pane view = object.getPage("AppCons");
-        mainPane.setCenter(view);
+
+        mainPane.setCenter(consView);
     }
     public static void setUser_id(int user_id) {
         AppController.user_id = user_id;

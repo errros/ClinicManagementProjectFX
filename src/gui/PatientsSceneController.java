@@ -15,7 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import logic.Patient;
-
+import logic.WaitingRoom;
 
 
 import java.io.IOException;
@@ -94,6 +94,7 @@ public class PatientsSceneController implements Initializable {
             public TableCell<Patient, Void> call(final TableColumn<Patient, Void> param) {
                 final TableCell<Patient, Void> cell = new TableCell<Patient, Void>() {
                     private final Button vw = new Button("View");
+                    private final Button md = new Button("Modify");
                     private final Button dl = new Button("Delete");
 
                     {
@@ -105,6 +106,19 @@ public class PatientsSceneController implements Initializable {
                             }
                             else patient.delete();
                         });
+
+                        vw.setOnAction((ActionEvent event) -> {
+                            Patient patient = PatientsTableView.getSelectionModel().getSelectedItem();
+                            if (patient == null) {
+                                Alert alert = new Alert(Alert.AlertType.ERROR, "No Selected Patient.");
+                                alert.showAndWait();
+                            }
+                            else {
+                                WaitingRoom.currentPatient1 = patient;
+                                WaitingRoom.currentPatient2 = patient;
+                            }
+                        });
+
                     }
 
                     HBox container = new HBox(5, vw, dl);
