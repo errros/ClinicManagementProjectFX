@@ -1,7 +1,13 @@
 package logic;
 
 
+import dao.CnxWithDB;
 import javafx.scene.control.Button;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 // this class in only used to return the results of appointment search
 public class AppointmentSearchResult {
@@ -11,6 +17,7 @@ public class AppointmentSearchResult {
     private String doctor;
     private String adr;
     private String num;
+    static private Connection cnx = CnxWithDB.getConnection();
 
     public int getRdv_id() {
         return rdv_id;
@@ -45,6 +52,23 @@ public class AppointmentSearchResult {
         this.num = num;
     }
 
+    public int getPatientId(){
+
+        String query = "SELECT patient_id FROM waitingroom WHERE rdv_id = "+ this.rdv_id;
+
+        try {
+            Statement st = cnx.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            if(rs.next()){
+                return rs.getInt("patient_id");
+            }
+
+        } catch (SQLException E){
+            E.printStackTrace();
+        }
+        return 0;
+    }
 
     @Override
     public String toString() {
