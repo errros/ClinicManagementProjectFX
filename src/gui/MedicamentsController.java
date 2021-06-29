@@ -65,8 +65,9 @@ public class MedicamentsController implements Initializable {
 
     @FXML
     private Button Addtable;
-
-    private ObservableList<Medicament> oblist = FXCollections.observableArrayList();
+// i made this list static to ensure that not every time the list get retrieved again from the db
+// so it will be initialized once , after the login
+    public static ObservableList<Medicament> oblist = FXCollections.observableArrayList();
     private ObservableList<Medicament> medocs = FXCollections.observableArrayList();
     private FilteredList<Medicament> searchResultList;
 
@@ -82,8 +83,9 @@ public class MedicamentsController implements Initializable {
         }
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    static void getAllMedicamentsFromDB(){
+
+
         try {
 
             Connection cnx = CnxWithDB.getConnection();
@@ -95,6 +97,11 @@ public class MedicamentsController implements Initializable {
         } catch (SQLException e) {
             Logger.getLogger(MedicamentsController.class.getName()).log(Level.SEVERE, null, e);
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
         searchResultList = new FilteredList<>(oblist, b -> true);
         recherche_field.textProperty().addListener((Observable, oldValue, newValue) -> {
             searchResultList.setPredicate(patient -> {

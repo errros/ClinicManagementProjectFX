@@ -2,6 +2,7 @@ package logic;
 
 
 import dao.CnxWithDB;
+import gui.AppController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -11,7 +12,8 @@ public class WaitingRoom {
     private Date todayDate;
     static public Patient currentPatient1 =null;
     static public Patient currentPatient2 =null;
-
+    //@ayoubFriahoui push the patient you want to view here
+    static public Patient patientPushedFromPatientsScene = null;
     static public Connection cnx = CnxWithDB.getConnection();
 
     public Date getTodayDate() {
@@ -237,6 +239,134 @@ public class WaitingRoom {
 
 
     }
+
+
+
+
+    static public boolean checkIfNull(int doctorid){
+
+        String query = "SELECT patient_id FROM patientsinconsultations WHERE doctor_id = " + doctorid;
+
+
+        try{
+            Statement st = cnx.createStatement();
+
+            ResultSet rs = st.executeQuery(query);
+
+            if(rs!= null){
+                return rs.getInt("patient_id") == 0 ;
+
+            }
+
+        } catch (SQLException E){
+            E.printStackTrace();
+        }
+
+
+        return true;
+    }
+
+
+    // get currentpatient from waitingroom according to the doctorid
+    static public void addCurrentPatient(int patient_id) {
+
+        if (AppController.user_id != 1 ) {
+            if(checkIfNull(AppController.user_id)) {
+
+                String query = "UPDATE patientsinconsultations"
+                        +"SET patient_id = "+patient_id
+                        +"WHERE doctor_id = "+ AppController.user_id;
+
+
+                try{
+                    Statement st = cnx.createStatement();
+
+                    st.executeUpdate(query);
+
+
+
+                } catch (SQLException E){
+                    E.printStackTrace();
+                }
+
+
+
+            }
+
+
+        }
+
+
+
+    }
+
+
+
+
+
+    // this method will delete the current patient for the connected doctor from the db
+    static public void deleteCurrentPatient() {
+
+        if (AppController.user_id != 1  ) {
+
+
+            String query = "UPDATE patientsinconsultations"
+                    +"SET patient_id = NULL"
+                    +"WHERE doctor_id = "+ AppController.user_id;
+
+
+            try{
+                Statement st = cnx.createStatement();
+
+                st.executeUpdate(query);
+
+
+
+            } catch (SQLException E){
+                E.printStackTrace();
+            }
+
+
+
+
+
+
+        }
+
+
+
+    }
+
+
+
+    static public int getCurrentPatientIdFromDB(){
+
+        String query = "SELECT patient_id FROM patientsinconsultations WHERE doctor_id = " + AppController.user_id;
+
+
+        try{
+            Statement st = cnx.createStatement();
+
+            ResultSet rs = st.executeQuery(query);
+
+            if(rs.next()){
+
+                 return rs.getInt("patient_id");
+
+            }
+
+        } catch (SQLException E){
+            E.printStackTrace();
+        }
+
+
+
+
+        return 0;
+    }
+
+
+
 
     @Override
     public String toString() {

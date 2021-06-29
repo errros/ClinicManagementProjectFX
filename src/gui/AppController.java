@@ -61,7 +61,7 @@ public class AppController implements Initializable {
     @FXML
     private BorderPane mainPane;
 
-    static int user_id;
+    static public int user_id;
     private Stage stage;
     private Scene scene;
     private Parent root;

@@ -1,5 +1,6 @@
 package gui;
 
+import dao.CnxWithDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,18 +18,23 @@ import logic.Patient;
 import logic.WaitingRoom;
 
 import java.net.URL;
-import java.sql.Date;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ResourceBundle;
 
 public class AppConsController implements Initializable {
 
+
+    static private Connection cnx = CnxWithDB.getConnection();
+
     @FXML
     private Label personalInformationsLabel;
 
     @FXML
     private Label firstNameLabel;
+@FXML
+private Button refresh;
 
     @FXML
     private TextField sName;
@@ -139,6 +145,13 @@ public class AppConsController implements Initializable {
     }
 
     @FXML
+    void refresh(ActionEvent event){
+
+        WaitingRoom.patientPushedFromPatientsScene = null;
+        init();
+    }
+
+    @FXML
     void showinfos(MouseEvent event) {
         Consultation consultation = history.getSelectionModel().getSelectedItem();
         if (consultation != null) {
@@ -168,19 +181,7 @@ public class AppConsController implements Initializable {
 
     }
 
-    // get currentpatient from waitingroom according to the doctorid
-    private void getPatient() {
 
-        if (AppController.user_id == 2) {
-            patient = WaitingRoom.currentPatient1;
-            System.out.println("Doctor 2 Room");
-        } else if (AppController.user_id == 3) {
-            patient = WaitingRoom.currentPatient2;
-            System.out.println("Doctor 3 Room");
-        }
-
-
-    }
 
     //make all elements in the scene invisible/visible
     private void setVisibleConsultationElements(Boolean b) {
@@ -216,13 +217,43 @@ public class AppConsController implements Initializable {
     }
 
 
+     public void initWaitingRoomStaticFields(){
+
+
+        if(AppController.user_id == 2){
+            int a = WaitingRoom.getCurrentPatientIdFromDB();
+            if(a!=0) {
+                WaitingRoom.currentPatient1 = Patient.getPatientById(a);
+            }
+
+        } else if (AppController.user_id == 3){
+            int a = WaitingRoom.getCurrentPatientIdFromDB();
+            if(a!=0) {
+                WaitingRoom.currentPatient2 = Patient.getPatientById(a);
+            }
+
+        }
+
+    }
+
 
     // a way to be able to call initialize everytime a new patient is pushed
     public void init() {
 
        setEditableConsultationInfos(false);
-        getPatient();
-        System.out.println(patient);
+
+        initWaitingRoomStaticFields();
+
+        if(WaitingRoom.patientPushedFromPatientsScene != null){
+
+            patient = WaitingRoom.patientPushedFromPatientsScene;
+        }
+        else if(AppController.user_id == 2){
+        patient = WaitingRoom.currentPatient1;
+        } else if(AppController.user_id == 3){
+            patient = WaitingRoom.currentPatient2;
+        }
+
         if (patient != null) {
 
             sName.setText(patient.getFirst_name());

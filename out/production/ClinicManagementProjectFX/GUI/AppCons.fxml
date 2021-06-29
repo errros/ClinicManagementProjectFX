@@ -114,5 +114,6 @@
             <Font name="System Bold Italic" size="25.0" />
          </font>
       </Label>
+      <Button fx:id="refresh" layoutX="97.0" layoutY="42.0" mnemonicParsing="false" onAction="#refresh" prefHeight="36.0" prefWidth="62.0" text="Refresh" />
     </children>
 </AnchorPane>

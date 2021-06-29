@@ -99,6 +99,11 @@ public class LoginController {
             alert.showAndWait();
             openAppWindow(window);
             gui.AppController.setUser_id(user_id);
+            if(user_id !=1){
+
+                MedicamentsController.getAllMedicamentsFromDB();
+
+            }
         }
     }
     public void cleanButtonStyles(Button b) {
