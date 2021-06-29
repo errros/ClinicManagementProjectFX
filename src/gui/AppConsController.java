@@ -241,7 +241,6 @@ private Button refresh;
     public void init() {
 
        setEditableConsultationInfos(false);
-
         initWaitingRoomStaticFields();
 
         if(WaitingRoom.patientPushedFromPatientsScene != null){
