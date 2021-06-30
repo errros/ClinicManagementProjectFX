@@ -138,7 +138,7 @@ public class WaitingRoomController implements Initializable {
             } else return false;
         };
     }
-    public void setCellFactory1() throws NullPointerException {
+    public void setCellFactory1() {
         cellFactory1 = new Callback<TableColumn<AppointmentSearchResult, Void>, TableCell<AppointmentSearchResult, Void>>() {
             @Override
             public TableCell<AppointmentSearchResult, Void> call(final TableColumn<AppointmentSearchResult, Void> param) {

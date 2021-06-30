@@ -239,6 +239,36 @@ public class WaitingRoom {
 
 
     }
+    // this method will delete the current patient for the connected doctor from the db
+    static public void deleteCurrentPatient() {
+        if (AppController.user_id != 1  ) {
+            String query = "UPDATE patientsinconsultations"
+                    +"SET patient_id = NULL"
+                    +"WHERE doctor_id = "+ AppController.user_id;
+
+
+            try{
+                Statement st = cnx.createStatement();
+
+                st.executeUpdate(query);
+
+
+
+            } catch (SQLException E){
+                E.printStackTrace();
+            }
+
+
+
+
+
+
+        }
+
+
+
+    }
+
 
 
 
@@ -280,35 +310,6 @@ public class WaitingRoom {
             }
 
         }
-    }
-    // this method will delete the current patient for the connected doctor from the db
-    static public void deleteCurrentPatient() {
-        if (AppController.user_id != 1  ) {
-            String query = "UPDATE patientsinconsultations"
-                    +"SET patient_id = NULL"
-                    +"WHERE doctor_id = "+ AppController.user_id;
-
-
-            try{
-                Statement st = cnx.createStatement();
-
-                st.executeUpdate(query);
-
-
-
-            } catch (SQLException E){
-                E.printStackTrace();
-            }
-
-
-
-
-
-
-        }
-
-
-
     }
 
 
