@@ -25,7 +25,7 @@
          <children>
             <VBox fx:id="vb_dashboard" layoutY="85.0" prefHeight="880.0" prefWidth="220.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="239.0" styleClass="dash_buttons">
+                  <Button fx:id="btn_home" mnemonicParsing="false" onAction="#loadHomePage" prefHeight="35.0" prefWidth="239.0" styleClass="dash_buttons">
                      <graphic>
                         <HBox fx:id="hb_home" alignment="BASELINE_LEFT" styleClass="dash_hbox">
                            <children>
@@ -42,7 +42,7 @@
                         </HBox>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#loadWaitingRoomPage" prefHeight="35.0" prefWidth="240.0" styleClass="dash_buttons">
+                  <Button fx:id="btn_watingroom" mnemonicParsing="false" onAction="#loadWaitingRoomPage" prefHeight="35.0" prefWidth="240.0" styleClass="dash_buttons">
                      <graphic>
                         <HBox fx:id="hb_waitingroom" alignment="BASELINE_LEFT" styleClass="dash_hbox">
                            <children>
@@ -56,7 +56,7 @@
                         </HBox>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#loadPatientsPage" prefHeight="35.0" prefWidth="270.0" styleClass="dash_buttons">
+                  <Button fx:id="btn_patients" mnemonicParsing="false" onAction="#loadPatientsPage" prefHeight="35.0" prefWidth="270.0" styleClass="dash_buttons">
                      <graphic>
                         <HBox fx:id="hb_patients" alignment="BASELINE_LEFT" prefHeight="30.0" prefWidth="216.0" styleClass="dash_hbox">
                            <children>
@@ -70,7 +70,7 @@
                         </HBox>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#loadConsultationPage" prefHeight="35.0" prefWidth="242.0" styleClass="dash_buttons">
+                  <Button fx:id="btn_consultation" mnemonicParsing="false" onAction="#loadConsultationPage" prefHeight="35.0" prefWidth="242.0" styleClass="dash_buttons">
                      <graphic>
                         <HBox fx:id="hb_consultation" alignment="BASELINE_LEFT" styleClass="dash_hbox">
                            <children>
@@ -84,7 +84,7 @@
                         </HBox>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="236.0" styleClass="dash_buttons">
+                  <Button fx:id="btn_accounting" mnemonicParsing="false" onAction="#loadAccountingPage" prefHeight="35.0" prefWidth="236.0" styleClass="dash_buttons">
                      <graphic>
                         <HBox fx:id="hb_accounting" alignment="BASELINE_LEFT" styleClass="dash_hbox">
                            <children>
@@ -98,7 +98,7 @@
                         </HBox>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#loadAppointmentsPage" prefHeight="35.0" prefWidth="283.0" styleClass="dash_buttons">
+                  <Button fx:id="btn_appointments" mnemonicParsing="false" onAction="#loadAppointmentsPage" prefHeight="35.0" prefWidth="283.0" styleClass="dash_buttons">
                      <graphic>
                         <HBox fx:id="hb_appointments" alignment="BASELINE_LEFT" styleClass="dash_hbox">
                            <children>

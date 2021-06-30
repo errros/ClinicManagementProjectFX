@@ -118,7 +118,7 @@ public class PatientsSceneController implements Initializable {
                             }
                             else {
                                 if (AppController.user_id == 2) {
-                                    WaitingRoom.currentPatient1 = patient;
+                                    WaitingRoom.patientPushedFromPatientsScene = patient;
                                     Parent root = null;
                                     
                                     FXMLLoader loader = new FXMLLoader(getClass().getResource("App.fxml"));
@@ -137,7 +137,7 @@ public class PatientsSceneController implements Initializable {
                                     stage.show();
 
                                 } else if (AppController.user_id == 3) {
-                                    WaitingRoom.currentPatient2 = patient;
+                                    WaitingRoom.patientPushedFromPatientsScene = patient;
                                     Parent root = null;
 
                                     FXMLLoader loader = new FXMLLoader(getClass().getResource("App.fxml"));
@@ -229,6 +229,7 @@ public class PatientsSceneController implements Initializable {
         col_sex.setCellValueFactory(new PropertyValueFactory<Patient, String>("sex"));
         col_actions.setCellFactory(cellFactory);
         getIt();
+        searchField.setPromptText("Search ");
     }
 }
 

@@ -1,13 +1,12 @@
 package gui;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import logic.Patient;
 
@@ -25,8 +24,6 @@ public class AddPatientController implements Initializable {
     @FXML
     private TextField second_name_txtf;
 
-    @FXML
-    private TextField sex_txtf;
 
     @FXML
     private DatePicker date_of_birth_dp;
@@ -40,6 +37,9 @@ public class AddPatientController implements Initializable {
 
     @FXML
     private Button add_btn;
+
+    @FXML
+    private ComboBox sex_combo;
 
 
     private LocalDate myDate = LocalDate.now();
@@ -64,7 +64,7 @@ public class AddPatientController implements Initializable {
             else {
 
                 patient = new Patient(fisrt_name_txtf.getText(), second_name_txtf.getText(),
-                        dateSQL, sex_txtf.getText(), address_txtf.getText(), phone_number_txtf.getText());
+                        dateSQL, sex_combo.getValue().toString(), address_txtf.getText(), phone_number_txtf.getText());
                 patient.add();
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.close();
@@ -78,8 +78,10 @@ public class AddPatientController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
+        ObservableList<String> sexItems = FXCollections.observableArrayList();
+        sexItems.add("M");
+        sexItems.add("F");
+        sex_combo.setItems(sexItems);
         myDate = LocalDate.now();
         date_of_birth_dp.setValue(myDate);
         dateformat = myDate.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));

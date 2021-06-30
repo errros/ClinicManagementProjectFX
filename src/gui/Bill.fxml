@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- alignment="center" hgap="10" vgap="10"-->
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="636.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BillController"> <!--onMouseMoved="#getThemAll"-->
+    <children>
+        <TableView fx:id="queueTable" layoutX="140.0" layoutY="206.0" prefHeight="370.0" prefWidth="500.0" AnchorPane.leftAnchor="140.0">
+            <columns>
+                <TableColumn fx:id="fname" prefWidth="125.0" resizable="false" text="Full Name" />
+                <TableColumn fx:id="state" prefWidth="114.0" resizable="false" text="state" />
+                <TableColumn fx:id="DZ" prefWidth="155.0" resizable="false" text="Amount" />
+                <TableColumn fx:id="confirm" prefWidth="120.0" resizable="false" text="confirm" />
+            </columns>
+        </TableView>
+        <TableView fx:id="billsTable" layoutX="280.0" layoutY="206.0" prefHeight="370.0" prefWidth="375.0" AnchorPane.rightAnchor="10.0">
+            <columns>
+                <TableColumn fx:id="timedate" prefWidth="125.0" resizable="false" text="Date" />
+                <TableColumn fx:id="fullname" prefWidth="125.0" resizable="false" text="Full Name" />
+                <TableColumn fx:id="amount" prefWidth="125.0" resizable="false" text="Amount" />
+            </columns>
+        </TableView>
+        <TextField id="search" fx:id="search" layoutX="695.0" layoutY="173.0" prefHeight="30.0" prefWidth="182.0" promptText="Search">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </TextField>
+
+        <Button fx:id="add" layoutX="140.0" layoutY="173.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="117.0" text="Add New Bill">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
+        <Label id="Datetimelable" fx:id="Datetimelable" alignment="BASELINE_CENTER" layoutX="820.0" layoutY="34.0" prefHeight="32.0" prefWidth="246.0" text="Date and time">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label id="todayincome" fx:id="todayincome" alignment="BASELINE_CENTER" layoutX="129.0" layoutY="18.0" prefHeight="32.0" prefWidth="140.0" text="TODAY INCOME">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label id="incomevalue" fx:id="incomevalue" alignment="BASELINE_CENTER" layoutX="280.0" layoutY="18.0" prefHeight="32.0" prefWidth="140.0">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label id="timerange" fx:id="timerange" alignment="BASELINE_CENTER" layoutX="140.0" layoutY="50.0" prefHeight="32.0" prefWidth="97.0" text="TIME RANGE:">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label id="from" fx:id="from" alignment="BASELINE_CENTER" layoutX="229.0" layoutY="50.0" prefHeight="32.0" prefWidth="69.0" text="FROM">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label id="to" fx:id="to" alignment="BASELINE_CENTER" layoutX="379.0" layoutY="51.0" prefHeight="32.0" prefWidth="82.0" text="TO">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+      <DatePicker id="Frompicker" layoutX="295.0" layoutY="54.0" prefHeight="25.0" prefWidth="108.0" />
+      <DatePicker id="Topicker" layoutX="443.0" layoutY="55.0" prefHeight="25.0" prefWidth="108.0" />
+    </children>
+</AnchorPane>

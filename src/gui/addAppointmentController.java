@@ -115,6 +115,7 @@ public class addAppointmentController implements Initializable {
         col_name.setCellValueFactory(new PropertyValueFactory<Patient, String>("first_name"));
         col_bdate.setCellValueFactory(new PropertyValueFactory<Patient, Date>("dateOfbirth"));
         getThemAll();
+       // search.setPromptText("Search ");
         filter.setItems(comboList);
         filter.setValue("Ophtamologue");
     }

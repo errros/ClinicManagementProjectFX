@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import logic.Appointment;
@@ -97,8 +98,8 @@ public class LoginController {
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.close();
             alert.showAndWait();
-            openAppWindow(window);
             gui.AppController.setUser_id(user_id);
+            openAppWindow(window);
             if(user_id !=1){
 
                 MedicamentsController.getAllMedicamentsFromDB();
@@ -112,9 +113,16 @@ public class LoginController {
     }
     // open the application main window
     public void openAppWindow(Stage window) throws IOException {
-        Parent appParent = FXMLLoader.load(getClass().getResource("App.fxml"));
+        Parent appParent;
+        if (AppController.user_id == 1) {
+            appParent = FXMLLoader.load(getClass().getResource("AppAssist.fxml"));
+        } else  {
+            appParent = FXMLLoader.load(getClass().getResource("App.fxml"));
+        }
         Scene appScene = new Scene(appParent, 1280, 720);
         appScene.getStylesheets().add(getClass().getResource("AppStyling.css").toExternalForm());
+        appScene.setFill(Color.TRANSPARENT);
+
         window.setTitle("Cabinet++");
         window.setScene(appScene);
         window.setResizable(true);

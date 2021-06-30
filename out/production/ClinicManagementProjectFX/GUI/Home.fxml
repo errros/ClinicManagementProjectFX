@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Home">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.HomeController">
    <children>
       <TextArea layoutX="52.0" layoutY="153.0" prefHeight="95.0" prefWidth="202.0" text="Profile description&#10;" />
       <Label layoutX="52.0" layoutY="117.0" prefHeight="28.0" prefWidth="126.0" text="ASSIT FULL NAME" />
@@ -25,10 +25,10 @@
         </columns>
       </TableView>
       <Label layoutX="51.0" layoutY="285.0" prefHeight="31.0" prefWidth="54.0" text="Queue : " />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="585.0" layoutY="331.0" prefHeight="106.0" prefWidth="118.0" style="-fx-border-width: 2; -fx-border-color: black;" text="NA" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="727.0" layoutY="331.0" prefHeight="106.0" prefWidth="118.0" style="-fx-border-width: 2; -fx-border-color: black;" text="NA" />
-      <Label layoutX="591.0" layoutY="452.0" text="Number of patients" />
-      <Label layoutX="744.0" layoutY="452.0" text="Today's Income" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="585.0" layoutY="331.0" prefHeight="118.0" prefWidth="118.0" style="-fx-border-width: 2; -fx-border-color: black; -fx-border-radius: 100; -fx-background-radius: 100;" text="NA" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="727.0" layoutY="331.0" prefHeight="118.0" prefWidth="118.0" style="-fx-border-width: 2; -fx-border-color: black; -fx-border-radius: 100; -fx-background-radius: 100;" text="NA" />
+      <Label layoutX="592.0" layoutY="463.0" text="Number of patients" />
+      <Label layoutX="745.0" layoutY="463.0" text="Today's Income" />
       <Label layoutX="105.0" layoutY="285.0" prefHeight="31.0" prefWidth="202.0" text="Number of patients in waititngroom" />
    </children>
 </AnchorPane>

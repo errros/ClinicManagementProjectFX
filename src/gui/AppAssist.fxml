@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@AppStyling.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AppAssistController">
+    <children>
+        <BorderPane fx:id="mainPane" layoutX="220.0" layoutY="30.0" prefHeight="1080.0" prefWidth="1700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <AnchorPane fx:id="anchor_tabs_container" prefHeight="30.0" prefWidth="1700.0" BorderPane.alignment="CENTER">
+                    <BorderPane.margin>
+                        <Insets />
+                    </BorderPane.margin>
+                </AnchorPane>
+            </top>
+        </BorderPane>
+        <AnchorPane fx:id="dash_pane" prefHeight="1080.0" prefWidth="220.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox fx:id="vb_dashboard" layoutY="85.0" prefHeight="880.0" prefWidth="220.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+                    <children>
+                        <Button fx:id="btn_home" mnemonicParsing="false" onAction="#loadHomePage" prefHeight="35.0" prefWidth="239.0" styleClass="dash_buttons">
+                            <graphic>
+                                <HBox fx:id="hb_home" alignment="BASELINE_LEFT" styleClass="dash_hbox">
+                                    <children>
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                            <HBox.margin>
+                                                <Insets />
+                                            </HBox.margin>
+                                            <image>
+                                                <Image url="@resources/Homelogo.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label fx:id="lab_home" alignment="BASELINE_LEFT" styleClass="dash_labels" text="Home" />
+                                    </children>
+                                </HBox>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="btn_watingroom" mnemonicParsing="false" onAction="#loadWaitingRoomPage" prefHeight="35.0" prefWidth="240.0" styleClass="dash_buttons">
+                            <graphic>
+                                <HBox fx:id="hb_waitingroom" alignment="BASELINE_LEFT" styleClass="dash_hbox">
+                                    <children>
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@resources/Waitlogo.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label styleClass="dash_labels" text="Waiting Room"> </Label>
+                                    </children>
+                                </HBox>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="btn_patients" mnemonicParsing="false" onAction="#loadPatientsPage" prefHeight="35.0" prefWidth="270.0" styleClass="dash_buttons">
+                            <graphic>
+                                <HBox fx:id="hb_patients" alignment="BASELINE_LEFT" prefHeight="30.0" prefWidth="216.0" styleClass="dash_hbox">
+                                    <children>
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@resources/Patientslogo.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label styleClass="dash_labels" text="Patients"> </Label>
+                                    </children>
+                                </HBox>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="btn_accounting" mnemonicParsing="false" onAction="#loadAccountingPage" prefHeight="35.0" prefWidth="236.0" styleClass="dash_buttons">
+                            <graphic>
+                                <HBox fx:id="hb_accounting" alignment="BASELINE_LEFT" styleClass="dash_hbox">
+                                    <children>
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@resources/Accountinglogo.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label styleClass="dash_labels" text="Accounting"> </Label>
+                                    </children>
+                                </HBox>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="btn_appointments" mnemonicParsing="false" onAction="#loadAppointmentsPage" prefHeight="35.0" prefWidth="283.0" styleClass="dash_buttons">
+                            <graphic>
+                                <HBox fx:id="hb_appointments" alignment="BASELINE_LEFT" styleClass="dash_hbox">
+                                    <children>
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@resources/Appointmentslogo.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label styleClass="dash_labels" text="Appointments"> </Label>
+                                    </children>
+                                </HBox>
+                            </graphic>
+                        </Button>
+                    </children>
+                </VBox>
+                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="12.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@resources/Logo.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

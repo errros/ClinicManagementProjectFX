@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth=" -Infinity" prefHeight="479.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.addAppointmentController">
    <children>
-      <TextField fx:id="search" layoutX="25.0" layoutY="36.0" prefHeight="25.0" prefWidth="135.0" />
+      <TextField fx:id="search" layoutX="25.0" layoutY="36.0" prefHeight="25.0" prefWidth="135.0" promptText="Search" />
       <TableView fx:id="patientsTable" layoutX="25.0" layoutY="64.0" prefHeight="300.0" prefWidth="430.0">
         <columns>
           <TableColumn fx:id="col_fname" prefWidth="135.0" resizable="false" text="Family Name" />

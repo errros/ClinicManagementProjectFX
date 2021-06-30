@@ -193,6 +193,7 @@ public class WaitingRoomController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        search.setPromptText("Search ");
         wr = new WaitingRoom();
         wr.initialize();
         getIt();

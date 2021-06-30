@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.time.LocalDate;
 
 public class WaitingRoom {
     private Date todayDate;
@@ -234,10 +235,10 @@ public class WaitingRoom {
 
 
     public void initialize(){
-
-        clear();
-        update();
-
+      if(LocalDate.now().isAfter(this.getTodayDate().toLocalDate())) {
+          clear();
+          update();
+      }
 
     }
     // this method will delete the current patient for the connected doctor from the db
