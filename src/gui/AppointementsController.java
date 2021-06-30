@@ -23,6 +23,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.sql.Date;
+import java.util.LinkedHashSet;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
@@ -62,7 +63,7 @@ public class AppointementsController implements Initializable {
     private LocalDate myDate;
     private String dayFormat;
     private Date dayFormatSql;
-    int i,x,y;
+    int i=0,x=1,y=1,k=0,e=-1;
 
     public void addAppointements(ActionEvent event) throws IOException {
         FXMLLoader fxmlload = new FXMLLoader(getClass().getResource("addAppointements.fxml"));
@@ -96,9 +97,7 @@ public class AppointementsController implements Initializable {
             patientsList = Appointment.search(dayFormatSql, "");
         } else patientsList = Appointment.search(dayFormatSql, "", doc);
         searchResultList = new FilteredList<AppointmentSearchResult>(patientsList, createPredicate(search.getText()));
-        i=0;
-        x=1;
-        y=1;
+        k=searchResultList.size();
         appsTable.setItems(searchResultList);
     }
 
@@ -115,7 +114,10 @@ public class AppointementsController implements Initializable {
             } else return false;
         };
     }
-
+    private boolean checkListLength() {
+        boolean formule = (searchResultList.size() >= k);
+        return formule;
+    }
     public void setCellFactory1() {
         cellFactory1 = new Callback<TableColumn<AppointmentSearchResult, Void>, TableCell<AppointmentSearchResult, Void>>() {
             @Override
@@ -123,7 +125,37 @@ public class AppointementsController implements Initializable {
                 final TableCell<AppointmentSearchResult, Void> cell = new TableCell<AppointmentSearchResult, Void>() {
                     private final Button vw = new Button("View");
                     private final Button dl = new Button("Delete");
-
+                    HBox container = new HBox(5, vw, dl);
+                    /*@Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        }
+                        else if(e==-1 || !checkListLength()) {
+                            if (!checkListLength()) {
+                                k=searchResultList.size();
+                                System.out.println("list length changed"+k);
+                            }
+                            e=0;
+                        }
+                        else if (e!=-1 && checkListLength()){
+                            setGraphic(container);
+                            int d=e;
+                            dl.setOnAction((ActionEvent event) -> {
+                                AppointmentSearchResult patient = searchResultList.get(d);
+                                Appointment.delete(patient.getRdv_id());
+                            });
+                            e++;
+                            System.out.println(searchResultList.size()+" "+e);
+                            if (e>=k) {
+                                e=-1;
+                                System.out.println("Occurence "+e);
+                            }
+                        }
+                    }
+                };
+                return cell;*/
                     {
                         dl.setOnAction((ActionEvent event) -> {
                             AppointmentSearchResult patient = appsTable.getSelectionModel().getSelectedItem();
@@ -134,9 +166,6 @@ public class AppointementsController implements Initializable {
                             else Appointment.delete(patient.getRdv_id());
                         });
                     }
-
-                    HBox container = new HBox(5, vw, dl);
-
                     @Override
                     public void updateItem(Void item, boolean empty) {
                         super.updateItem(item, empty);
@@ -144,7 +173,6 @@ public class AppointementsController implements Initializable {
                             setGraphic(null);
                         } else {
                             setGraphic(container);
-                            System.out.println("yoohoo");
                         }
                     }
                 };
@@ -168,7 +196,6 @@ public class AppointementsController implements Initializable {
                                 if (chk=="Remplacant") {
                                     setText(""+y);
                                     setTextFill(Color.DEEPSKYBLUE);
-                                    //setTextAlignment(TextAlignment.CENTER);
                                     y++;
                                 }
                                 else if (chk=="Ophtamologue") {
@@ -203,13 +230,17 @@ public class AppointementsController implements Initializable {
         col_adr.setCellValueFactory(new PropertyValueFactory<AppointmentSearchResult, String>("adr"));
         col_phoneN.setCellValueFactory(new PropertyValueFactory<AppointmentSearchResult, String>("num"));
         col_doc.setCellValueFactory(new PropertyValueFactory<AppointmentSearchResult, String>("doctor"));
-        getIt();
-        search.textProperty().addListener((Observable, oldValue, newValue) ->
-                searchResultList.setPredicate(createPredicate(newValue)));
         setCellFactory1();
         setCellFactory2();
         col_actions.setCellFactory(cellFactory1);
         col_num.setCellFactory(cellFactory2);
+        getIt();
+        search.setPromptText("Search ");
+        appsTable.getSelectionModel().select(1);
+        search.textProperty().addListener((Observable, oldValue, newValue) ->
+                searchResultList.setPredicate(createPredicate(newValue)));
+        setCellFactory1();
+        setCellFactory2();
         filter.setItems(comboList);
     }
 }

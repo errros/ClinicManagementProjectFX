@@ -155,19 +155,14 @@ private Button refresh;
     void showinfos(MouseEvent event) {
         Consultation consultation = history.getSelectionModel().getSelectedItem();
         if (consultation != null) {
-
             height.setText(String.valueOf(consultation.getHeight()));
             weight.setText(String.valueOf(consultation.getWeight()));
             blood_pressure.setText(String.valueOf(consultation.getBlood_pressure()));
-
             blood_glu.setText(String.valueOf(consultation.getBlood_glu()));
             tomperature.setText(String.valueOf(consultation.getTomperature()));
             setEditableConsultationInfos(false);
             prescription.setVisible(true);
-
         }
-
-
     }
 
 
@@ -177,8 +172,6 @@ private Button refresh;
         blood_pressure.setEditable(b);
         blood_glu.setEditable(b);
         tomperature.setEditable(b);
-
-
     }
 
 
@@ -217,17 +210,26 @@ private Button refresh;
     }
 
 
-     public void initWaitingRoomStaticFields(){
-
+     static public void initWaitingRoomStaticFields(){
+        if(AppController.user_id == 1) {
+            int a = WaitingRoom.getCurrentPatientIdFromDB(1);
+            if(a!=0) {
+                WaitingRoom.currentPatient1 = Patient.getPatientById(a);
+            }
+            int b = WaitingRoom.getCurrentPatientIdFromDB(2);
+            if(b!=0) {
+                WaitingRoom.currentPatient2 = Patient.getPatientById(b);
+            }
+        }
 
         if(AppController.user_id == 2){
-            int a = WaitingRoom.getCurrentPatientIdFromDB();
+            int a = WaitingRoom.getCurrentPatientIdFromDB(1);
             if(a!=0) {
                 WaitingRoom.currentPatient1 = Patient.getPatientById(a);
             }
 
         } else if (AppController.user_id == 3){
-            int a = WaitingRoom.getCurrentPatientIdFromDB();
+            int a = WaitingRoom.getCurrentPatientIdFromDB(2);
             if(a!=0) {
                 WaitingRoom.currentPatient2 = Patient.getPatientById(a);
             }
@@ -241,6 +243,7 @@ private Button refresh;
     public void init() {
 
        setEditableConsultationInfos(false);
+
         initWaitingRoomStaticFields();
 
         if(WaitingRoom.patientPushedFromPatientsScene != null){

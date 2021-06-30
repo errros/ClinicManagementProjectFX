@@ -43,7 +43,7 @@ public class WaitingRoom {
 
              Statement stmt = cnx.createStatement();
 
-            String sql = "DELETE FROM appointments WHERE rdv_id =  "+ id;
+            String sql = "DELETE FROM waitingroom WHERE rdv_id =  "+ id;
 
             stmt.executeUpdate(sql);
 
@@ -126,7 +126,7 @@ public class WaitingRoom {
                 int doctor_id = rs.getInt("doctor_id") ;
                 String doctor_name = "";
                 if (doctor_id == 2) {
-                    doctor_name = "Ophtalmologue";
+                    doctor_name = "Ophtamologue";
                 }
                 if (doctor_id == 3) {
                     doctor_name = "Remplacant";
@@ -182,7 +182,7 @@ public class WaitingRoom {
                 int doctor_id = rs.getInt("doctor_id") ;
                 String doctor_name = "";
                 if (doctor_id == 2) {
-                    doctor_name = "Ophtalmologue";
+                    doctor_name = "Ophtamologue";
                 }
                 if (doctor_id == 3) {
                     doctor_name = "Remplacant";
@@ -240,77 +240,9 @@ public class WaitingRoom {
 
 
     }
-
-
-
-
-    static public boolean checkIfNull(int doctorid){
-
-        String query = "SELECT patient_id FROM patientsinconsultations WHERE doctor_id = " + doctorid;
-
-
-        try{
-            Statement st = cnx.createStatement();
-
-            ResultSet rs = st.executeQuery(query);
-
-            if(rs!= null){
-                return rs.getInt("patient_id") == 0 ;
-
-            }
-
-        } catch (SQLException E){
-            E.printStackTrace();
-        }
-
-
-        return true;
-    }
-
-
-    // get currentpatient from waitingroom according to the doctorid
-    static public void addCurrentPatient(int patient_id) {
-
-        if (AppController.user_id != 1 ) {
-            if(checkIfNull(AppController.user_id)) {
-
-                String query = "UPDATE patientsinconsultations"
-                        +"SET patient_id = "+patient_id
-                        +"WHERE doctor_id = "+ AppController.user_id;
-
-
-                try{
-                    Statement st = cnx.createStatement();
-
-                    st.executeUpdate(query);
-
-
-
-                } catch (SQLException E){
-                    E.printStackTrace();
-                }
-
-
-
-            }
-
-
-        }
-
-
-
-    }
-
-
-
-
-
     // this method will delete the current patient for the connected doctor from the db
     static public void deleteCurrentPatient() {
-
         if (AppController.user_id != 1  ) {
-
-
             String query = "UPDATE patientsinconsultations"
                     +"SET patient_id = NULL"
                     +"WHERE doctor_id = "+ AppController.user_id;
@@ -340,9 +272,52 @@ public class WaitingRoom {
 
 
 
-    static public int getCurrentPatientIdFromDB(){
 
-        String query = "SELECT patient_id FROM patientsinconsultations WHERE doctor_id = " + AppController.user_id;
+
+    static public boolean checkIfNull(int doctorid){
+
+        String query = "SELECT patient_id FROM patientsinconsultations WHERE doctor_id = " + doctorid;
+
+
+        try{
+            Statement st = cnx.createStatement();
+
+            ResultSet rs = st.executeQuery(query);
+
+            if(rs.next()){
+                return rs.getInt("patient_id") == 0 ;
+            }
+
+        } catch (SQLException E){
+            E.printStackTrace();
+        }
+
+
+        return true;
+    }
+
+
+    // get currentpatient from waitingroom according to the doctorid
+    static public void addCurrentPatient(int patient_id,int doctor_id) {
+        if(checkIfNull(doctor_id)) {
+            String query = "UPDATE patientsinconsultations"
+                    +" SET patient_id = "+patient_id
+                    +" WHERE doctor_id = "+doctor_id;
+            try{
+                Statement st = cnx.createStatement();
+                st.executeUpdate(query);
+            } catch (SQLException E){
+                E.printStackTrace();
+            }
+
+        }
+    }
+
+
+
+    static public int getCurrentPatientIdFromDB(int doctor_id){
+
+        String query = "SELECT patient_id FROM patientsinconsultations WHERE doctor_id = " + doctor_id;
 
 
         try{
