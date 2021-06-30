@@ -86,7 +86,13 @@ public class AppController implements Initializable {
         mainPane.setCenter(view);
     }
     @FXML
-    private void loadConsultationPage(ActionEvent e) {
+     void loadConsultationPage(ActionEvent e) {
+        FxmlLoader object = new FxmlLoader();
+        Pane view = object.getPage("AppCons");
+        mainPane.setCenter(view);
+    }
+
+    void loadCons() {
         FxmlLoader object = new FxmlLoader();
         Pane view = object.getPage("AppCons");
         mainPane.setCenter(view);

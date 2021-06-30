@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Home">
+   <children>
+      <TextArea layoutX="52.0" layoutY="153.0" prefHeight="95.0" prefWidth="202.0" text="Profile description&#10;" />
+      <Label layoutX="52.0" layoutY="117.0" prefHeight="28.0" prefWidth="126.0" text="ASSIT FULL NAME" />
+      <Label layoutX="745.0" layoutY="117.0" prefHeight="28.0" prefWidth="126.0" text="MED 1 FULL NAME" />
+      <TextArea layoutX="745.0" layoutY="198.0" prefHeight="50.0" prefWidth="202.0" text="Profile description&#10;" />
+      <Label layoutX="745.0" layoutY="153.0" prefHeight="28.0" prefWidth="126.0" text="STATE" />
+      <Label layoutX="473.0" layoutY="116.0" prefHeight="28.0" prefWidth="126.0" text="MED 1 FULL NAME" />
+      <TextArea layoutX="473.0" layoutY="197.0" prefHeight="50.0" prefWidth="202.0" text="Profile description&#10;" />
+      <Label layoutX="473.0" layoutY="152.0" prefHeight="28.0" prefWidth="126.0" text="STATE" />
+      <TableView layoutX="51.0" layoutY="331.0" prefHeight="202.0" prefWidth="334.0">
+        <columns>
+          <TableColumn prefWidth="58.47271728515625" text="Order" />
+          <TableColumn prefWidth="91.63629150390625" text="Family name" />
+            <TableColumn prefWidth="75.92730712890625" text="First name" />
+            <TableColumn prefWidth="103.8544921875" text="Phone number" />
+        </columns>
+      </TableView>
+      <Label layoutX="51.0" layoutY="285.0" prefHeight="31.0" prefWidth="54.0" text="Queue : " />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="585.0" layoutY="331.0" prefHeight="106.0" prefWidth="118.0" style="-fx-border-width: 2; -fx-border-color: black;" text="NA" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="727.0" layoutY="331.0" prefHeight="106.0" prefWidth="118.0" style="-fx-border-width: 2; -fx-border-color: black;" text="NA" />
+      <Label layoutX="591.0" layoutY="452.0" text="Number of patients" />
+      <Label layoutX="744.0" layoutY="452.0" text="Today's Income" />
+      <Label layoutX="105.0" layoutY="285.0" prefHeight="31.0" prefWidth="202.0" text="Number of patients in waititngroom" />
+   </children>
+</AnchorPane>

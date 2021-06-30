@@ -10,6 +10,7 @@ import java.sql.*;
 
 public class WaitingRoom {
     private Date todayDate;
+    static public Patient assistPatient =null;
     static public Patient currentPatient1 =null;
     static public Patient currentPatient2 =null;
     //@ayoubFriahoui push the patient you want to view here

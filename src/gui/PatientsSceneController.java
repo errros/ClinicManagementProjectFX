@@ -6,12 +6,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import logic.Patient;
@@ -57,6 +59,7 @@ public class PatientsSceneController implements Initializable {
     private Callback<TableColumn<Patient, Void>, TableCell<Patient, Void>> cellFactory;
     private String dayFormat;
     private LocalDate myDate;
+
 
 
     public void addPatient(ActionEvent event) throws IOException {
@@ -114,14 +117,86 @@ public class PatientsSceneController implements Initializable {
                                 alert.showAndWait();
                             }
                             else {
-                                WaitingRoom.currentPatient1 = patient;
-                                WaitingRoom.currentPatient2 = patient;
+                                if (AppController.user_id == 2) {
+                                    WaitingRoom.currentPatient1 = patient;
+                                    Parent root = null;
+                                    
+                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("App.fxml"));
+                                    try {
+                                        root = loader.load();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    AppController con = loader.getController();
+                                    con.loadCons();
+                                    Stage stage;
+                                    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                                    Scene scene = new Scene(root);
+                                    stage.setScene(scene);
+                                    stage.show();
+
+                                } else if (AppController.user_id == 3) {
+                                    WaitingRoom.currentPatient2 = patient;
+                                    Parent root = null;
+
+                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("App.fxml"));
+                                    try {
+                                        root = loader.load();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    AppController con = loader.getController();
+                                    con.loadCons();
+                                    Stage stage;
+                                    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                                    Scene scene = new Scene(root);
+                                    stage.setScene(scene);
+                                    stage.show();
+
+                                } else if (AppController.user_id == 1) {
+                                    ViewPatientController.selectedpatient = patient;
+                                    FXMLLoader fxmlload = new FXMLLoader(getClass().getResource("ViewPatient.fxml"));
+                                    try {
+                                        root = (Parent) fxmlload.load();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    ViewPatientController viewcon = fxmlload.getController();
+                                    System.out.println(ViewPatientController.selectedpatient.toString());
+                                    stage = new Stage();
+                                    scene = new Scene(root);
+                                    stage.setScene(scene);
+                                    stage.show();
+
+                                }
                             }
+                        });
+
+                        md.setOnAction((ActionEvent event) -> {
+                            Patient patient = PatientsTableView.getSelectionModel().getSelectedItem();
+                            ModifyPatientController.selectedpatient = patient;
+                            FXMLLoader fxmlload = new FXMLLoader(getClass().getResource("ModifyPatient.fxml"));
+                            try {
+                                root = (Parent) fxmlload.load();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            ModifyPatientController modcon = fxmlload.getController();
+                            System.out.println(ModifyPatientController.selectedpatient.toString());
+                            stage = new Stage();
+                            scene = new Scene(root);
+                            stage.setScene(scene);
+                            stage.show();
+
                         });
 
                     }
 
-                    HBox container = new HBox(5, vw, dl);
+
+                    HBox container = new HBox(5, vw, dl, md);
+
 
                     @Override
                     public void updateItem(Void item, boolean empty) {
