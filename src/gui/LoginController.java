@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -125,6 +126,8 @@ public class LoginController {
         Scene appScene = new Scene(appParent, x, y);
         appScene.getStylesheets().add(getClass().getResource("AppStyling.css").toExternalForm());
         appScene.setFill(Color.TRANSPARENT);
+        Image img = new Image("/gui/resources/Group2.png");
+        window.getIcons().add(img);
         window.setTitle("Cabinet++");
         window.setScene(appScene);
         window.setResizable(a);
