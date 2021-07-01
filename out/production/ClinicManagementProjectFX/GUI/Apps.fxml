@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="636.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AppointementsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="636.0" prefWidth="1080.0" stylesheets="@AppStyling.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AppointementsController">
    <children>
-      <TableView fx:id="appsTable" layoutX="140.0" layoutY="206.0" prefHeight="370.0" prefWidth="800.0">
+      <TableView fx:id="appsTable" layoutX="60.0" layoutY="206.0" prefHeight="370.0" prefWidth="800.0">
         <columns>
           <TableColumn fx:id="col_actions" prefWidth="70.0" resizable="false" text="Actions" />
           <TableColumn fx:id="col_fname" prefWidth="140.0" resizable="false" text="Family Name" />
@@ -22,22 +22,23 @@
             <TableColumn fx:id="col_phoneN" prefWidth="140.0" resizable="false" text="Phone Number" />
         </columns>
       </TableView>
-      <TextField fx:id="search" layoutX="140.0" layoutY="173.0" prefHeight="30.0" prefWidth="182.0">
+      <TextField fx:id="search" layoutX="60.0" layoutY="173.0" prefHeight="30.0" prefWidth="182.0">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <ComboBox fx:id="filter" layoutX="325.0" layoutY="173.0" onAction="#getIt" prefHeight="30.0" prefWidth="123.0" promptText="Filter" />
-      <Label fx:id="dateLabel" alignment="CENTER" layoutX="140.0" layoutY="60.0" text="Today's Appointments">
+      <ComboBox fx:id="filter" layoutX="254.0" layoutY="173.0" onAction="#getIt" prefHeight="30.0" prefWidth="123.0" promptText="Filter" />
+      <Label fx:id="dateLabel" alignment="CENTER" layoutX="59.0" layoutY="91.0" styleClass="headlabels" text="Today's Appointments">
          <font>
-            <Font size="40.0" />
+            <Font size="32.0" />
          </font>
       </Label>
-      <DatePicker fx:id="myDatePicker" layoutX="770.0" layoutY="76.0" onAction="#chooseDate" prefHeight="30.0" prefWidth="170.0" />
-      <Button fx:id="addNew" layoutX="822.0" layoutY="173.0" mnemonicParsing="false" onAction="#addAppointements" prefHeight="30.0" prefWidth="117.0" text="Add new">
+      <DatePicker fx:id="myDatePicker" layoutX="689.0" layoutY="105.0" onAction="#chooseDate" prefHeight="30.0" prefWidth="170.0" />
+      <Button fx:id="addNew" layoutX="742.0" layoutY="173.0" mnemonicParsing="false" onAction="#addAppointements" prefHeight="30.0" prefWidth="117.0" styleClass="appbutton" text="Add new">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
+      <Label layoutX="60.0" layoutY="15.0" styleClass="PanelHead" text="Appointments" />
    </children>
 </AnchorPane>

@@ -27,7 +27,7 @@
             </font>
         </TextField>
         <ComboBox fx:id="filter" layoutX="260.0" layoutY="173.0" onAction="#getIt" prefHeight="30.0" prefWidth="123.0" promptText="Filter" />
-        <Label fx:id="waitingRoomLabel" alignment="CENTER" layoutX="60.0" layoutY="15.0" styleClass="PanelHead" text="Waiting Room" AnchorPane.leftAnchor="60.0">
+        <Label fx:id="waitingRoomLabel" alignment="CENTER" layoutX="60.0" layoutY="15.0" styleClass="PanelHead" text="Waiting Room" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="15.0">
             <font>
                 <Font size="40.0" />
             </font>

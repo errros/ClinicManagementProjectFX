@@ -8,22 +8,22 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane  fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, rgba(66,102,157,0.92), rgba(105,188,197,0.74))" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SplashScreenController">
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, rgba(66,102,157,0.92), rgba(105,188,197,0.74))" stylesheets="@AppStyling.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SplashScreenController">
    <children>
       <Pane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <Label fx:id="label" layoutX="10.0" layoutY="341.0" textFill="white">
+            <Label fx:id="label" layoutX="10.0" layoutY="341.0" style="-fx-text-fill: white;" styleClass="sublabels" textFill="white">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
             <ProgressBar fx:id="progress" layoutX="10.0" layoutY="368.0" prefHeight="18.0" prefWidth="580.0" progress="0.0" />
-            <ImageView fitHeight="27.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0">
+            <ImageView fitHeight="27.0" fitWidth="200.0" layoutX="193.0" layoutY="14.0">
                <image>
                   <Image url="@resources/Logo.png" />
                </image>
             </ImageView>
-            <Label fx:id="label2" alignment="CENTER" contentDisplay="CENTER" layoutX="180.0" layoutY="187.0" text="Signing in as : " textFill="WHITE">
+            <Label fx:id="label2" alignment="CENTER" contentDisplay="CENTER" layoutX="45.0" layoutY="183.0" style="-fx-text-fill: white;" styleClass="headlabels" text="Signing in as : " textFill="WHITE">
                <font>
                   <Font name="SansSerif Regular" size="24.0" />
                </font>

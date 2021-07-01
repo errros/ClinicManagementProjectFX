@@ -215,6 +215,22 @@ public class AppController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        cleanHboxStyles(btn_accounting);
+        cleanHboxStyles(btn_appointments);
+        cleanHboxStyles(btn_consultation);
+        cleanHboxStyles(btn_home);
+        cleanHboxStyles(btn_patients);
+        cleanHboxStyles(btn_watingroom);
+        btn_appointments.getStyleClass().add("dash_buttons");
+        btn_accounting.getStyleClass().add("dash_buttons");
+        btn_consultation.getStyleClass().add("dash_buttons");
+        btn_home.getStyleClass().add("dash_buttons_selected");
+        btn_patients.getStyleClass().add("dash_buttons");
+        btn_watingroom.getStyleClass().add("dash_buttons");
+        FxmlLoader object = new FxmlLoader();
+        Pane view = object.getPage("Home");
+        mainPane.setCenter(view);
+
 
     }
 }

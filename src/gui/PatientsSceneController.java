@@ -175,7 +175,7 @@ public class PatientsSceneController implements Initializable {
                                     con.loadCons();
                                     Stage stage;
                                     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-                                    Scene scene = new Scene(root);
+                                    Scene scene = new Scene(root,1060,690);
                                     stage.setScene(scene);
                                     stage.show();
 
@@ -190,7 +190,7 @@ public class PatientsSceneController implements Initializable {
                                     ViewPatientController viewcon = fxmlload.getController();
                                     System.out.println(ViewPatientController.selectedpatient.toString());
                                     stage = new Stage();
-                                    scene = new Scene(root);
+                                    Scene scene = new Scene(root,1060,690);
                                     stage.setScene(scene);
                                     stage.show();
 
