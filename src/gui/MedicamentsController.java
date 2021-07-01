@@ -81,8 +81,7 @@ public class MedicamentsController extends Task<ObservableList<Medicament>> impl
 
     public void addT2todb(ActionEvent event){
         for (Medicament medicament : medocs){
-            System.out.println(AppConsController.oblist.get(0).consultation_id);
-
+            System.out.println("we will insert medicament with id "+AppConsController.oblist.get(0).consultation_id );
             medicament.add(AppConsController.oblist.get(0).consultation_id);
         }
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -106,7 +106,7 @@
             <Button fx:id="save_New" layoutX="40.0" layoutY="70.0" mnemonicParsing="false" onAction="#saveNewValue" prefHeight="25.0" prefWidth="126.0" text="Save Consultation" />
             <Button fx:id="View_Medicaments" layoutX="40.0" layoutY="36.0" mnemonicParsing="false" onMouseClicked="#View_Medicaments" prefHeight="25.0" prefWidth="126.0" text="Show Medicaments" />
             <Button fx:id="new_consultation" layoutX="38.0" layoutY="2.0" mnemonicParsing="false" onAction="#addinfos" prefHeight="25.0" prefWidth="126.0" text="New Consultation" />
-            <Button fx:id="prescription" layoutX="39.0" layoutY="104.0" mnemonicParsing="false" onAction="#addinfos" prefHeight="25.0" prefWidth="126.0" text="Prescription" />
+            <Button fx:id="prescription" layoutX="39.0" layoutY="104.0" mnemonicParsing="false" onAction="#showPrescription" prefHeight="25.0" prefWidth="126.0" text="Prescription" />
          </children>
       </AnchorPane>
       <Label fx:id="emptyLabel" layoutX="332.0" layoutY="67.0" text="There is no current patient.">

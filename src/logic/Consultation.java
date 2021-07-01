@@ -14,7 +14,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,7 +31,7 @@ public class Consultation {
     private int weight;
     private int blood_pressure;
     private double blood_glu;
-
+    private static final SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     public void setPatient_id(int patient_id) {
         this.patient_id = patient_id;
     }
@@ -54,14 +56,14 @@ public class Consultation {
         this.tomperature = tomperature;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 
     private double tomperature;
-    private Date date;
+    private Timestamp date;
 
-    public Consultation(int patient_id, int height, int weight, int blood_pressure, double blood_glu, double tomperature, Date date) {
+    public Consultation(int patient_id, int height, int weight, int blood_pressure, double blood_glu, double tomperature, Timestamp date) {
         this.patient_id = patient_id;
         this.height = height;
         this.weight = weight;
@@ -69,13 +71,52 @@ public class Consultation {
         this.blood_glu = blood_glu;
         this.tomperature = tomperature;
         this.date = date;
-        this.consultation_id = getConsultationId();
+//        this.consultation_id = getConsultationId();
 
 
 
 
 
     }
+
+
+
+
+    public ArrayList<MedicamentSearchResult> getPrescription(){
+
+        String sql = " SELECT prescription.consult_id , prescription.matin, prescription.midi,prescription.soir" +
+                " , medicaments.name,medicaments.form,medicaments.dosage " +
+                "FROM prescription INNER JOIN medicaments ON prescription.med_id=medicaments.id WHERE consult_id = "+ this.consultation_id;
+          ArrayList<MedicamentSearchResult> list = new ArrayList<>();
+        System.out.println("the sql is ");
+        System.out.println(sql);
+
+        try{
+
+            ResultSet rs = cnx.createStatement().executeQuery(sql);
+            while(rs.next()){
+
+                MedicamentSearchResult  m = new MedicamentSearchResult(rs.getString("name"),rs.getString("form"),
+                        rs.getString("dosage"),rs.getBoolean("matin"),rs.getBoolean("midi"),rs.getBoolean("soir"));
+
+                list.add(m);
+
+
+            }
+
+
+
+        }catch (SQLException e){
+
+            e.printStackTrace();
+        }
+
+         return list;
+
+    }
+
+
+
 
     public double getHeight() {
         return height;
@@ -97,18 +138,22 @@ public class Consultation {
         return tomperature;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
 
 
-    private void updateConsultationId(){
-        String query ="SELECT id FROM consultation WHERE patient_id = " + this.patient_id + " date = "+ this.date;
+    public void updateConsultationId(){
+
+        String query ="SELECT id FROM consultation WHERE patient_id = " + this.patient_id + " AND consultation.exactTime = \""+ sdf2.format(this.date)+"\"";
 
         try {
+
             Statement st = cnx.createStatement();
+
              ResultSet rs = st.executeQuery(query);
+
              if(rs.next()){
 
                 this.consultation_id = rs.getInt("id");
@@ -120,7 +165,6 @@ public class Consultation {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-         this.consultation_id =0;
 
     }
 
@@ -133,9 +177,9 @@ public class Consultation {
           PreparedStatement st =  cnx.prepareStatement(sql);
 
            st.setInt(1,this.patient_id);
-           st.setDate(2,date);
+           st.setTimestamp(2,date);
            st.executeUpdate();
-        //     updateConsultationId();
+             updateConsultationId();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -203,7 +247,7 @@ public class Consultation {
                         rs.getInt("blood_pre"),
                         rs.getDouble("blood_glu"),
                         rs.getDouble("temp"),
-                        rs.getDate("date")));
+                        rs.getTimestamp("exactTime")));
             }
 
         } catch (SQLException e) {
@@ -215,13 +259,14 @@ public class Consultation {
     }
 
 
+
     private int getConsultationId() {
         String query = "SELECT id FROM consultation WHERE patient_id = ? AND date = ? ";
 
         try ( PreparedStatement st = cnx.prepareStatement(query)) {
 
             st.setInt(1, this.patient_id);
-            st.setDate(2,this.date);
+            st.setTimestamp(2,this.date);
 
             ResultSet rs = st.executeQuery();
 
@@ -277,6 +322,8 @@ public class Consultation {
 
 
 
+
+
     public static void name_and_age_fill(String nom , String prenom , String age,String ageFormat) throws  IOException, RuntimeException,  NoClassDefFoundError {
 
 
@@ -323,6 +370,37 @@ public class Consultation {
             returned += " Soir ";
         }
         return returned;
+
+    }
+
+
+    public void print(String nom , String prenom , String age , String format){
+
+        ArrayList<MedicamentSearchResult> m = getPrescription();
+        System.out.println(m);
+        clear();
+        try {
+            name_and_age_fill(nom,prenom,age,format);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for(int i=0;i<m.size();i++){
+            String medName = m.get(i).getName();
+            String   dosage = m.get(i).getDosage();
+            boolean matin = m.get(i).isMatin();
+            boolean midi = m.get(i).isMidi();
+            boolean soir = m.get(i).isSoir();
+         //String medication=   generateMedicationField(medName,dosage,matin,midi,soir);
+            try {
+                medication_fill(medName,dosage,matin,midi,soir,i+1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+        launch_template();
 
     }
 

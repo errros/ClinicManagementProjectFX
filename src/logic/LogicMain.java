@@ -1,6 +1,7 @@
 package logic;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 // a main class for testing
@@ -8,10 +9,14 @@ public class LogicMain {
 
     public static void main(String[] args) {
         // TODO code application logic here
+        /* //    Consultation c = new Consultation(29,111,85,110,1.5,38.5,Date.valueOf("2021-07-01"));
+          c.addWithoutConsultationInfos();
+        System.out.println(c.consultation_id +"after");
+        c.addConsultationInfos();
 
-
-        System.out.println(Appointment.search(Date.valueOf("2010-11-05"), "h"));
-
+        Medicament m = new Medicament("RESTILON","SOLUTION BUV","2MG/ML");
+        m.add(c.consultation_id);
+*/
 
 
 /*
