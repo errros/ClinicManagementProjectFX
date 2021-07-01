@@ -168,7 +168,13 @@ public class WaitingRoomController implements Initializable {
                                 Alert alert = new Alert(Alert.AlertType.ERROR, "No Selected Patient.");
                                 alert.showAndWait();
                             }
-                            else WaitingRoom.delete(patient.getRdv_id());
+                            else {
+                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want delete?");
+                                if (alert.showAndWait().get() == ButtonType.OK) {
+                                    WaitingRoom.delete(patient.getRdv_id());
+                                }
+                            }
+
                         });
                         push.setOnAction((ActionEvent event) -> {
                             AppointmentSearchResult patient = table.getSelectionModel().getSelectedItem();

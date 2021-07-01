@@ -126,7 +126,13 @@ public class PatientsSceneController implements Initializable {
                                 Alert alert = new Alert(Alert.AlertType.ERROR, "No Selected Patient.");
                                 alert.showAndWait();
                             }
-                            else patient.delete();
+                            else {Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want delete" + patient.getFirst_name().toString() +
+                                    patient.getSecond_name().toString());
+                                if (alert.showAndWait().get() == ButtonType.OK) {
+                                    patient.delete();
+                                }
+
+                            }
                         });
 
                         vw.setOnAction((ActionEvent event) -> {
@@ -195,6 +201,11 @@ public class PatientsSceneController implements Initializable {
 
                         md.setOnAction((ActionEvent event) -> {
                             Patient patient = PatientsTableView.getSelectionModel().getSelectedItem();
+                            if (patient == null) {
+                                Alert alert = new Alert(Alert.AlertType.ERROR, "No Selected Patient.");
+                                alert.showAndWait();
+                            }
+                             else {
                             ModifyPatientController.selectedpatient = patient;
                             FXMLLoader fxmlload = new FXMLLoader(getClass().getResource("ModifyPatient.fxml"));
                             try {
@@ -208,6 +219,7 @@ public class PatientsSceneController implements Initializable {
                             scene = new Scene(root);
                             stage.setScene(scene);
                             stage.show();
+                        }
 
                         });
 
