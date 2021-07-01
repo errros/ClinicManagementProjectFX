@@ -40,6 +40,8 @@ public class Appointment {
 
     //add appointment to the db if it has an id of 0
     public void add(){
+
+
         if(rdv_id == 0 ){
 
             try {
@@ -54,6 +56,10 @@ public class Appointment {
 
                 System.out.println("Element added to the database .");
                 System.out.println("ID After being added to the db " + this.rdv_id);
+                WaitingRoom wr = new WaitingRoom();
+                 wr.add(this.patient_id,this.doctor_id);
+
+
                 stmt.close();
 
             } catch (SQLException e) {

@@ -13,9 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import logic.Consultation;
-import logic.Patient;
-import logic.WaitingRoom;
+import logic.*;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -138,6 +136,8 @@ public class AppConsController implements Initializable {
         addButtonClicked = false;
         oblist.get(0).addConsultationInfos();
         if (WaitingRoom.patientPushedFromPatientsScene != null) {
+
+
             WaitingRoom.deleteCurrentPatient();
 
         }

@@ -61,7 +61,6 @@ public class WaitingRoom {
 
 
 
-
     private void clear(){
 
         String query = "DELETE FROM waitingroom WHERE rdv_date < ?";
@@ -80,14 +79,16 @@ public class WaitingRoom {
     }
 
    public void update(){
+       System.out.println(this.todayDate);
         String query = "INSERT INTO waitingroom (rdv_id , patient_id , doctor_id , rdv_date) " +
-                "SELECT * FROM appointments WHERE rdv_date = ? ";
+                " SELECT * FROM appointments WHERE  rdv_date =  \""+this.todayDate+"\"";
 
        try {
 
-           PreparedStatement pr = cnx.prepareStatement(query);
-           pr.setDate(1,todayDate);
-           pr.executeUpdate();
+           Statement pr = cnx.createStatement();
+
+           System.out.println(query);
+           pr.executeUpdate(query);
 
 
        } catch (SQLException e) {
@@ -230,15 +231,16 @@ public class WaitingRoom {
         }
     }
     public void initialize(){
-        clear();
-        update();
+    //    clear();
+  //      update();
     }
     // this method will delete the current patient for the connected doctor from the db
     static public void deleteCurrentPatient() {
         if (AppController.user_id != 1  ) {
-            String query = "UPDATE patientsinconsultations"
+            String query = " UPDATE patientsinconsultations"
                     +" SET patient_id = NULL"
                     +" WHERE doctor_id = "+ AppController.user_id;
+            System.out.println(query);
             try{
                 Statement st = cnx.createStatement();
 
