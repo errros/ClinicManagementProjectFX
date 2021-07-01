@@ -71,7 +71,7 @@ public class WaitingRoomController implements Initializable {
     private Parent root;
     private Stage stage;
     private Scene scene;
-    boolean isPushed1=(WaitingRoom.currentPatient1!=null),isPushed2=(WaitingRoom.currentPatient2!=null),deleted=false;
+    boolean deleted=false,pushed=false;
     static boolean newAppointment=false;
 
     public void addAppointements(ActionEvent event) throws IOException {
@@ -210,6 +210,7 @@ public class WaitingRoomController implements Initializable {
                                 else {
                                     WaitingRoom.addCurrentPatient(patient.getPatientId(), a);
                                     AppConsController.initWaitingRoomStaticFields();
+                                    pushed=true;
                                 }
                             }
                         });
@@ -241,14 +242,15 @@ public class WaitingRoomController implements Initializable {
                 Runnable updater = new Runnable() {
                     @Override
                     public void run() {
-                        if (newAppointment==true || deleted ==true) {
+                        if (newAppointment==true || deleted ==true || pushed==true) {
                             if (newAppointment == true) {
                                 newAppointment=false;
                                 add.setDisable(false);
                             }
-                            else  {
+                            else if(deleted==true)  {
                                 deleted=false;
                             }
+                            else pushed=false;
                             getIt();
                         }
                     }

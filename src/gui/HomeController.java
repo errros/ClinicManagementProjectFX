@@ -1,5 +1,6 @@
 package gui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -38,6 +39,26 @@ public class HomeController implements Initializable {
         med1fullname.setText(med1);
         med2fullname.setText(med2);
         patientsnumber.setText(""+Patient.search("",1).size());
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Runnable updater = new Runnable() {
+                    @Override
+                    public void run() {
+                        patientsnumber.setText(""+Patient.search("",1).size());
+                    }
+                };
+                while (true) {
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException ex) {
+                    }
+                    Platform.runLater(updater);
+                }
+            }
+        });
+        thread.setDaemon(true);
+        thread.start();
 
     }
 }

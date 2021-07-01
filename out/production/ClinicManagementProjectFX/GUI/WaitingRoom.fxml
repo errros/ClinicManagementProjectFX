@@ -37,7 +37,7 @@
                 <Font size="14.0" />
             </font>
         </Button>
-      <Label fx:id="current" layoutX="665.0" layoutY="75.0" prefHeight="30.0" prefWidth="275.0">
+      <Label fx:id="current" layoutX="665.0" layoutY="75.0" AnchorPane.rightAnchor="139.66666666666669">
          <font>
             <Font size="20.0" />
          </font>

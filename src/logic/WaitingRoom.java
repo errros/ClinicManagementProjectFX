@@ -228,18 +228,10 @@ public class WaitingRoom {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
-
-
-
-
     public void initialize(){
-      if(LocalDate.now().isAfter(this.getTodayDate().toLocalDate())) {
-          clear();
-          update();
-      }
-
+        clear();
+        update();
     }
     // this method will delete the current patient for the connected doctor from the db
     static public void deleteCurrentPatient() {
@@ -247,8 +239,6 @@ public class WaitingRoom {
             String query = "UPDATE patientsinconsultations"
                     +" SET patient_id = NULL"
                     +" WHERE doctor_id = "+ AppController.user_id;
-
-
             try{
                 Statement st = cnx.createStatement();
 

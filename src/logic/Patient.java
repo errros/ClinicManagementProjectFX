@@ -58,9 +58,6 @@ public class Patient {
         }
 
     }
-
-
-
     public String getFirst_name() {
         return first_name;
     }
@@ -91,7 +88,6 @@ public class Patient {
     public static ObservableList<Patient> search(String criteria, int id) {
         ObservableList<Patient> patients = FXCollections.observableArrayList();
         String sql;
-
         if (id == 1) {
             sql = "SELECT * FROM patients WHERE firstName LIKE '%" + criteria + "%'" + " OR secondName LIKE '%" + criteria + "%'";
 
