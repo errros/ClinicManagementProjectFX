@@ -1,34 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="690.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.HomeController">
+<AnchorPane prefHeight="690.0" prefWidth="1060.0" stylesheets="@AppStyling.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.HomeController">
    <children>
-      <TextArea layoutX="52.0" layoutY="153.0" prefHeight="95.0" prefWidth="202.0" text="Profile description&#10;" />
-      <Label layoutX="52.0" layoutY="117.0" prefHeight="28.0" prefWidth="126.0" text="ASSIT FULL NAME" />
-      <Label layoutX="745.0" layoutY="117.0" prefHeight="28.0" prefWidth="126.0" text="MED 1 FULL NAME" />
-      <TextArea layoutX="745.0" layoutY="198.0" prefHeight="50.0" prefWidth="202.0" text="Profile description&#10;" />
-      <Label layoutX="745.0" layoutY="153.0" prefHeight="28.0" prefWidth="126.0" text="STATE" />
-      <Label layoutX="473.0" layoutY="116.0" prefHeight="28.0" prefWidth="126.0" text="MED 1 FULL NAME" />
-      <TextArea layoutX="473.0" layoutY="197.0" prefHeight="50.0" prefWidth="202.0" text="Profile description&#10;" />
-      <Label layoutX="473.0" layoutY="152.0" prefHeight="28.0" prefWidth="126.0" text="STATE" />
-      <TableView layoutX="51.0" layoutY="331.0" prefHeight="202.0" prefWidth="334.0">
-        <columns>
-          <TableColumn prefWidth="58.47271728515625" text="Order" />
-          <TableColumn prefWidth="91.63629150390625" text="Family name" />
-            <TableColumn prefWidth="75.92730712890625" text="First name" />
-            <TableColumn prefWidth="103.8544921875" text="Phone number" />
-        </columns>
-      </TableView>
-      <Label layoutX="51.0" layoutY="285.0" prefHeight="31.0" prefWidth="54.0" text="Queue : " />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="585.0" layoutY="331.0" prefHeight="118.0" prefWidth="118.0" style="-fx-border-width: 2; -fx-border-color: black; -fx-border-radius: 100; -fx-background-radius: 100;" text="NA" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="727.0" layoutY="331.0" prefHeight="118.0" prefWidth="118.0" style="-fx-border-width: 2; -fx-border-color: black; -fx-border-radius: 100; -fx-background-radius: 100;" text="NA" />
-      <Label layoutX="592.0" layoutY="463.0" text="Number of patients" />
-      <Label layoutX="745.0" layoutY="463.0" text="Today's Income" />
-      <Label layoutX="105.0" layoutY="285.0" prefHeight="31.0" prefWidth="202.0" text="Number of patients in waititngroom" />
+      <TextArea disable="true" layoutX="60.0" layoutY="153.0" prefHeight="95.0" prefWidth="202.0" text="Profile description&#10;" />
+      <Label fx:id="assitfullname" layoutX="60.0" layoutY="117.0" prefHeight="34.0" prefWidth="126.0" styleClass="headlabels" text="ASSIT FULL NAME" />
+      <Label fx:id="med2fullname" layoutX="800.0" layoutY="117.0" prefHeight="34.0" prefWidth="126.0" styleClass="headlabels" text="MED 2 FULL NAME" />
+      <TextArea disable="true" layoutX="800.0" layoutY="154.0" prefHeight="100.0" prefWidth="202.0" text="Médecin Ophtalmologue&#10;" />
+      <Label fx:id="med1fullname" layoutX="429.0" layoutY="117.0" prefHeight="34.0" prefWidth="126.0" styleClass="headlabels" text="MED 1 FULL NAME" />
+      <TextArea disable="true" layoutX="429.0" layoutY="154.0" prefHeight="100.0" prefWidth="202.0" text="Médecin Ophtalmologue&#10;" />
+      <Label fx:id="patientsnumber" alignment="BASELINE_CENTER" contentDisplay="CENTER" layoutX="306.0" layoutY="345.0" prefHeight="160.0" prefWidth="160.0" styleClass="circlelabel" text="NA" />
+      <Label fx:id="todayincome" alignment="BASELINE_CENTER" contentDisplay="CENTER" layoutX="593.0" layoutY="345.0" prefHeight="160.0" prefWidth="160.0" styleClass="circlelabel" text="NA" />
+      <Label layoutX="323.0" layoutY="527.0" styleClass="sublabels" text="Number of patients" />
+      <Label layoutX="621.0" layoutY="527.0" styleClass="sublabels" text="Today's Income" />
    </children>
 </AnchorPane>

@@ -85,6 +85,38 @@ BorderPane {
     -fx-background-color: rgba(250,250,250,1);
 }
 
+
+.circlelabel {
+    -fx-border-width: 3;
+    -fx-border-color:  linear-gradient(from 0% 0% to 100% 100%, rgba(66,102,157,0.92), rgba(105,188,197,0.74));
+    -fx-border-radius: 100;
+    -fx-background-radius: 100;
+    -fx-text-fill: linear-gradient(from 0% 0% to 100% 100%, rgba(66,102,157,0.92), rgba(105,188,197,0.74));
+    -fx-font-family: "Roboto Black";
+    -fx-font-size: 40;
+}
+
+.sublabels {
+    -fx-font-family: "Poppins SemiBold";
+    -fx-font-size: 13;
+    -fx-text-fill: linear-gradient(from 0% 0% to 100% 100%, rgba(66,102,157,0.92), rgba(53, 114, 120, 0.74));
+}
+
+.headlabels {
+    fx-font-size: 22;
+    -fx-alignment: baseline-left ;
+    -fx-font-family: Poppins;
+    -fx-text-fill: rgba(86,86,86,1);
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-font-family: "Poppins SemiBold";
+
+}
+
+TextArea {
+    -fx-font-family: "Poppins Light";
+}
+
 #DateTimeLab{
     -fx-background-color: white;
     -fx-background-radius: 2;

@@ -1,6 +1,7 @@
 package logic;
 
 import dao.CnxWithDB;
+import gui.HomeController;
 import javafx.scene.control.Button;
 
 import java.sql.Connection;
@@ -25,6 +26,7 @@ public  class Login {
             if(rs.next()){
                 String us = rs.getString("username");
                 b1.setText(us);
+                HomeController.assist = us;
             }
 
             st.setInt(1, 2);
@@ -32,6 +34,7 @@ public  class Login {
             if(rs.next()) {
                 String us =  rs.getString("username");
               b2.setText(us);
+                HomeController.med1 = us;
             }
 
 
@@ -42,6 +45,7 @@ public  class Login {
 
                 String us =  rs.getString("username");
                 b3.setText(us);
+                HomeController.med2 = us;
 
 
             }

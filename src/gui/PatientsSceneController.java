@@ -261,6 +261,7 @@ public class PatientsSceneController implements Initializable {
         col_actions.setCellFactory(cellFactory);
         getIt();
         searchField.setPromptText("Search ");
+        
     }
 }
 
