@@ -108,7 +108,7 @@ public class Medicament {
 
         this.id = getId(this.name,this.form,this.dosage);
         System.out.println("medicament id = "+this.id);
-        System.out.println("consult id " + consult_id);
+
         try {
             int c1, c2, c3;
             c1 = ((checkBox_matin.isSelected()) ? 1 : 0);

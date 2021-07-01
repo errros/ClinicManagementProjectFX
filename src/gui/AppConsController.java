@@ -14,12 +14,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import logic.Consultation;
-import logic.Medicament;
 import logic.Patient;
 import logic.WaitingRoom;
 
 import java.net.URL;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Optional;
@@ -28,96 +29,94 @@ import java.util.ResourceBundle;
 public class AppConsController implements Initializable {
 
 
+    public static ObservableList<Consultation> oblist;
     static private Connection cnx = CnxWithDB.getConnection();
-
+    private static boolean addButtonClicked = false;
     @FXML
     private Label personalInformationsLabel;
-
     @FXML
     private Label firstNameLabel;
-@FXML
-private Button refresh;
-
+    @FXML
+    private Button refresh;
     @FXML
     private TextField sName;
-
     @FXML
     private Label secondNameLabel;
-
     @FXML
     private TextField sFameName;
-
     @FXML
     private Label sexLabel;
-
     @FXML
     private TextField sSex;
-
     @FXML
     private Label ageLabel;
-
     @FXML
     private TextField sAge;
-
     @FXML
     private Label consultationInformationsLabel;
-
     @FXML
     private Label heightLabel;
-
     @FXML
     private TextField height;
-
     @FXML
     private Label weightLabel;
-
     @FXML
     private TextField weight;
-
     @FXML
     private Label blood_pressureLabel;
-
     @FXML
     private TextField blood_pressure;
-
     @FXML
     private Label blood_gluLabel;
-
     @FXML
     private TextField blood_glu;
-
     @FXML
     private Label temperatureLabel;
-
     @FXML
     private TextField tomperature;
-
     @FXML
     private TableView<Consultation> history;
-
     @FXML
     private TableColumn<Consultation, String> consultations;
-
     @FXML
     private Button save_New;
-
     @FXML
     private Button View_Medicaments;
-
     @FXML
     private Button new_consultation;
-
     @FXML
     private Button prescription;
-
     @FXML
     private Label emptyLabel;
-
-
-    public static ObservableList<Consultation> oblist;
-     private static boolean addButtonClicked = false;
     private Patient patient;
 
+    static public void initWaitingRoomStaticFields() {
+        if (AppController.user_id == 1) {
+            int a = WaitingRoom.getCurrentPatientIdFromDB(1);
+            if (a != 0) {
+                WaitingRoom.currentPatient1 = Patient.getPatientById(a);
+            }
+            int b = WaitingRoom.getCurrentPatientIdFromDB(2);
+            if (b != 0) {
+                WaitingRoom.currentPatient2 = Patient.getPatientById(b);
+            }
+        }
+
+        if (AppController.user_id == 2) {
+            int a = WaitingRoom.getCurrentPatientIdFromDB(1);
+            if (a != 0) {
+                WaitingRoom.currentPatient1 = Patient.getPatientById(a);
+            }
+
+        } else if (AppController.user_id == 3) {
+            int a = WaitingRoom.getCurrentPatientIdFromDB(2);
+            if (a != 0) {
+                WaitingRoom.currentPatient2 = Patient.getPatientById(a);
+            }
+
+        }
+
+    }
 
     public void View_Medicaments(MouseEvent mouseEvent) {
         try {
@@ -136,14 +135,16 @@ private Button refresh;
     void saveNewValue(ActionEvent event) {
 
 
-          addButtonClicked = false;
-          oblist.get(0).addConsultationInfos();
-          WaitingRoom.deleteCurrentPatient();
-          init();
+        addButtonClicked = false;
+        oblist.get(0).addConsultationInfos();
+        if (WaitingRoom.patientPushedFromPatientsScene != null) {
+            WaitingRoom.deleteCurrentPatient();
+
+        }
+        init();
 
 
     }
-
 
     @FXML
     void showinfos(MouseEvent event) {
@@ -155,7 +156,7 @@ private Button refresh;
             blood_glu.setText(String.valueOf(consultation.getBlood_glu()));
             tomperature.setText(String.valueOf(consultation.getTomperature()));
 
-            if(addButtonClicked) {
+            if (addButtonClicked) {
                 if (consultation == oblist.get(0)) {
                     setEditableConsultationInfos(true);
                     new_consultation.setVisible(false);
@@ -171,10 +172,9 @@ private Button refresh;
                     prescription.setVisible(true);
 
                 }
-            }
-            else  {
+            } else {
                 setEditableConsultationInfos(false);
-                 save_New.setVisible(false);
+                save_New.setVisible(false);
                 prescription.setVisible(true);
                 View_Medicaments.setVisible(false);
                 new_consultation.setVisible(true);
@@ -184,7 +184,6 @@ private Button refresh;
         }
     }
 
-
     private void setEditableConsultationInfos(boolean b) {
         height.setEditable(b);
         weight.setEditable(b);
@@ -192,8 +191,6 @@ private Button refresh;
         blood_glu.setEditable(b);
         tomperature.setEditable(b);
     }
-
-
 
     //make all elements in the scene invisible/visible
     private void setVisibleConsultationElements(Boolean b) {
@@ -228,68 +225,36 @@ private Button refresh;
         emptyLabel.setLayoutY(320);
     }
 
+    private void setButtonsVisibility() {
 
-    private void setButtonsVisibility(){
+        if (addButtonClicked) {
 
-        if(addButtonClicked){
+            if (history.getSelectionModel().getSelectedIndex() == 0) {
+                new_consultation.setVisible(false);
+                View_Medicaments.setVisible(true);
+                save_New.setVisible(true);
+                prescription.setVisible(true);
+            } else {
+                new_consultation.setVisible(false);
+                View_Medicaments.setVisible(false);
+                save_New.setVisible(false);
+                prescription.setVisible(true);
+            }
 
-        if(history.getSelectionModel().getSelectedIndex() == 0) {
-            new_consultation.setVisible(false);
-            View_Medicaments.setVisible(true);
-            save_New.setVisible(true);
-            prescription.setVisible(true);
+
         } else {
-            new_consultation.setVisible(false);
+
+            new_consultation.setVisible(true);
             View_Medicaments.setVisible(false);
             save_New.setVisible(false);
             prescription.setVisible(true);
-        }
 
-
-    } else{
-
-           new_consultation.setVisible(true);
-             View_Medicaments.setVisible(false);
-            save_New.setVisible(false);
-             prescription.setVisible(true);
-
-             if(oblist.size()>0){
-                 selectFirstInHistory();
-             }
-    }
-
-        }
-
-
-
-     static public void initWaitingRoomStaticFields(){
-        if(AppController.user_id == 1) {
-            int a = WaitingRoom.getCurrentPatientIdFromDB(1);
-            if(a!=0) {
-                WaitingRoom.currentPatient1 = Patient.getPatientById(a);
+            if (oblist.size() > 0) {
+                selectFirstInHistory();
             }
-            int b = WaitingRoom.getCurrentPatientIdFromDB(2);
-            if(b!=0) {
-                WaitingRoom.currentPatient2 = Patient.getPatientById(b);
-            }
-        }
-
-        if(AppController.user_id == 2){
-            int a = WaitingRoom.getCurrentPatientIdFromDB(1);
-            if(a!=0) {
-                WaitingRoom.currentPatient1 = Patient.getPatientById(a);
-            }
-
-        } else if (AppController.user_id == 3){
-            int a = WaitingRoom.getCurrentPatientIdFromDB(2);
-            if(a!=0) {
-                WaitingRoom.currentPatient2 = Patient.getPatientById(a);
-            }
-
         }
 
     }
-
 
     private Optional<ButtonType> showConfirmationAlert(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
@@ -308,29 +273,35 @@ private Button refresh;
         new_consultation.setVisible(false);
         View_Medicaments.setVisible(true);
         save_New.setVisible(true);
-        oblist.add(0, new Consultation(patient.getPatientId(), 170, 70, 110,
-                1.2, 37.5, Date.valueOf(LocalDate.now())));
-        oblist.get(0).addWithoutConsultationInfos();
-  patient.addAssociateDoctor(AppController.user_id);
+
+        Timestamp s = new Timestamp(System.currentTimeMillis());
+        Consultation c = new Consultation(patient.getPatientId(), 170, 70, 110,
+                1.2, 37.5, s);
+        c.addWithoutConsultationInfos();
+        c.updateConsultationId();
+        System.out.println("the consultation id is "+ c.consultation_id);
+        oblist.add(0,c);
+
+
+        patient.addAssociateDoctor(AppController.user_id);
         addButtonClicked = true;
 
 
         selectFirstInHistory();
 
 
-
     }
 
 
-    private void selectFirstInHistory(){
+    private void selectFirstInHistory() {
 
-            history.getSelectionModel().select(0);
-            showinfos(null);
+        history.getSelectionModel().select(0);
+        showinfos(null);
 
 
     }
 
-@FXML
+    @FXML
     void refresh(ActionEvent event) {
 
         WaitingRoom.patientPushedFromPatientsScene = null;
@@ -344,7 +315,6 @@ private Button refresh;
             if (!result.isPresent() || result.get() == ButtonType.CANCEL) {
 
 
-
             } else if (result.get() == ButtonType.OK) {
                 //oke button is pressed
 
@@ -355,11 +325,11 @@ private Button refresh;
                 addButtonClicked = false;
                 cleanConsultationFields();
 
-            init();
+                init();
             }
 
         } else {
-            if(oblist.size()>0){
+            if (oblist.size() > 0) {
                 selectFirstInHistory();
             }
         }
@@ -367,7 +337,7 @@ private Button refresh;
 
     }
 
-    private void cleanConsultationFields(){
+    private void cleanConsultationFields() {
 
         height.setText("");
         weight.setText("");
@@ -376,11 +346,27 @@ private Button refresh;
         tomperature.setText("");
 
     }
-     private void updateOblist(){
-          oblist.clear();
-         oblist.addAll(Consultation.history(patient.getId()));
 
-     }
+    private void updateOblist() {
+        oblist.clear();
+        oblist.addAll(Consultation.history(patient.getId()));
+
+    }
+
+    @FXML
+    void showPrescription(ActionEvent event) {
+
+        Consultation consultation = history.getSelectionModel().getSelectedItem();
+
+        consultation.updateConsultationId();
+
+        if (consultation != null) {
+
+            consultation.print(sName.getText() , sFameName.getText(),sAge.getText(),"ans");
+
+
+        }
+    }
 
 
     // a way to be able to call initialize everytime a new patient is pushed
@@ -390,18 +376,17 @@ private Button refresh;
 
         initWaitingRoomStaticFields();
 
-        if(WaitingRoom.patientPushedFromPatientsScene != null){
+        if (WaitingRoom.patientPushedFromPatientsScene != null) {
 
             patient = WaitingRoom.patientPushedFromPatientsScene;
-        }
-        else if(AppController.user_id == 2){
+        } else if (AppController.user_id == 2) {
             patient = WaitingRoom.currentPatient1;
-        } else if(AppController.user_id == 3){
+        } else if (AppController.user_id == 3) {
             patient = WaitingRoom.currentPatient2;
         }
 
         if (patient != null) {
-              emptyLabel.setVisible(false);
+            emptyLabel.setVisible(false);
             sName.setText(patient.getFirst_name());
             sFameName.setText(patient.getSecond_name());
             sSex.setText(patient.getSex());
@@ -412,7 +397,7 @@ private Button refresh;
             sAge.setText(Integer.toString(y));
 
 
-            if(!addButtonClicked){
+            if (!addButtonClicked) {
                 updateOblist();
 
 
@@ -420,19 +405,15 @@ private Button refresh;
             history.setItems(oblist);
 
 
-            if(oblist.size()>0) {
+            if (oblist.size() > 0) {
 
                 selectFirstInHistory();
-            }else
-            {
+            } else {
                 new_consultation.setVisible(true);
                 View_Medicaments.setVisible(false);
                 save_New.setVisible(false);
                 prescription.setVisible(false);
             }
-
-
-
 
 
         } else {
@@ -445,19 +426,17 @@ private Button refresh;
     }
 
 
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         {
             consultations.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-            if(!addButtonClicked){
+            if (!addButtonClicked) {
                 oblist = FXCollections.observableArrayList();
                 init();
 
 
-            }else {
+            } else {
 
                 init();
             }

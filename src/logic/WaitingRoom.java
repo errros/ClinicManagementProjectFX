@@ -245,8 +245,8 @@ public class WaitingRoom {
     static public void deleteCurrentPatient() {
         if (AppController.user_id != 1  ) {
             String query = "UPDATE patientsinconsultations"
-                    +"SET patient_id = NULL"
-                    +"WHERE doctor_id = "+ AppController.user_id;
+                    +" SET patient_id = NULL"
+                    +" WHERE doctor_id = "+ AppController.user_id;
 
 
             try{
