@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="636.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.WaitingRoomController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="636.0" prefWidth="1080.0" stylesheets="@AppStyling.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.WaitingRoomController">
     <children>
-        <TableView fx:id="table" layoutX="140.0" layoutY="206.0" prefHeight="370.0" prefWidth="800.0">
+        <TableView fx:id="table" layoutX="60.0" layoutY="206.0" prefHeight="370.0" prefWidth="800.0">
             <columns>
                 <TableColumn fx:id="col_actions" prefWidth="120.0" resizable="false" text="Actions" />
                 <TableColumn fx:id="col_fname" prefWidth="140.0" resizable="false" text="Family Name" />
@@ -21,23 +21,23 @@
                 <TableColumn fx:id="col_num" prefWidth="120.0" resizable="false" text="Phone Number" />
             </columns>
         </TableView>
-        <TextField fx:id="search" layoutX="140.0" layoutY="173.0" prefHeight="30.0" prefWidth="182.0">
+        <TextField fx:id="search" layoutX="60.0" layoutY="173.0" prefHeight="30.0" prefWidth="182.0">
             <font>
                 <Font size="14.0" />
             </font>
         </TextField>
-        <ComboBox fx:id="filter" layoutX="325.0" layoutY="173.0" onAction="#getIt" prefHeight="30.0" prefWidth="123.0" promptText="Filter" />
-        <Label fx:id="waitingRoomLabel" alignment="CENTER" layoutX="140.0" layoutY="60.0" text="Waiting Room">
+        <ComboBox fx:id="filter" layoutX="260.0" layoutY="173.0" onAction="#getIt" prefHeight="30.0" prefWidth="123.0" promptText="Filter" />
+        <Label fx:id="waitingRoomLabel" alignment="CENTER" layoutX="60.0" layoutY="15.0" styleClass="PanelHead" text="Waiting Room" AnchorPane.leftAnchor="60.0">
             <font>
                 <Font size="40.0" />
             </font>
         </Label>
-        <Button fx:id="add" layoutX="822.0" layoutY="173.0" mnemonicParsing="false" onAction="#addAppointements" prefHeight="30.0" prefWidth="117.0" text="Add New">
+        <Button fx:id="add" layoutX="744.0" layoutY="173.0" mnemonicParsing="false" onAction="#addAppointements" prefHeight="30.0" prefWidth="117.0" styleClass="appbutton" text="Add New">
             <font>
                 <Font size="14.0" />
             </font>
         </Button>
-      <Label fx:id="current" layoutX="665.0" layoutY="75.0" prefHeight="30.0" prefWidth="275.0">
+      <Label fx:id="current" layoutX="584.0" layoutY="71.0" styleClass="medlabelpush" AnchorPane.rightAnchor="220.2181913820374">
          <font>
             <Font size="20.0" />
          </font>

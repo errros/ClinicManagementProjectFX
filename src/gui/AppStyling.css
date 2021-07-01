@@ -60,6 +60,12 @@ TextField {
     -fx-border-radius: 5;
 }
 
+.medlabelpush {
+    -fx-font-family: "Poppins SemiBold";
+    -fx-font-size: 20;
+    -fx-text-fill: linear-gradient(from 0% 0% to 100% 100%, rgba(66,102,157,0.92), rgba(53, 114, 120, 0.74));
+
+}
 DatePicker {
     -fx-background-radius: 5;
     -fx-border-radius: 5;
@@ -75,7 +81,7 @@ DatePicker {
 ComboBox {
     -fx-font-size: 13;
     -fx-font-family: "Poppins";
-    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, rgba(66,102,157,0.2), rgba(105,188,197,0.5));
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, rgba(66,102,157,0.3), rgba(53, 114, 120, 0.5));
     -fx-text-fill: white;
     -fx-background-radius: 2;
     -fx-border-radius: 2;
@@ -117,6 +123,16 @@ TextArea {
     -fx-font-family: "Poppins Light";
 }
 
+.PanelHead {
+
+    -fx-alignment: baseline-left ;
+    -fx-font-family: "Poppins Black";
+    -fx-font-size: 38;
+    -fx-text-fill: linear-gradient(from 0% 0% to 100% 100%, rgba(66,102,157,0.92), rgba(53, 114, 120, 0.74));
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-font-family: "Poppins SemiBold";
+}
 #DateTimeLab{
     -fx-background-color: white;
     -fx-background-radius: 2;
@@ -126,9 +142,6 @@ TextArea {
     -fx-font-family: "Poppins SemiBold";
 }
 
-#SearchField {
-    -fx-background-color: white;
-}
 
 .Addnewpatientvbox {
 
@@ -136,6 +149,20 @@ TextArea {
     -fx-border-color: linear-gradient(from 0% 0% to 100% 100%, rgba(66,102,157,0.5), rgba(105,188,197,0.5));
     -fx-border-radius: 15;
     -fx-background-radius: 15;
+}
+
+.appbutton {
+    -fx-background-radius: 5;
+
+    -fx-font-size: 14.0;
+    -fx-font-family: Poppins;
+    -fx-text-fill: rgba(255, 255, 255, 0.7);
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, rgba(66,102,157,0.68), rgba(53, 114, 120, 0.70));
+    -fx-border-width: 0px;
+    -fx-border-color: rgba(86, 86, 86, 0.7);
+    -fx-padding: 1px;
+    -fx-graphic-text-gap: 0px;
+    -fx-effect: dropshadow(gaussian, rgba(127,139,232,0.3) ,16,0.1,0,4);
 }
 
 .Labeladdpatientvbox {

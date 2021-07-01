@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane onMouseMoved="#getIt" prefHeight="690.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PatientsSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" onMouseMoved="#getIt" prefHeight="690.0" prefWidth="1060.0" stylesheets="@AppStyling.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PatientsSceneController">
    <children>
-      <TableView fx:id="PatientsTableView" layoutX="140.0" layoutY="206.0" prefHeight="370.0" prefWidth="800.0">
+      <TableView fx:id="PatientsTableView" layoutX="60.0" layoutY="232.0" prefHeight="370.0" prefWidth="800.0">
         <columns>
           <TableColumn fx:id="col_actions" prefWidth="132.0" resizable="false" text="Actions" />
           <TableColumn fx:id="col_familyname" prefWidth="125.0" resizable="false" text="Family name" />
@@ -21,14 +21,14 @@
             <TableColumn fx:id="col_phonenumber" prefWidth="122.0" resizable="false" text="Phone number" />
         </columns>
       </TableView>
-      <TextField fx:id="searchField" layoutX="140.0" layoutY="170.0" prefHeight="31.0" prefWidth="168.0" />
-      <Button layoutX="822.0" layoutY="168.0" mnemonicParsing="false" onAction="#addPatient" prefHeight="30.0" prefWidth="117.0" text="Add new patient" />
-      <Label fx:id="DateTimeLab" alignment="BASELINE_CENTER" layoutX="822.0" layoutY="76.0" prefHeight="30.0" prefWidth="117.0" text="Date and time">
+      <TextField fx:id="searchField" layoutX="60.0" layoutY="196.0" prefHeight="31.0" prefWidth="168.0" />
+      <Button layoutX="681.0" layoutY="196.0" mnemonicParsing="false" onAction="#addPatient" prefHeight="30.0" prefWidth="179.0" styleClass="appbutton" text="Add new patient" />
+      <Label fx:id="DateTimeLab" alignment="BASELINE_CENTER" layoutX="742.0" layoutY="73.0" prefHeight="30.0" prefWidth="117.0" text="Date and time">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="140.0" layoutY="60.0" text="Patients">
+      <Label layoutX="60.0" layoutY="15.0" styleClass="PanelHead" text="Patients" AnchorPane.leftAnchor="60.0">
          <font>
             <Font size="40.0" />
          </font>

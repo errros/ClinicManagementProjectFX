@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane onMouseClicked="#showinfos" prefHeight="636.0" prefWidth="1080.0" stylesheets="@AppStyling.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AppConsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#showinfos" prefHeight="636.0" prefWidth="1080.0" stylesheets="@AppStyling.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AppConsController">
     <children>
       <VBox layoutX="49.0" layoutY="83.0" prefHeight="380.0" prefWidth="292.0">
          <children>

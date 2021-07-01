@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane onMouseClicked="#showinfos" prefHeight="636.0" prefWidth="1080.0" stylesheets="@AppStyling.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AppConsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#showinfos" prefHeight="636.0" prefWidth="1080.0" stylesheets="@AppStyling.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AppConsController">
     <children>
       <VBox layoutX="49.0" layoutY="83.0" prefHeight="380.0" prefWidth="292.0">
          <children>
@@ -109,11 +109,11 @@
             <Button fx:id="prescription" layoutX="39.0" layoutY="104.0" mnemonicParsing="false" onAction="#addinfos" prefHeight="25.0" prefWidth="126.0" text="Prescription" />
          </children>
       </AnchorPane>
-      <Label fx:id="emptyLabel" layoutX="332.0" layoutY="67.0" text="There is no current patient.">
+      <Label fx:id="emptyLabel" layoutX="332.0" layoutY="67.0" styleClass="headlabels" text="There is no current patient.">
          <font>
-            <Font name="System Bold Italic" size="25.0" />
+            <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-      <Button fx:id="refresh" layoutX="97.0" layoutY="42.0" mnemonicParsing="false" onAction="#refresh" prefHeight="36.0" prefWidth="62.0" text="Refresh" />
+      <Button fx:id="refresh" layoutX="97.0" layoutY="42.0" mnemonicParsing="false" onAction="#refresh" prefHeight="36.0" prefWidth="62.0" styleClass="appbutton" text="Refresh" />
     </children>
 </AnchorPane>
