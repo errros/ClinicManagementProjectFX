@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 01, 2021 at 04:09 AM
+-- Generation Time: Jul 01, 2021 at 01:42 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 7.4.16
 
@@ -64,7 +64,8 @@ INSERT INTO `appointments` (`rdv_id`, `patient_id`, `doctor_id`, `rdv_date`) VAL
 (113, 6, 2, '2021-06-29'),
 (114, 20, 2, '2021-06-29'),
 (116, 10, 2, '2021-06-30'),
-(117, 6, 2, '2021-06-30');
+(117, 6, 2, '2021-06-30'),
+(120, 4, 2, '2021-07-01');
 
 -- --------------------------------------------------------
 
@@ -82,11 +83,28 @@ CREATE TABLE `associateddoctors` (
 --
 
 INSERT INTO `associateddoctors` (`patient_id`, `user_id`) VALUES
+(3, 2),
+(4, 2),
+(4, 3),
+(5, 2),
+(5, 3),
+(6, 2),
+(7, 2),
+(7, 3),
+(9, 3),
+(10, 2),
+(17, 3),
+(22, 2),
 (22, 3),
+(24, 3),
+(26, 3),
 (27, 3),
 (28, 3),
 (29, 2),
-(29, 3);
+(29, 3),
+(30, 2),
+(32, 2),
+(32, 3);
 
 -- --------------------------------------------------------
 
@@ -102,30 +120,33 @@ CREATE TABLE `consultation` (
   `blood_pre` int(3) DEFAULT NULL,
   `blood_glu` double(4,3) DEFAULT NULL,
   `temp` double(4,2) DEFAULT NULL,
-  `date` date DEFAULT NULL
+  `date` date DEFAULT NULL,
+  `exactTime` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `consultation`
 --
 
-INSERT INTO `consultation` (`id`, `patient_id`, `height`, `weight`, `blood_pre`, `blood_glu`, `temp`, `date`) VALUES
-(1, 17, 177, 55, 111, 1.550, 35.88, '2021-06-14'),
-(3, 29, 165, 79, 111, 1.230, 38.70, '2021-06-14'),
-(4, 29, 165, 77, 110, 1.290, 39.00, '2020-03-11'),
-(5, 32, 177, 55, 111, 1.550, 35.88, '2021-06-02'),
-(6, 32, 177, 55, 111, 1.550, 35.88, '2021-06-02'),
-(7, 32, 165, 79, 111, 1.230, 39.00, '2020-06-04'),
-(8, 5, 195, 87, 133, 1.550, 38.70, '2020-08-06'),
-(9, 31, NULL, NULL, NULL, NULL, NULL, '2021-07-01'),
-(10, 22, 170, 70, 110, 1.200, 37.50, '2021-07-01'),
-(11, 22, NULL, NULL, NULL, NULL, NULL, '2021-07-01'),
-(12, 3, NULL, NULL, NULL, NULL, NULL, '2021-07-01'),
-(13, 8, NULL, NULL, NULL, NULL, NULL, '2021-07-01'),
-(15, 30, NULL, NULL, NULL, NULL, NULL, '2021-07-01'),
-(17, 32, 170, 70, 110, 1.200, 37.50, '2021-07-01'),
-(18, 32, NULL, NULL, NULL, NULL, NULL, '2021-07-01'),
-(19, 5, NULL, NULL, NULL, NULL, NULL, '2021-07-01');
+INSERT INTO `consultation` (`id`, `patient_id`, `height`, `weight`, `blood_pre`, `blood_glu`, `temp`, `date`, `exactTime`) VALUES
+(61, 3, NULL, NULL, NULL, NULL, NULL, '2021-07-01', '2021-07-01 10:39:03'),
+(62, 3, NULL, NULL, NULL, NULL, NULL, '2021-07-01', '2021-07-01 10:42:31'),
+(63, 7, NULL, NULL, NULL, NULL, NULL, '2021-07-01', '2021-07-01 10:52:47'),
+(64, 5, NULL, NULL, NULL, NULL, NULL, '2021-07-01', '2021-07-01 10:53:40'),
+(65, 9, NULL, NULL, NULL, NULL, NULL, '2021-07-01', '2021-07-01 10:59:08'),
+(66, 9, 170, 70, 110, 1.200, 37.50, '2021-07-01', '2021-07-01 11:01:32'),
+(67, 9, 170, 70, 110, 1.200, 37.50, '2021-07-01', '2021-07-01 11:02:41'),
+(69, 32, 170, 70, 110, 1.200, 37.50, '2021-07-01', '2021-07-01 11:09:18'),
+(70, 32, 170, 70, 110, 1.200, 37.50, '2021-07-01', '2021-07-01 11:10:21'),
+(71, 24, 170, 70, 110, 1.200, 37.50, '2021-07-01', '2021-07-01 11:14:55'),
+(72, 24, 170, 70, 110, 1.200, 37.50, '2021-07-01', '2021-07-01 11:15:28'),
+(73, 4, 170, 70, 110, 1.200, 37.50, '2021-07-01', '2021-07-01 11:21:08'),
+(74, 5, 170, 70, 110, 1.200, 37.50, '2021-07-01', '2021-07-01 11:28:17'),
+(75, 5, 170, 70, 110, 1.200, 37.50, '2021-07-01', '2021-07-01 11:28:57'),
+(76, 4, 170, 70, 110, 1.200, 37.50, '2021-07-01', '2021-07-01 11:29:47'),
+(77, 5, 170, 70, 110, 1.200, 37.50, '2021-07-01', '2021-07-01 11:36:54'),
+(78, 22, 170, 70, 110, 1.200, 37.50, '2021-07-01', '2021-07-01 11:37:35'),
+(79, 22, 170, 70, 110, 1.200, 37.50, '2021-07-01', '2021-07-01 11:38:14');
 
 -- --------------------------------------------------------
 
@@ -4844,8 +4865,8 @@ CREATE TABLE `patientsinconsultations` (
 --
 
 INSERT INTO `patientsinconsultations` (`doctor_id`, `patient_id`) VALUES
-(2, 22),
-(1, 32);
+(2, NULL),
+(1, 5);
 
 -- --------------------------------------------------------
 
@@ -4866,11 +4887,25 @@ CREATE TABLE `prescription` (
 --
 
 INSERT INTO `prescription` (`consult_id`, `med_id`, `matin`, `midi`, `soir`) VALUES
-(1, 2, 1, 0, 0),
-(1, 4, 1, 0, 0),
-(1, 6, 0, 0, 1),
-(1, 3, 0, 0, 1),
-(1, 9, 0, 1, 0);
+(66, 7, 1, 0, 1),
+(67, 5, 0, 1, 0),
+(69, 1, 1, 1, 0),
+(70, 4, 0, 1, 1),
+(70, 6, 0, 1, 0),
+(71, 2, 1, 1, 0),
+(71, 5, 0, 0, 1),
+(71, 9, 0, 1, 0),
+(72, 3823, 1, 0, 0),
+(73, 6, 0, 0, 1),
+(74, 5, 0, 0, 1),
+(75, 4, 1, 0, 0),
+(76, 2103, 0, 0, 1),
+(76, 2105, 1, 0, 0),
+(77, 5, 1, 0, 0),
+(78, 4, 1, 0, 1),
+(79, 1148, 0, 0, 0),
+(79, 1151, 0, 0, 1),
+(79, 1152, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -4918,7 +4953,9 @@ INSERT INTO `waitingroom` (`rdv_id`, `patient_id`, `doctor_id`, `rdv_date`) VALU
 (121, 22, 3, '2021-06-30'),
 (122, 32, 2, '2021-06-30'),
 (123, 7, 3, '2021-06-30'),
-(124, 32, 3, '2021-06-30');
+(124, 32, 3, '2021-06-30'),
+(126, 5, 2, '2021-07-01'),
+(127, 7, 3, '2021-07-01');
 
 --
 -- Indexes for dumped tables
@@ -4994,13 +5031,13 @@ ALTER TABLE `waitingroom`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `rdv_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
+  MODIFY `rdv_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT for table `consultation`
 --
 ALTER TABLE `consultation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `medicaments`
@@ -5018,7 +5055,7 @@ ALTER TABLE `patients`
 -- AUTO_INCREMENT for table `waitingroom`
 --
 ALTER TABLE `waitingroom`
-  MODIFY `rdv_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `rdv_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
 
 --
 -- Constraints for dumped tables

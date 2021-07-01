@@ -1,13 +1,17 @@
 package gui;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import logic.Patient;
 
 import java.io.IOException;
@@ -40,6 +44,7 @@ public class AddPatientController implements Initializable {
 
     @FXML
     private ComboBox sex_combo;
+    Stage window;
 
 
     private LocalDate myDate = LocalDate.now();
@@ -66,14 +71,13 @@ public class AddPatientController implements Initializable {
                 patient = new Patient(fisrt_name_txtf.getText(), second_name_txtf.getText(),
                         dateSQL, sex_combo.getValue().toString(), address_txtf.getText(), phone_number_txtf.getText());
                 patient.add();
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                PatientsSceneController.newPatient=true;
+                window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.close();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Patient added sucessfully!");
                 alert.showAndWait();
             }
         }
-
-
     }
 
     @Override
@@ -86,6 +90,5 @@ public class AddPatientController implements Initializable {
         date_of_birth_dp.setValue(myDate);
         dateformat = myDate.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
         dateSQL = Date.valueOf(myDate.toString());
-
     }
 }

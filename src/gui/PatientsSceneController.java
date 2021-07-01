@@ -1,5 +1,6 @@
 package gui;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
@@ -55,6 +56,8 @@ public class PatientsSceneController implements Initializable {
     private TableColumn<Patient, String> col_phonenumber;
     @FXML
     private TableColumn<Patient, String> col_address;
+    @FXML
+    private Button add;
 
     private ObservableList<Patient> patientsList;
     private FilteredList<Patient> searchResultList;
@@ -66,9 +69,11 @@ public class PatientsSceneController implements Initializable {
             "-fx-pref-height: 18;" +
             "-fx-pref-width: 18;" +
             "-fx-border-width: 0;" ;
-
+    static boolean newPatient=false;
+    boolean deleted=false;
 
     public void addPatient(ActionEvent event) throws IOException {
+        add.setDisable(true);
         FXMLLoader fxmlload = new FXMLLoader(getClass().getResource("addPatient.fxml"));
         root = (Parent) fxmlload.load();
         //any information needing to be copied to the addPatientPage;
@@ -126,10 +131,10 @@ public class PatientsSceneController implements Initializable {
                                 Alert alert = new Alert(Alert.AlertType.ERROR, "No Selected Patient.");
                                 alert.showAndWait();
                             }
-                            else {Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want delete" + patient.getFirst_name().toString() +
-                                    patient.getSecond_name().toString());
+                            else {Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete " +patient.getSecond_name()+" "+patient.getFirst_name());
                                 if (alert.showAndWait().get() == ButtonType.OK) {
                                     patient.delete();
+                                    deleted=true;
                                 }
 
                             }
@@ -259,6 +264,33 @@ public class PatientsSceneController implements Initializable {
         col_sex.setCellValueFactory(new PropertyValueFactory<Patient, String>("sex"));
         col_actions.setCellFactory(cellFactory);
         getIt();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Runnable updater = new Runnable() {
+                    @Override
+                    public void run() {
+                        if (newPatient==true || deleted ==true) {
+                            if (newPatient == true) {
+                                newPatient=false;
+                                add.setDisable(false);
+                            }
+                            else  {
+                                deleted=false;
+                            }
+                            getIt();
+                        }
+                    }
+                };
+                while (true) {
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException ex) {
+                    }
+                    Platform.runLater(updater);
+                }
+            }
+        });
         searchField.setPromptText("Search ");
         
     }
