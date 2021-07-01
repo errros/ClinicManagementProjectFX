@@ -73,7 +73,7 @@ public class PatientsSceneController implements Initializable {
     boolean deleted=false;
 
     public void addPatient(ActionEvent event) throws IOException {
-        add.setDisable(true);
+
         FXMLLoader fxmlload = new FXMLLoader(getClass().getResource("addPatient.fxml"));
         root = (Parent) fxmlload.load();
         //any information needing to be copied to the addPatientPage;
