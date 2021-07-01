@@ -1,5 +1,6 @@
 package gui;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -60,6 +61,8 @@ public class WaitingRoomController implements Initializable {
     private ComboBox<String> filter;
     @FXML
     private Label current;
+    @FXML
+    private Button add;
 
     private ObservableList<String> comboList = FXCollections.observableArrayList("All","Ophtamologue","Remplacant");
     private ObservableList<AppointmentSearchResult> patientsList;
@@ -68,9 +71,11 @@ public class WaitingRoomController implements Initializable {
     private Parent root;
     private Stage stage;
     private Scene scene;
-    int e=0;
+    boolean isPushed1=(WaitingRoom.currentPatient1!=null),isPushed2=(WaitingRoom.currentPatient2!=null),deleted=false;
+    static boolean newAppointment=false;
 
     public void addAppointements(ActionEvent event) throws IOException {
+        add.setDisable(true);
         FXMLLoader fxmlload = new FXMLLoader(getClass().getResource("addAppointements.fxml"));
         root = (Parent) fxmlload.load();
         addAppointmentController addAppointmentController = fxmlload.getController();
@@ -172,6 +177,7 @@ public class WaitingRoomController implements Initializable {
                                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want delete?");
                                 if (alert.showAndWait().get() == ButtonType.OK) {
                                     WaitingRoom.delete(patient.getRdv_id());
+                                    deleted=true;
                                 }
                             }
 
@@ -191,8 +197,20 @@ public class WaitingRoomController implements Initializable {
                                     a=2;
                                 }
                                 else a=0;
-                                WaitingRoom.addCurrentPatient(patient.getPatientId(),a);
-                                AppConsController.initWaitingRoomStaticFields();
+                                if ((a==1&&WaitingRoom.currentPatient1!=null) || (a==2&&WaitingRoom.currentPatient2!=null)) {
+                                    if (a==1) {
+                                        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Patient already in consultation room 1.");
+                                        alert.showAndWait();
+                                    }
+                                    else {
+                                        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Patient already in consultation room 2.");
+                                        alert.showAndWait();
+                                    }
+                                }
+                                else {
+                                    WaitingRoom.addCurrentPatient(patient.getPatientId(), a);
+                                    AppConsController.initWaitingRoomStaticFields();
+                                }
                             }
                         });
                     }
@@ -217,6 +235,35 @@ public class WaitingRoomController implements Initializable {
         wr = new WaitingRoom();
         wr.initialize();
         getIt();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Runnable updater = new Runnable() {
+                    @Override
+                    public void run() {
+                        if (newAppointment==true || deleted ==true) {
+                            if (newAppointment == true) {
+                                newAppointment=false;
+                                add.setDisable(false);
+                            }
+                            else  {
+                                deleted=false;
+                            }
+                            getIt();
+                        }
+                    }
+                };
+                while (true) {
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException ex) {
+                    }
+                    Platform.runLater(updater);
+                }
+            }
+        });
+        thread.setDaemon(true);
+        thread.start();
         search.textProperty().addListener((Observable, oldValue, newValue) ->
                 searchResultList.setPredicate(createPredicate(newValue)));
         setCellFactory1();

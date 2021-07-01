@@ -4,6 +4,7 @@ import dao.CnxWithDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,8 +24,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MedicamentsController implements Initializable {
-
+public class MedicamentsController extends Task<ObservableList<Medicament>> implements Initializable {
 
     @FXML
     private TableView<Medicament> table1;
@@ -67,7 +67,6 @@ public class MedicamentsController implements Initializable {
 
     @FXML
     private Button Addtable;
-    static public int id;
 // i made this list static to ensure that not every time the list get retrieved again from the db
 // so it will be initialized once , after the login
     public static ObservableList<Medicament> oblist = FXCollections.observableArrayList();
@@ -80,35 +79,17 @@ public class MedicamentsController implements Initializable {
         table2.setItems(medocs);
     }
 
-
-
     public void addT2todb(ActionEvent event){
         for (Medicament medicament : medocs){
             System.out.println(AppConsController.oblist.get(0).consultation_id);
 
-     medicament.add(AppConsController.oblist.get(0).consultation_id);
+            medicament.add(AppConsController.oblist.get(0).consultation_id);
         }
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.close();
 
 
 
-    }
-
-    static void getAllMedicamentsFromDB(){
-
-
-        try {
-
-            Connection cnx = CnxWithDB.getConnection();
-            ResultSet rs = cnx.createStatement().executeQuery("select * from medicaments ");
-            while (rs.next()) {
-                oblist.add(new Medicament(rs.getString("name"), rs.getString("form"), rs.getString("dosage")));
-            }
-
-        } catch (SQLException e) {
-            Logger.getLogger(MedicamentsController.class.getName()).log(Level.SEVERE, null, e);
-        }
     }
 
     @Override
@@ -124,7 +105,6 @@ public class MedicamentsController implements Initializable {
                 if (patient.getName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
                 } else return false;
-
             });
         });
 
@@ -140,5 +120,36 @@ public class MedicamentsController implements Initializable {
         soir.setCellValueFactory(new PropertyValueFactory<>("checkBox_soir"));
 
 
+    }
+
+    @Override
+    protected ObservableList<Medicament> call() throws Exception {
+        try {
+            int i=0;
+            Connection cnx = CnxWithDB.getConnection();
+            ResultSet rs = cnx.createStatement().executeQuery("select * from medicaments ");
+            while (rs.next()) {
+                oblist.add(new Medicament(rs.getString("name"), rs.getString("form"), rs.getString("dosage")));
+
+                if (i%400 == 0) {
+                    this.updateMessage("Loading medecines");
+                }
+                else if(i%400 == 99 ) {
+                    this.updateMessage("Loading medecines.");
+                }
+                else if(i%400 == 199 ) {
+                    this.updateMessage("Loading medecines..");
+                }
+                else if(i%400 == 299 ) {
+                    this.updateMessage("Loading medecines...");
+                }
+                i++;
+                this.updateProgress(i,4627);
+            }
+
+        } catch (SQLException e) {
+            Logger.getLogger(MedicamentsController.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return oblist;
     }
 }

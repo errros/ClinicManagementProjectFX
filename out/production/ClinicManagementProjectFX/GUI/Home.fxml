@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.HomeController">
+<AnchorPane prefHeight="690.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.HomeController">
    <children>
       <TextArea layoutX="52.0" layoutY="153.0" prefHeight="95.0" prefWidth="202.0" text="Profile description&#10;" />
       <Label layoutX="52.0" layoutY="117.0" prefHeight="28.0" prefWidth="126.0" text="ASSIT FULL NAME" />

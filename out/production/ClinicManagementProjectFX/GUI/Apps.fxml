@@ -10,17 +10,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#getIt" prefHeight="636.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AppointementsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="636.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AppointementsController">
    <children>
       <TableView fx:id="appsTable" layoutX="140.0" layoutY="206.0" prefHeight="370.0" prefWidth="800.0">
         <columns>
-          <TableColumn fx:id="col_actions" prefWidth="132.0" resizable="false" text="Actions" />
-            <TableColumn fx:id="col_num" prefWidth="50.0" resizable="false" text="N°" />
-          <TableColumn fx:id="col_fname" prefWidth="125.0" resizable="false" text="Family Name" />
-            <TableColumn fx:id="col_name" prefWidth="104.0" resizable="false" text="Name" />
-            <TableColumn fx:id="col_doc" prefWidth="114.0" resizable="false" text="Doctor" />
-            <TableColumn fx:id="col_adr" prefWidth="155.0" resizable="false" text="Address" />
-            <TableColumn fx:id="col_phoneN" prefWidth="120.0" resizable="false" text="Phone Number" />
+          <TableColumn fx:id="col_actions" prefWidth="70.0" resizable="false" text="Actions" />
+          <TableColumn fx:id="col_fname" prefWidth="140.0" resizable="false" text="Family Name" />
+            <TableColumn fx:id="col_name" prefWidth="130.0" resizable="false" text="Name" />
+            <TableColumn fx:id="col_doc" prefWidth="135.0" resizable="false" text="Doctor" />
+            <TableColumn fx:id="col_adr" prefWidth="185.0" resizable="false" text="Address" />
+            <TableColumn fx:id="col_phoneN" prefWidth="140.0" resizable="false" text="Phone Number" />
         </columns>
       </TableView>
       <TextField fx:id="search" layoutX="140.0" layoutY="173.0" prefHeight="30.0" prefWidth="182.0">
@@ -35,7 +34,7 @@
          </font>
       </Label>
       <DatePicker fx:id="myDatePicker" layoutX="770.0" layoutY="76.0" onAction="#chooseDate" prefHeight="30.0" prefWidth="170.0" />
-      <Button layoutX="822.0" layoutY="173.0" mnemonicParsing="false" onAction="#addAppointements" prefHeight="30.0" prefWidth="117.0" text="Add new">
+      <Button fx:id="addNew" layoutX="822.0" layoutY="173.0" mnemonicParsing="false" onAction="#addAppointements" prefHeight="30.0" prefWidth="117.0" text="Add new">
          <font>
             <Font size="14.0" />
          </font>

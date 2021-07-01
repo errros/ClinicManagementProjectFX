@@ -9,16 +9,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#getIt" prefHeight="636.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.WaitingRoomController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="636.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.WaitingRoomController">
     <children>
         <TableView fx:id="table" layoutX="140.0" layoutY="206.0" prefHeight="370.0" prefWidth="800.0">
             <columns>
-                <TableColumn fx:id="col_actions" prefWidth="132.0" resizable="false" text="Actions" />
-                <TableColumn fx:id="col_ordre" prefWidth="50.0" resizable="false" text="N°" />
-                <TableColumn fx:id="col_fname" prefWidth="125.0" resizable="false" text="Family Name" />
-                <TableColumn fx:id="col_name" prefWidth="104.0" resizable="false" text="Name" />
-                <TableColumn fx:id="col_doctor" prefWidth="114.0" resizable="false" text="Doctor" />
-                <TableColumn fx:id="col_adr" prefWidth="155.0" resizable="false" text="Address" />
+                <TableColumn fx:id="col_actions" prefWidth="120.0" resizable="false" text="Actions" />
+                <TableColumn fx:id="col_fname" prefWidth="140.0" resizable="false" text="Family Name" />
+                <TableColumn fx:id="col_name" prefWidth="130.0" resizable="false" text="Name" />
+                <TableColumn fx:id="col_doctor" prefWidth="115.0" resizable="false" text="Doctor" />
+                <TableColumn fx:id="col_adr" prefWidth="175.0" resizable="false" text="Address" />
                 <TableColumn fx:id="col_num" prefWidth="120.0" resizable="false" text="Phone Number" />
             </columns>
         </TableView>
