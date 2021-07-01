@@ -1,5 +1,6 @@
 package gui;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -48,8 +49,6 @@ public class AppointementsController implements Initializable {
     @FXML
     private TableColumn<AppointmentSearchResult, String> col_phoneN;
     @FXML
-    private TableColumn<AppointmentSearchResult, Void> col_num;
-    @FXML
     private TextField search;
     @FXML
     private ComboBox<String> filter;
@@ -57,6 +56,8 @@ public class AppointementsController implements Initializable {
     private Label dateLabel;
     @FXML
     private DatePicker myDatePicker;
+    @FXML
+    private Button addNew;
     private ObservableList<String> comboList = FXCollections.observableArrayList("All", "Ophtamologue", "Remplacant");
     private ObservableList<AppointmentSearchResult> patientsList;
     private FilteredList<AppointmentSearchResult> searchResultList =null;
@@ -65,9 +66,11 @@ public class AppointementsController implements Initializable {
     private LocalDate myDate;
     private String dayFormat;
     private Date dayFormatSql;
-    int i=0,x=1,y=1,k=0,e=-1;
+    static boolean newAppointment=false;
+    boolean deleted=false;
 
     public void addAppointements(ActionEvent event) throws IOException {
+        addNew.setDisable(true);
         FXMLLoader fxmlload = new FXMLLoader(getClass().getResource("addAppointements.fxml"));
         root = (Parent) fxmlload.load();
         addAppointmentController addAppointmentController = fxmlload.getController();
@@ -99,7 +102,6 @@ public class AppointementsController implements Initializable {
             patientsList = Appointment.search(dayFormatSql, "");
         } else patientsList = Appointment.search(dayFormatSql, "", doc);
         searchResultList = new FilteredList<AppointmentSearchResult>(patientsList, createPredicate(search.getText()));
-        k=searchResultList.size();
         appsTable.setItems(searchResultList);
     }
 
@@ -115,10 +117,6 @@ public class AppointementsController implements Initializable {
                 return true;
             } else return false;
         };
-    }
-    private boolean checkListLength() {
-        boolean formule = (searchResultList.size() >= k);
-        return formule;
     }
     public void setCellFactory1() {
         cellFactory1 = new Callback<TableColumn<AppointmentSearchResult, Void>, TableCell<AppointmentSearchResult, Void>>() {
@@ -136,36 +134,6 @@ public class AppointementsController implements Initializable {
                     }
 
                     HBox container = new HBox(5,  dl);
-                    /*@Override
-                    public void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        }
-                        else if(e==-1 || !checkListLength()) {
-                            if (!checkListLength()) {
-                                k=searchResultList.size();
-                                System.out.println("list length changed"+k);
-                            }
-                            e=0;
-                        }
-                        else if (e!=-1 && checkListLength()){
-                            setGraphic(container);
-                            int d=e;
-                            dl.setOnAction((ActionEvent event) -> {
-                                AppointmentSearchResult patient = searchResultList.get(d);
-                                Appointment.delete(patient.getRdv_id());
-                            });
-                            e++;
-                            System.out.println(searchResultList.size()+" "+e);
-                            if (e>=k) {
-                                e=-1;
-                                System.out.println("Occurence "+e);
-                            }
-                        }
-                    }
-                };
-                return cell;*/
                     {
                         dl.setOnAction((ActionEvent event) -> {
                             AppointmentSearchResult patient = appsTable.getSelectionModel().getSelectedItem();
@@ -177,6 +145,7 @@ public class AppointementsController implements Initializable {
                                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want delete?");
                                 if (alert.showAndWait().get() == ButtonType.OK) {
                                     Appointment.delete(patient.getRdv_id());
+                                    deleted=true;
                                 }
                             }
                         });
@@ -188,43 +157,6 @@ public class AppointementsController implements Initializable {
                             setGraphic(null);
                         } else {
                             setGraphic(container);
-                        }
-                    }
-                };
-                return cell;
-            }
-        };
-    }
-    public void setCellFactory2() {
-        cellFactory2 = new Callback<TableColumn<AppointmentSearchResult, Void>, TableCell<AppointmentSearchResult, Void>>() {
-            @Override
-            public TableCell<AppointmentSearchResult, Void> call(final TableColumn<AppointmentSearchResult, Void> param) {
-                final TableCell<AppointmentSearchResult, Void> cell = new TableCell<AppointmentSearchResult, Void>() {
-                    @Override
-                    public void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setText(null);
-                        } else {
-                            if (i<searchResultList.size() && !empty) {
-                                String chk = searchResultList.get(i).getDoctor();
-                                if (chk=="Remplacant") {
-                                    setText(""+y);
-                                    setTextFill(Color.DEEPSKYBLUE);
-                                    y++;
-                                }
-                                else if (chk=="Ophtamologue") {
-                                    setText(""+x);
-                                    setTextFill(Color.CRIMSON);
-                                    x++;
-                                }
-                                i++;
-                            }
-                            if (i==searchResultList.size() && !empty) {
-                                i=0;
-                                x=1;
-                                y=1;
-                            }
                         }
                     }
                 };
@@ -246,16 +178,38 @@ public class AppointementsController implements Initializable {
         col_phoneN.setCellValueFactory(new PropertyValueFactory<AppointmentSearchResult, String>("num"));
         col_doc.setCellValueFactory(new PropertyValueFactory<AppointmentSearchResult, String>("doctor"));
         setCellFactory1();
-        setCellFactory2();
         col_actions.setCellFactory(cellFactory1);
-        col_num.setCellFactory(cellFactory2);
         getIt();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Runnable updater = new Runnable() {
+                    @Override
+                    public void run() {
+                        if (newAppointment==true || deleted ==true) {
+                            if (newAppointment == true) {
+                                newAppointment=false;
+                                addNew.setDisable(false);
+                            }
+                            else deleted=false;
+                            getIt();
+                        }
+                    }
+                };
+                while (true) {
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException ex) {
+                    }
+                    Platform.runLater(updater);
+                }
+            }
+        });
+        thread.setDaemon(true);
+        thread.start();
         search.setPromptText("Search ");
-        appsTable.getSelectionModel().select(1);
         search.textProperty().addListener((Observable, oldValue, newValue) ->
                 searchResultList.setPredicate(createPredicate(newValue)));
-        setCellFactory1();
-        setCellFactory2();
         filter.setItems(comboList);
     }
 }

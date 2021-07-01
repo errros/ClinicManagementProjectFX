@@ -3,6 +3,7 @@ package gui;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import logic.Patient;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -36,6 +37,7 @@ public class HomeController implements Initializable {
         assitfullname.setText(assist);
         med1fullname.setText(med1);
         med2fullname.setText(med2);
+        patientsnumber.setText(""+Patient.search("",1).size());
 
     }
 }

@@ -80,7 +80,7 @@ public class PatientsSceneController implements Initializable {
     }
 
     public void getIt() {
-        patientsList = Patient.search("",1);
+        patientsList = Patient.search("",AppController.user_id);
         searchResultList = new FilteredList<>(patientsList, createPredicate(searchField.getText()));
         PatientsTableView.setItems(searchResultList);
     }
@@ -145,7 +145,6 @@ public class PatientsSceneController implements Initializable {
                                 if (AppController.user_id == 2) {
                                     WaitingRoom.patientPushedFromPatientsScene = patient;
                                     Parent root = null;
-                                    
                                     FXMLLoader loader = new FXMLLoader(getClass().getResource("App.fxml"));
                                     try {
                                         root = loader.load();

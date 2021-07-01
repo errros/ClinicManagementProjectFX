@@ -74,10 +74,12 @@ public class addAppointmentController implements Initializable {
             if (mc == 0) {
                 Appointment Appoint = new Appointment(Date.valueOf(myDate.toString()), patient.getPatientId(), doc);
                 Appoint.add();
+                AppointementsController.newAppointment=true;
             }
             else if ( mc == 1) {
                 WaitingRoom wr = new WaitingRoom();
                 wr.add(patient.getPatientId(),doc);
+                WaitingRoomController.newAppointment=true;
             }
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.close();
@@ -115,7 +117,6 @@ public class addAppointmentController implements Initializable {
         col_name.setCellValueFactory(new PropertyValueFactory<Patient, String>("first_name"));
         col_bdate.setCellValueFactory(new PropertyValueFactory<Patient, Date>("dateOfbirth"));
         getThemAll();
-       // search.setPromptText("Search ");
         filter.setItems(comboList);
         filter.setValue("Ophtamologue");
     }

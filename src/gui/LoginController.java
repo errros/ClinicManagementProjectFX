@@ -100,11 +100,6 @@ public class LoginController {
             alert.showAndWait();
             gui.AppController.setUser_id(user_id);
             openAppWindow(window);
-            if(user_id !=1){
-
-                MedicamentsController.getAllMedicamentsFromDB();
-
-            }
         }
     }
     public void cleanButtonStyles(Button b) {
@@ -114,18 +109,25 @@ public class LoginController {
     // open the application main window
     public void openAppWindow(Stage window) throws IOException {
         Parent appParent;
+        int x,y;
+        boolean a=false;
         if (AppController.user_id == 1) {
             appParent = FXMLLoader.load(getClass().getResource("AppAssist.fxml"));
+            x=1280;
+            y=720;
+            a=true;
+
         } else  {
-            appParent = FXMLLoader.load(getClass().getResource("App.fxml"));
+            appParent = FXMLLoader.load(getClass().getResource("SplashScreen.fxml"));
+            x=600;
+            y=400;
         }
-        Scene appScene = new Scene(appParent, 1280, 720);
+        Scene appScene = new Scene(appParent, x, y);
         appScene.getStylesheets().add(getClass().getResource("AppStyling.css").toExternalForm());
         appScene.setFill(Color.TRANSPARENT);
-
         window.setTitle("Cabinet++");
         window.setScene(appScene);
-        window.setResizable(true);
+        window.setResizable(a);
         window.show();
     }
 }
