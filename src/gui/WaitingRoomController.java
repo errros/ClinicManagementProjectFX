@@ -11,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -143,10 +145,22 @@ public class WaitingRoomController implements Initializable {
             @Override
             public TableCell<AppointmentSearchResult, Void> call(final TableColumn<AppointmentSearchResult, Void> param) {
                 final TableCell<AppointmentSearchResult, Void> cell = new TableCell<AppointmentSearchResult, Void>() {
-                    private final Button vw = new Button("View");
-                    private final Button dl = new Button("Delete");
-                    private final Button push = new Button("Push");
-                    HBox container = new HBox(5, vw, dl, push);
+
+                    Image imgd = new Image("gui/resources/DeleteBtn.png");
+                    ImageView del = new ImageView(imgd);
+                    Image imgp = new Image("gui/resources/PushBtn.png");
+                    ImageView pus = new ImageView(imgp);
+
+                    private final Button push = new Button("",pus);
+                    private final Button dl = new Button("",del);
+
+                    {
+
+                        dl.setStyle(PatientsSceneController.style);
+                        push.setStyle(PatientsSceneController.style);
+                    }
+
+                    HBox container = new HBox(5, dl, push);
                     {
                         dl.setOnAction((ActionEvent event) -> {
                             AppointmentSearchResult patient = table.getSelectionModel().getSelectedItem();

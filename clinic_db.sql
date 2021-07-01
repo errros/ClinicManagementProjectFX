@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 29, 2021 at 03:38 AM
+-- Generation Time: Jul 01, 2021 at 04:09 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 7.4.16
 
@@ -60,7 +60,11 @@ INSERT INTO `appointments` (`rdv_id`, `patient_id`, `doctor_id`, `rdv_date`) VAL
 (109, 18, 2, '2021-06-14'),
 (110, 21, 3, '2021-06-14'),
 (111, 2, 3, '2021-06-28'),
-(112, 9, 2, '2021-06-28');
+(112, 9, 2, '2021-06-28'),
+(113, 6, 2, '2021-06-29'),
+(114, 20, 2, '2021-06-29'),
+(116, 10, 2, '2021-06-30'),
+(117, 6, 2, '2021-06-30');
 
 -- --------------------------------------------------------
 
@@ -80,7 +84,9 @@ CREATE TABLE `associateddoctors` (
 INSERT INTO `associateddoctors` (`patient_id`, `user_id`) VALUES
 (22, 3),
 (27, 3),
-(28, 3);
+(28, 3),
+(29, 2),
+(29, 3);
 
 -- --------------------------------------------------------
 
@@ -104,7 +110,22 @@ CREATE TABLE `consultation` (
 --
 
 INSERT INTO `consultation` (`id`, `patient_id`, `height`, `weight`, `blood_pre`, `blood_glu`, `temp`, `date`) VALUES
-(1, 17, 177, 55, 111, 1.550, 35.88, '2021-06-14');
+(1, 17, 177, 55, 111, 1.550, 35.88, '2021-06-14'),
+(3, 29, 165, 79, 111, 1.230, 38.70, '2021-06-14'),
+(4, 29, 165, 77, 110, 1.290, 39.00, '2020-03-11'),
+(5, 32, 177, 55, 111, 1.550, 35.88, '2021-06-02'),
+(6, 32, 177, 55, 111, 1.550, 35.88, '2021-06-02'),
+(7, 32, 165, 79, 111, 1.230, 39.00, '2020-06-04'),
+(8, 5, 195, 87, 133, 1.550, 38.70, '2020-08-06'),
+(9, 31, NULL, NULL, NULL, NULL, NULL, '2021-07-01'),
+(10, 22, 170, 70, 110, 1.200, 37.50, '2021-07-01'),
+(11, 22, NULL, NULL, NULL, NULL, NULL, '2021-07-01'),
+(12, 3, NULL, NULL, NULL, NULL, NULL, '2021-07-01'),
+(13, 8, NULL, NULL, NULL, NULL, NULL, '2021-07-01'),
+(15, 30, NULL, NULL, NULL, NULL, NULL, '2021-07-01'),
+(17, 32, 170, 70, 110, 1.200, 37.50, '2021-07-01'),
+(18, 32, NULL, NULL, NULL, NULL, NULL, '2021-07-01'),
+(19, 5, NULL, NULL, NULL, NULL, NULL, '2021-07-01');
 
 -- --------------------------------------------------------
 
@@ -4804,7 +4825,27 @@ INSERT INTO `patients` (`patient_id`, `firstName`, `secondName`, `dateOfBirth`, 
 (29, 'yamina', 'bakhatoui', '1977-11-04', 'm', '00,Rue,Commune,Wilaya', '0000000000'),
 (30, 'kahina', 'ait ahmed', '1987-12-22', 'm', '00,Rue,Commune,Wilaya', '0000000000'),
 (31, 'saidi', 'fatima', '2003-06-04', 'f', 'dfffggfg', '0551058896'),
-(32, 'Hindawi', 'khalil', '2021-07-01', 'm', '', '');
+(32, 'Hindawi', 'khalil', '2021-07-01', 'm', '', ''),
+(33, 'ABDALLAOUI', 'Mouad', '2004-02-21', 'm', 'ouled mimoun , tlemcen', '0551054140');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `patientsinconsultations`
+--
+
+CREATE TABLE `patientsinconsultations` (
+  `doctor_id` int(11) NOT NULL,
+  `patient_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `patientsinconsultations`
+--
+
+INSERT INTO `patientsinconsultations` (`doctor_id`, `patient_id`) VALUES
+(2, 22),
+(1, 32);
 
 -- --------------------------------------------------------
 
@@ -4825,25 +4866,11 @@ CREATE TABLE `prescription` (
 --
 
 INSERT INTO `prescription` (`consult_id`, `med_id`, `matin`, `midi`, `soir`) VALUES
-(1, 7, 1, 1, 0),
-(1, 2, 1, 1, 0),
-(1, 3, 1, 0, 1),
-(1, 2, 1, 1, 0),
-(1, 3, 1, 0, 1),
-(1, 4, 0, 0, 0),
-(1, 7, 0, 0, 0),
-(1, 4, 1, 1, 0),
-(1, 6, 0, 0, 1),
-(1, 4, 1, 1, 0),
-(1, 6, 0, 0, 1),
-(1, 845, 0, 1, 1),
-(1, 4, 1, 1, 0),
-(1, 6, 0, 0, 1),
-(1, 845, 0, 1, 1),
-(1, 1723, 1, 1, 0),
-(1, 2142, 0, 0, 0),
 (1, 2, 1, 0, 0),
-(1, 2, 1, 0, 0);
+(1, 4, 1, 0, 0),
+(1, 6, 0, 0, 1),
+(1, 3, 0, 0, 1),
+(1, 9, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -4855,17 +4882,18 @@ CREATE TABLE `users` (
   `user_id` int(1) NOT NULL,
   `username` varchar(20) NOT NULL,
   `role` varchar(25) NOT NULL,
-  `password` varchar(15) NOT NULL
+  `password` varchar(15) NOT NULL,
+  `state` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `username`, `role`, `password`) VALUES
-(1, 'WALID', 'Assistant', 'userpass1'),
-(2, 'AYOUB', 'Médecin Ophtalmologue', 'userpass2'),
-(3, 'HOUCINE', 'Médecin Remplacant', 'userpass3');
+INSERT INTO `users` (`user_id`, `username`, `role`, `password`, `state`) VALUES
+(1, 'WALID', 'Assistant', '', 1),
+(2, 'AYOUB', 'Médecin Ophtalmologue', '', 1),
+(3, 'HOUCINE', 'Médecin Remplacant', '', 1);
 
 -- --------------------------------------------------------
 
@@ -4879,6 +4907,18 @@ CREATE TABLE `waitingroom` (
   `doctor_id` int(11) DEFAULT NULL,
   `rdv_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `waitingroom`
+--
+
+INSERT INTO `waitingroom` (`rdv_id`, `patient_id`, `doctor_id`, `rdv_date`) VALUES
+(119, 6, 2, '2021-06-30'),
+(120, 6, 2, '2021-06-30'),
+(121, 22, 3, '2021-06-30'),
+(122, 32, 2, '2021-06-30'),
+(123, 7, 3, '2021-06-30'),
+(124, 32, 3, '2021-06-30');
 
 --
 -- Indexes for dumped tables
@@ -4919,6 +4959,13 @@ ALTER TABLE `patients`
   ADD PRIMARY KEY (`patient_id`);
 
 --
+-- Indexes for table `patientsinconsultations`
+--
+ALTER TABLE `patientsinconsultations`
+  ADD PRIMARY KEY (`doctor_id`),
+  ADD KEY `patient_id` (`patient_id`);
+
+--
 -- Indexes for table `prescription`
 --
 ALTER TABLE `prescription`
@@ -4947,13 +4994,13 @@ ALTER TABLE `waitingroom`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `rdv_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+  MODIFY `rdv_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
 -- AUTO_INCREMENT for table `consultation`
 --
 ALTER TABLE `consultation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `medicaments`
@@ -4965,13 +5012,13 @@ ALTER TABLE `medicaments`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `patient_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `patient_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `waitingroom`
 --
 ALTER TABLE `waitingroom`
-  MODIFY `rdv_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+  MODIFY `rdv_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- Constraints for dumped tables
@@ -4996,6 +5043,12 @@ ALTER TABLE `associateddoctors`
 --
 ALTER TABLE `consultation`
   ADD CONSTRAINT `consultation_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`patient_id`);
+
+--
+-- Constraints for table `patientsinconsultations`
+--
+ALTER TABLE `patientsinconsultations`
+  ADD CONSTRAINT `patientsinconsultations_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`patient_id`);
 
 --
 -- Constraints for table `prescription`

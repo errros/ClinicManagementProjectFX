@@ -11,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -123,9 +125,17 @@ public class AppointementsController implements Initializable {
             @Override
             public TableCell<AppointmentSearchResult, Void> call(final TableColumn<AppointmentSearchResult, Void> param) {
                 final TableCell<AppointmentSearchResult, Void> cell = new TableCell<AppointmentSearchResult, Void>() {
-                    private final Button vw = new Button("View");
-                    private final Button dl = new Button("Delete");
-                    HBox container = new HBox(5, vw, dl);
+                    Image imgd = new Image("gui/resources/DeleteBtn.png");
+                    ImageView del = new ImageView(imgd);
+                    private final Button dl = new Button("",del);
+
+                    {
+
+                        dl.setStyle(PatientsSceneController.style);
+                        
+                    }
+
+                    HBox container = new HBox(5,  dl);
                     /*@Override
                     public void updateItem(Void item, boolean empty) {
                         super.updateItem(item, empty);

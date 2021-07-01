@@ -12,6 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -59,7 +61,11 @@ public class PatientsSceneController implements Initializable {
     private Callback<TableColumn<Patient, Void>, TableCell<Patient, Void>> cellFactory;
     private String dayFormat;
     private LocalDate myDate;
-
+    public static final String style = "-fx-border-radius: 20;" +
+            "-fx-background-radius: 20;" +
+            "-fx-pref-height: 18;" +
+            "-fx-pref-width: 18;" +
+            "-fx-border-width: 0;" ;
 
 
     public void addPatient(ActionEvent event) throws IOException {
@@ -96,9 +102,22 @@ public class PatientsSceneController implements Initializable {
             @Override
             public TableCell<Patient, Void> call(final TableColumn<Patient, Void> param) {
                 final TableCell<Patient, Void> cell = new TableCell<Patient, Void>() {
-                    private final Button vw = new Button("View");
-                    private final Button md = new Button("Modify");
-                    private final Button dl = new Button("Delete");
+                    Image imgv = new Image("gui/resources/ViewBtn.png");
+                    ImageView view = new ImageView(imgv);
+                    Image imgd = new Image("gui/resources/DeleteBtn.png");
+                    ImageView del = new ImageView(imgd);
+                    Image imgm = new Image("gui/resources/ModifyBtn.png");
+                    ImageView mod = new ImageView(imgm);
+                    private final Button vw = new Button("",view);
+                    private final Button md = new Button("",mod);
+                    private final Button dl = new Button("",del);
+
+                    {
+                        vw.setStyle(PatientsSceneController.style);
+                        dl.setStyle(PatientsSceneController.style);
+                        md.setStyle(PatientsSceneController.style);
+                    }
+
 
                     {
                         dl.setOnAction((ActionEvent event) -> {
