@@ -14,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import logic.Consultation;
+import logic.Medicament;
 import logic.Patient;
 import logic.WaitingRoom;
 
@@ -21,6 +22,7 @@ import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AppConsController implements Initializable {
@@ -112,8 +114,8 @@ private Button refresh;
     private Label emptyLabel;
 
 
-    private ObservableList<Consultation> oblist = FXCollections.observableArrayList();
-
+    public static ObservableList<Consultation> oblist;
+     private static boolean addButtonClicked = false;
     private Patient patient;
 
 
@@ -124,32 +126,24 @@ private Button refresh;
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
             stage.show();
+
         } catch (Exception e) {
             System.out.println("cant load the window");
         }
     }
 
     @FXML
-    void addinfos(ActionEvent event) {
-        setEditableConsultationInfos(true);
-        new_consultation.setVisible(false);
-        View_Medicaments.setVisible(true);
-        save_New.setVisible(true);
-    }
-
-    @FXML
     void saveNewValue(ActionEvent event) {
-        LocalDate dte = LocalDate.now();
-        Date dt = Date.valueOf(dte);
+
+
+          addButtonClicked = false;
+          oblist.get(0).addConsultationInfos();
+          WaitingRoom.deleteCurrentPatient();
+          init();
+
 
     }
 
-    @FXML
-    void refresh(ActionEvent event){
-
-        WaitingRoom.patientPushedFromPatientsScene = null;
-        init();
-    }
 
     @FXML
     void showinfos(MouseEvent event) {
@@ -160,8 +154,33 @@ private Button refresh;
             blood_pressure.setText(String.valueOf(consultation.getBlood_pressure()));
             blood_glu.setText(String.valueOf(consultation.getBlood_glu()));
             tomperature.setText(String.valueOf(consultation.getTomperature()));
-            setEditableConsultationInfos(false);
-            prescription.setVisible(true);
+
+            if(addButtonClicked) {
+                if (consultation == oblist.get(0)) {
+                    setEditableConsultationInfos(true);
+                    new_consultation.setVisible(false);
+                    save_New.setVisible(true);
+                    View_Medicaments.setVisible(true);
+                    prescription.setVisible(true);
+
+                } else {
+                    setEditableConsultationInfos(false);
+                    new_consultation.setVisible(false);
+                    save_New.setVisible(true);
+                    View_Medicaments.setVisible(false);
+                    prescription.setVisible(true);
+
+                }
+            }
+            else  {
+                setEditableConsultationInfos(false);
+                 save_New.setVisible(false);
+                prescription.setVisible(true);
+                View_Medicaments.setVisible(false);
+                new_consultation.setVisible(true);
+            }
+
+
         }
     }
 
@@ -210,6 +229,39 @@ private Button refresh;
     }
 
 
+    private void setButtonsVisibility(){
+
+        if(addButtonClicked){
+
+        if(history.getSelectionModel().getSelectedIndex() == 0) {
+            new_consultation.setVisible(false);
+            View_Medicaments.setVisible(true);
+            save_New.setVisible(true);
+            prescription.setVisible(true);
+        } else {
+            new_consultation.setVisible(false);
+            View_Medicaments.setVisible(false);
+            save_New.setVisible(false);
+            prescription.setVisible(true);
+        }
+
+
+    } else{
+
+           new_consultation.setVisible(true);
+             View_Medicaments.setVisible(false);
+            save_New.setVisible(false);
+             prescription.setVisible(true);
+
+             if(oblist.size()>0){
+                 selectFirstInHistory();
+             }
+    }
+
+        }
+
+
+
      static public void initWaitingRoomStaticFields(){
         if(AppController.user_id == 1) {
             int a = WaitingRoom.getCurrentPatientIdFromDB(1);
@@ -239,10 +291,102 @@ private Button refresh;
     }
 
 
+    private Optional<ButtonType> showConfirmationAlert(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                "Your new added Consultation risks to be dicarded , you want to Confirm that ?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        return result;
+
+
+    }
+
+
+    @FXML
+    void addinfos(ActionEvent event) {
+        setEditableConsultationInfos(true);
+        new_consultation.setVisible(false);
+        View_Medicaments.setVisible(true);
+        save_New.setVisible(true);
+        oblist.add(0, new Consultation(patient.getPatientId(), 170, 70, 110,
+                1.2, 37.5, Date.valueOf(LocalDate.now())));
+        oblist.get(0).addWithoutConsultationInfos();
+  patient.addAssociateDoctor(AppController.user_id);
+        addButtonClicked = true;
+
+
+        selectFirstInHistory();
+
+
+
+    }
+
+
+    private void selectFirstInHistory(){
+
+            history.getSelectionModel().select(0);
+            showinfos(null);
+
+
+    }
+
+@FXML
+    void refresh(ActionEvent event) {
+
+        WaitingRoom.patientPushedFromPatientsScene = null;
+
+        if (addButtonClicked) {
+
+
+            Optional<ButtonType> result = showConfirmationAlert(event);
+
+
+            if (!result.isPresent() || result.get() == ButtonType.CANCEL) {
+
+
+
+            } else if (result.get() == ButtonType.OK) {
+                //oke button is pressed
+
+
+                Consultation.deleteConsultation(oblist.get(0).consultation_id);
+
+                updateOblist();
+                addButtonClicked = false;
+                cleanConsultationFields();
+
+            init();
+            }
+
+        } else {
+            if(oblist.size()>0){
+                selectFirstInHistory();
+            }
+        }
+
+
+    }
+
+    private void cleanConsultationFields(){
+
+        height.setText("");
+        weight.setText("");
+        blood_pressure.setText("");
+        blood_glu.setText("");
+        tomperature.setText("");
+
+    }
+     private void updateOblist(){
+          oblist.clear();
+         oblist.addAll(Consultation.history(patient.getId()));
+
+     }
+
+
     // a way to be able to call initialize everytime a new patient is pushed
     public void init() {
 
-       setEditableConsultationInfos(false);
+        setEditableConsultationInfos(false);
 
         initWaitingRoomStaticFields();
 
@@ -251,13 +395,13 @@ private Button refresh;
             patient = WaitingRoom.patientPushedFromPatientsScene;
         }
         else if(AppController.user_id == 2){
-        patient = WaitingRoom.currentPatient1;
+            patient = WaitingRoom.currentPatient1;
         } else if(AppController.user_id == 3){
             patient = WaitingRoom.currentPatient2;
         }
 
         if (patient != null) {
-
+              emptyLabel.setVisible(false);
             sName.setText(patient.getFirst_name());
             sFameName.setText(patient.getSecond_name());
             sSex.setText(patient.getSex());
@@ -267,15 +411,34 @@ private Button refresh;
             int y = diff.getYears();
             sAge.setText(Integer.toString(y));
 
-            oblist.addAll(Consultation.history(patient.getId()));
-            System.out.println(oblist);
-            consultations.setCellValueFactory(new PropertyValueFactory<>("date"));
 
+            if(!addButtonClicked){
+                updateOblist();
+
+
+            }
             history.setItems(oblist);
-                 setVisibleConsultationElements(true);
-                 new_consultation.setVisible(true);
+
+
+            if(oblist.size()>0) {
+
+                selectFirstInHistory();
+            }else
+            {
+                new_consultation.setVisible(true);
+                View_Medicaments.setVisible(false);
+                save_New.setVisible(false);
+                prescription.setVisible(false);
+            }
+
+
+
+
+
         } else {
             setVisibleConsultationElements(false);
+            refresh.setVisible(false);
+
         }
 
 
@@ -283,11 +446,22 @@ private Button refresh;
 
 
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         {
+            consultations.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-            init();
+            if(!addButtonClicked){
+                oblist = FXCollections.observableArrayList();
+                init();
+
+
+            }else {
+
+                init();
+            }
+
         }
     }
 

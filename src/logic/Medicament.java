@@ -103,23 +103,34 @@ public class Medicament {
         return medId;
     }
 
-    public void add() {
-       /* this.id = getId(this.name,this.form,this.dosage);
+    public void add(int consult_id) {
+
+
+        this.id = getId(this.name,this.form,this.dosage);
+        System.out.println("medicament id = "+this.id);
+        System.out.println("consult id " + consult_id);
         try {
             int c1, c2, c3;
             c1 = ((checkBox_matin.isSelected()) ? 1 : 0);
             c2 = ((checkBox_midi.isSelected()) ? 1 : 0);
             c3 = ((checkBox_soir.isSelected()) ? 1 : 0);
-            System.out.println(this.id);
-            Statement statement = cnx.createStatement();
-            String sql = "INSERT INTO prescription " +
-                    "(consult_id,med_id,matin,midi,soir)" +
-                    "VALUES ('" + Consultation.id + "','" + this.id + "','" + c1 + "','" + c2 + "','" + c3 + "')";
-            statement.executeUpdate(sql);
-            System.out.println("added to database");
+
+
+            String sql = " INSERT INTO prescription " +
+                    " (consult_id,med_id,matin,midi,soir) " +
+                    "VALUES ('" + consult_id + "','" + this.id + "','" + c1 + "','" + c2 + "','" + c3 + "')";
+
+
+            Statement st = cnx.createStatement();
+            st.executeUpdate(sql);
+            System.out.println("Added medicament to perscription");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-*/
+
     }
+
+
+
 }

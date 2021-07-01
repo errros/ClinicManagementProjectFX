@@ -7,9 +7,11 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import logic.Medicament;
 
@@ -65,6 +67,7 @@ public class MedicamentsController implements Initializable {
 
     @FXML
     private Button Addtable;
+    static public int id;
 // i made this list static to ensure that not every time the list get retrieved again from the db
 // so it will be initialized once , after the login
     public static ObservableList<Medicament> oblist = FXCollections.observableArrayList();
@@ -77,10 +80,19 @@ public class MedicamentsController implements Initializable {
         table2.setItems(medocs);
     }
 
-    public void addT2todb(){
+
+
+    public void addT2todb(ActionEvent event){
         for (Medicament medicament : medocs){
-            medicament.add();
+            System.out.println(AppConsController.oblist.get(0).consultation_id);
+
+     medicament.add(AppConsController.oblist.get(0).consultation_id);
         }
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.close();
+
+
+
     }
 
     static void getAllMedicamentsFromDB(){

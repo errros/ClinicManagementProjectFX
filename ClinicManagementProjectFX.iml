@@ -14,5 +14,6 @@
     <orderEntry type="library" exported="" name="JavaFx 11" level="project" />
     <orderEntry type="library" name="lib1" level="project" />
     <orderEntry type="library" name="mysql-connector-java-8.0.251" level="project" />
+    <orderEntry type="library" exported="" name="commons-logging-1.2" level="project" />
   </component>
 </module>

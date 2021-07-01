@@ -18,7 +18,9 @@ public class FxmlLoader {
             view = new FXMLLoader().load(fileUrl);
         }
         catch(Exception e) {
-            System.out.println("FXML file not found");
+
+            e.printStackTrace();
+            System.out.println("fxml cant be found");
         }
         return view;
     }

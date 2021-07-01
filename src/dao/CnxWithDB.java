@@ -33,6 +33,7 @@ public class CnxWithDB {
 
         try {
             cnx = dataSource.getConnection();
+
         } catch (SQLException ex) {
             Logger.getLogger("Connection error ===> " + CnxWithDB.class.getName()).log(Level.SEVERE, null, ex);
         }
